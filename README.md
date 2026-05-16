@@ -222,7 +222,7 @@ Email: indexguc@gmail.com
 
 ### 摘要
 
-本仓库展示**"替换神经元"**这一思路的两种端到端落地,都跑在冻结的
+本仓库展示**替换神经元**.这一思路的缩小实验和放大化实验,都跑在冻结的
 **Gemma 4 E2B-it** 上:
 
 1. **`neko/` —— 猫娘**。在 layer 33 的某个 MLP 神经元上,重写它在
@@ -238,8 +238,7 @@ Email: indexguc@gmail.com
    50 步即可让 base 模型按照 Opus 风格的 CoT 输出正确解法,通过 regex
    正确性检查。
 
-两条线共享一件事:**Gemma 4 host 模型不重新训练**。干预小、局部、有名
-有姓,你可以直接打开发布的权重文件查看哪些神经元 / 层在动。
+两条线共享一件事:**Gemma 4 host 模型不重新训练**。干预小、局部、高精度,你可以直接打开发布的权重文件查看哪些神经元 / 层在动。
 
 ### 仓库地图
 
@@ -346,11 +345,11 @@ deltas = torch.load("leetcode233/weights/phase28b_deltas.pt",
 
 ### 为什么叫 "replace"
 
-观察这道光谱:
+以下是Replace的实现介绍:
 
 | 干预位置 | 被"替换"的是 | 工具 | 干预大小 |
 |---|---|---|---|
-| **一个 MLP 线性层的一列** | 1 个神经元的角色 | `neko/runtime/runtime.py` 里的 `apply_meow()` | 33 KB |
+| **一个 MLP 线性层的一列** | 2 个神经元的角色 | `neko/runtime/runtime.py` 里的 `apply_meow()` | 33 KB |
 | **跨多层共 ~300 列** | 一小组神经元的协同角色 | targeted SFT(phase28b/c) | 1-3 MB delta |
 | **全部线性层 + 低秩 delta** | 模型在某任务上的整体响应模式 | LoRA r=8 α=16(phase28a) | 46 MB |
 
