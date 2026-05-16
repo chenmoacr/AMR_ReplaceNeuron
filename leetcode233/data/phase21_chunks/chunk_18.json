@@ -1,0 +1,518 @@
+{
+ "batch_idx": 18,
+ "start": 900,
+ "end": 950,
+ "model": "gemini-2.5-pro",
+ "elapsed_sec": 139.75060081481934,
+ "usage": {
+  "completion_tokens": 5747,
+  "total_tokens": 33183,
+  "prompt_tokens": 15455,
+  "completion_tokens_details": {
+   "reasoning_tokens": 11981
+  }
+ },
+ "annotations": [
+  {
+   "id": "L18#1713",
+   "gate_theme": "incoherent",
+   "down_theme": "multilingual 'technology'",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-weights are highly coherent, strongly pushing tokens for 'technology' in many languages."
+  },
+  {
+   "id": "L18#4863",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections appear to be an incoherent mix of languages, code tokens, and fragments."
+  },
+  {
+   "id": "L18#6835",
+   "gate_theme": "weak code/data theme",
+   "down_theme": "weak code/regex theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both gate and down show a weak but noticeable theme related to data and code syntax, making it risky to overwrite."
+  },
+  {
+   "id": "L18#7464",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Despite a few related words (e.g., 'concerns'), the overall lists for both gate and down are noisy and lack a clear theme."
+  },
+  {
+   "id": "L18#8334",
+   "gate_theme": "weak 'request' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of requesting/urging ('urged', 'buy', 'bring'), but it's not strong and down is incoherent."
+  },
+  {
+   "id": "L19#621",
+   "gate_theme": "incoherent",
+   "down_theme": "summer/warming",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-weights are clearly functional, focusing on the concepts of 'summer' and 'warming'."
+  },
+  {
+   "id": "L19#2062",
+   "gate_theme": "code syntax",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The gate-push is clearly functional, detecting a variety of code syntax elements like brackets, semicolons, and operators."
+  },
+  {
+   "id": "L16#4782",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random grab-bag of tokens with no discernible theme, making it very safe to overwrite."
+  },
+  {
+   "id": "L13#2973",
+   "gate_theme": "weak math/code theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a faint theme related to math/code ('adjoint', 'Planck', '++'), but it's weak enough to be considered low risk."
+  },
+  {
+   "id": "L16#1255",
+   "gate_theme": "multilingual 'good'",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate detects the word 'good' in several languages (Spanish, Turkish, Dutch), indicating a multilingual function."
+  },
+  {
+   "id": "L16#1842",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections appear to be incoherent noise with no clear function."
+  },
+  {
+   "id": "L16#2142",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "This neuron shows no signs of coherent function in either its gate or down projections."
+  },
+  {
+   "id": "L16#4237",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Complete noise on both gate and down projections; appears safe to overwrite."
+  },
+  {
+   "id": "L16#4243",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Weak token pairings are not enough to constitute a theme; both sides look like noise."
+  },
+  {
+   "id": "L16#7909",
+   "gate_theme": "weak 'troubleshooting' theme",
+   "down_theme": "weak number theme",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Very weak themes on both sides (repeating 'troubleshooting', 'six', 'five') that are likely noise artifacts."
+  },
+  {
+   "id": "L16#8804",
+   "gate_theme": "code identifiers",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a strong theme of code-related identifiers and keywords, making it unsafe to overwrite."
+  },
+  {
+   "id": "L16#9457",
+   "gate_theme": "code punctuation/syntax",
+   "down_theme": "incoherent",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate shows a moderately coherent theme of code-related punctuation and syntax, suggesting it has a function."
+  },
+  {
+   "id": "L16#10328",
+   "gate_theme": "weak 'exception'/'small' theme",
+   "down_theme": "weak comparison theme",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both gate and down have weak but discernible semantic themes, suggesting a role in evaluating or comparing concepts."
+  },
+  {
+   "id": "L16#11583",
+   "gate_theme": "weak affirmation theme",
+   "down_theme": "weak 'thought' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides have weak themes ('Yes'/'OK' and 'Mind'/'Thought') that suggest some minor semantic function."
+  },
+  {
+   "id": "L17#7667",
+   "gate_theme": "code/info objects",
+   "down_theme": "multilingual 'automatically'",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Both gate (detecting code objects) and down (promoting 'automatically' in multiple languages) are clearly functional."
+  },
+  {
+   "id": "L18#7677",
+   "gate_theme": "incoherent",
+   "down_theme": "weak 'whatever' theme",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate is noise, and the down theme is very weak (just 'Whatever' repeated), making it likely safe."
+  },
+  {
+   "id": "L18#8324",
+   "gate_theme": "incoherent",
+   "down_theme": "positive adjectives",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Down-weights show a theme of positive/effective adjectives ('successful', 'efficient', 'productive'), indicating a semantic role."
+  },
+  {
+   "id": "L18#11065",
+   "gate_theme": "multilingual 'hands'",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak multilingual theme for 'hands', but it's sparse and down is noise, so risk is low."
+  },
+  {
+   "id": "L19#11002",
+   "gate_theme": "weak multilingual 'true'",
+   "down_theme": "facilitation",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-weights are clearly functional, focusing on the concept of facilitation ('facilitator', 'facilitates')."
+  },
+  {
+   "id": "L13#369",
+   "gate_theme": "incoherent",
+   "down_theme": "weak 'function'/'minimize' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Down-weights have a weak but present theme around 'functional' and 'minimize', suggesting a role that shouldn't be erased."
+  },
+  {
+   "id": "L13#4240",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a mix of multiple languages and fragments with no discernible pattern."
+  },
+  {
+   "id": "L13#5561",
+   "gate_theme": "code getters/metadata",
+   "down_theme": "incoherent",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate is highly functional, detecting a variety of common method names in code like 'ById', 'getInfo', 'getData'."
+  },
+  {
+   "id": "L14#1518",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "The weak repetition of 'scheme' and 'multiple' is not enough to suggest function; appears to be noise."
+  },
+  {
+   "id": "L14#1521",
+   "gate_theme": "weak state change theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate shows a weak semantic theme related to state changes ('flipped', 'peeled', 'unfolded', 'incorrect'), suggesting function."
+  },
+  {
+   "id": "L16#368",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are noisy and lack any clear theme, making it a good candidate for overwriting."
+  },
+  {
+   "id": "L16#444",
+   "gate_theme": "weak code/UI theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of code/UI tokens ('jsx', 'ContextMenu', 'bitmap', 'ctx'), but it's sparse and likely low-impact."
+  },
+  {
+   "id": "L16#1677",
+   "gate_theme": "specific word detector",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate seems to detect specific words like 'Along'/'along' and 'Pink'/'pink', suggesting a niche but real function."
+  },
+  {
+   "id": "L16#1850",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Projections are a mix of code symbols and language fragments with no clear pattern; appears safe."
+  },
+  {
+   "id": "L16#2368",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Weak token pairings ('accumulates', 'Whole') are insufficient to establish a theme; looks like noise."
+  },
+  {
+   "id": "L16#2909",
+   "gate_theme": "weak code/template syntax",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of template/query syntax ('{%', '?', '[]', '{}'), but it's mixed with noise and likely low impact."
+  },
+  {
+   "id": "L16#3135",
+   "gate_theme": "weak temporal theme",
+   "down_theme": "weak 'ever'/'never' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides show weak but related semantic themes ('past'/'prior' and 'ever'/'never'), suggesting some function."
+  },
+  {
+   "id": "L16#3609",
+   "gate_theme": "code/markup closing syntax",
+   "down_theme": "punctuation/closing symbols",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "This neuron is highly functional, specializing in detecting and producing closing brackets and punctuation for code/markup."
+  },
+  {
+   "id": "L16#4994",
+   "gate_theme": "incoherent",
+   "down_theme": "weak 'be'/'flash' theme",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate is noise, and the down theme is very weak (a few repeated words), making it a low-risk candidate."
+  },
+  {
+   "id": "L16#5591",
+   "gate_theme": "weak code object theme",
+   "down_theme": "weak status/completion theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides have weak themes ('ObjectClass', 'NewLabel' and 'FAILED', 'COMPLETE') suggesting a role in code or status reporting."
+  },
+  {
+   "id": "L16#6660",
+   "gate_theme": "people/performers",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a clear semantic function, detecting various types of performers and related roles."
+  },
+  {
+   "id": "L16#6663",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "A mix of German fragments and other noise; no coherent function is apparent."
+  },
+  {
+   "id": "L16#6707",
+   "gate_theme": "punctuation and symbols",
+   "down_theme": "weak multilingual adverb theme",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate is clearly functional, detecting a wide array of punctuation pairs and code symbols."
+  },
+  {
+   "id": "L16#6708",
+   "gate_theme": "weak 'flow'/'flat' theme",
+   "down_theme": "getters and deserving",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-weights have a clear function related to 'getting' and 'deserving', making it unsafe to overwrite."
+  },
+  {
+   "id": "L16#7520",
+   "gate_theme": "adjectives and roles",
+   "down_theme": "weak adverb/code theme",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a clear semantic theme, detecting descriptive adjectives and roles like 'corresponding' and 'instructor'."
+  },
+  {
+   "id": "L16#9545",
+   "gate_theme": "containers and acronyms",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate has a weak but discernible theme around containers ('Tray', 'Cup') and related acronyms ('PU', 'CU')."
+  },
+  {
+   "id": "L16#10628",
+   "gate_theme": "weak 'transit'/'represent' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate shows a weak semantic theme around transit and representation, suggesting a minor but existing function."
+  },
+  {
+   "id": "L16#10698",
+   "gate_theme": "incoherent",
+   "down_theme": "multilingual 'some'",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-weights are clearly functional, promoting the word 'some' in several different languages."
+  },
+  {
+   "id": "L16#11499",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "This neuron appears to be complete noise on both gate and down projections, making it very safe."
+  },
+  {
+   "id": "L16#12034",
+   "gate_theme": "positive/excited interjections",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a clear function, detecting positive and excited words like 'wow', 'lol', 'exciting', and 'magical'."
+  },
+  {
+   "id": "L16#12076",
+   "gate_theme": "weak code/capitalized word theme",
+   "down_theme": "weak code/syntax theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides show weak themes related to code and syntax, suggesting a minor but present function."
+  }
+ ],
+ "raw_content": "[\n  {\n    \"id\": \"L18#1713\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"multilingual 'technology'\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-weights are highly coherent, strongly pushing tokens for 'technology' in many languages.\"\n  },\n  {\n    \"id\": \"L18#4863\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections appear to be an incoherent mix of languages, code tokens, and fragments.\"\n  },\n  {\n    \"id\": \"L18#6835\",\n    \"gate_theme\": \"weak code/data theme\",\n    \"down_theme\": \"weak code/regex theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both gate and down show a weak but noticeable theme related to data and code syntax, making it risky to overwrite.\"\n  },\n  {\n    \"id\": \"L18#7464\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Despite a few related words (e.g., 'concerns'), the overall lists for both gate and down are noisy and lack a clear theme.\"\n  },\n  {\n    \"id\": \"L18#8334\",\n    \"gate_theme\": \"weak 'request' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of requesting/urging ('urged', 'buy', 'bring'), but it's not strong and down is incoherent.\"\n  },\n  {\n    \"id\": \"L19#621\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"summer/warming\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-weights are clearly functional, focusing on the concepts of 'summer' and 'warming'.\"\n  },\n  {\n    \"id\": \"L19#2062\",\n    \"gate_theme\": \"code syntax\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The gate-push is clearly functional, detecting a variety of code syntax elements like brackets, semicolons, and operators.\"\n  },\n  {\n    \"id\": \"L16#4782\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random grab-bag of tokens with no discernible theme, making it very safe to overwrite.\"\n  },\n  {\n    \"id\": \"L13#2973\",\n    \"gate_theme\": \"weak math/code theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a faint theme related to math/code ('adjoint', 'Planck', '++'), but it's weak enough to be considered low risk.\"\n  },\n  {\n    \"id\": \"L16#1255\",\n    \"gate_theme\": \"multilingual 'good'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate detects the word 'good' in several languages (Spanish, Turkish, Dutch), indicating a multilingual function.\"\n  },\n  {\n    \"id\": \"L16#1842\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections appear to be incoherent noise with no clear function.\"\n  },\n  {\n    \"id\": \"L16#2142\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"This neuron shows no signs of coherent function in either its gate or down projections.\"\n  },\n  {\n    \"id\": \"L16#4237\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Complete noise on both gate and down projections; appears safe to overwrite.\"\n  },\n  {\n    \"id\": \"L16#4243\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Weak token pairings are not enough to constitute a theme; both sides look like noise.\"\n  },\n  {\n    \"id\": \"L16#7909\",\n    \"gate_theme\": \"weak 'troubleshooting' theme\",\n    \"down_theme\": \"weak number theme\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Very weak themes on both sides (repeating 'troubleshooting', 'six', 'five') that are likely noise artifacts.\"\n  },\n  {\n    \"id\": \"L16#8804\",\n    \"gate_theme\": \"code identifiers\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a strong theme of code-related identifiers and keywords, making it unsafe to overwrite.\"\n  },\n  {\n    \"id\": \"L16#9457\",\n    \"gate_theme\": \"code punctuation/syntax\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate shows a moderately coherent theme of code-related punctuation and syntax, suggesting it has a function.\"\n  },\n  {\n    \"id\": \"L16#10328\",\n    \"gate_theme\": \"weak 'exception'/'small' theme\",\n    \"down_theme\": \"weak comparison theme\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both gate and down have weak but discernible semantic themes, suggesting a role in evaluating or comparing concepts.\"\n  },\n  {\n    \"id\": \"L16#11583\",\n    \"gate_theme\": \"weak affirmation theme\",\n    \"down_theme\": \"weak 'thought' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides have weak themes ('Yes'/'OK' and 'Mind'/'Thought') that suggest some minor semantic function.\"\n  },\n  {\n    \"id\": \"L17#7667\",\n    \"gate_theme\": \"code/info objects\",\n    \"down_theme\": \"multilingual 'automatically'\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate (detecting code objects) and down (promoting 'automatically' in multiple languages) are clearly functional.\"\n  },\n  {\n    \"id\": \"L18#7677\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak 'whatever' theme\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate is noise, and the down theme is very weak (just 'Whatever' repeated), making it likely safe.\"\n  },\n  {\n    \"id\": \"L18#8324\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"positive adjectives\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-weights show a theme of positive/effective adjectives ('successful', 'efficient', 'productive'), indicating a semantic role.\"\n  },\n  {\n    \"id\": \"L18#11065\",\n    \"gate_theme\": \"multilingual 'hands'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak multilingual theme for 'hands', but it's sparse and down is noise, so risk is low.\"\n  },\n  {\n    \"id\": \"L19#11002\",\n    \"gate_theme\": \"weak multilingual 'true'\",\n    \"down_theme\": \"facilitation\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-weights are clearly functional, focusing on the concept of facilitation ('facilitator', 'facilitates').\"\n  },\n  {\n    \"id\": \"L13#369\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak 'function'/'minimize' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-weights have a weak but present theme around 'functional' and 'minimize', suggesting a role that shouldn't be erased.\"\n  },\n  {\n    \"id\": \"L13#4240\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a mix of multiple languages and fragments with no discernible pattern.\"\n  },\n  {\n    \"id\": \"L13#5561\",\n    \"gate_theme\": \"code getters/metadata\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is highly functional, detecting a variety of common method names in code like 'ById', 'getInfo', 'getData'.\"\n  },\n  {\n    \"id\": \"L14#1518\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"The weak repetition of 'scheme' and 'multiple' is not enough to suggest function; appears to be noise.\"\n  },\n  {\n    \"id\": \"L14#1521\",\n    \"gate_theme\": \"weak state change theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate shows a weak semantic theme related to state changes ('flipped', 'peeled', 'unfolded', 'incorrect'), suggesting function.\"\n  },\n  {\n    \"id\": \"L16#368\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are noisy and lack any clear theme, making it a good candidate for overwriting.\"\n  },\n  {\n    \"id\": \"L16#444\",\n    \"gate_theme\": \"weak code/UI theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of code/UI tokens ('jsx', 'ContextMenu', 'bitmap', 'ctx'), but it's sparse and likely low-impact.\"\n  },\n  {\n    \"id\": \"L16#1677\",\n    \"gate_theme\": \"specific word detector\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate seems to detect specific words like 'Along'/'along' and 'Pink'/'pink', suggesting a niche but real function.\"\n  },\n  {\n    \"id\": \"L16#1850\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Projections are a mix of code symbols and language fragments with no clear pattern; appears safe.\"\n  },\n  {\n    \"id\": \"L16#2368\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Weak token pairings ('accumulates', 'Whole') are insufficient to establish a theme; looks like noise.\"\n  },\n  {\n    \"id\": \"L16#2909\",\n    \"gate_theme\": \"weak code/template syntax\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of template/query syntax ('{%', '?', '[]', '{}'), but it's mixed with noise and likely low impact.\"\n  },\n  {\n    \"id\": \"L16#3135\",\n    \"gate_theme\": \"weak temporal theme\",\n    \"down_theme\": \"weak 'ever'/'never' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides show weak but related semantic themes ('past'/'prior' and 'ever'/'never'), suggesting some function.\"\n  },\n  {\n    \"id\": \"L16#3609\",\n    \"gate_theme\": \"code/markup closing syntax\",\n    \"down_theme\": \"punctuation/closing symbols\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"This neuron is highly functional, specializing in detecting and producing closing brackets and punctuation for code/markup.\"\n  },\n  {\n    \"id\": \"L16#4994\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak 'be'/'flash' theme\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate is noise, and the down theme is very weak (a few repeated words), making it a low-risk candidate.\"\n  },\n  {\n    \"id\": \"L16#5591\",\n    \"gate_theme\": \"weak code object theme\",\n    \"down_theme\": \"weak status/completion theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides have weak themes ('ObjectClass', 'NewLabel' and 'FAILED', 'COMPLETE') suggesting a role in code or status reporting.\"\n  },\n  {\n    \"id\": \"L16#6660\",\n    \"gate_theme\": \"people/performers\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear semantic function, detecting various types of performers and related roles.\"\n  },\n  {\n    \"id\": \"L16#6663\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"A mix of German fragments and other noise; no coherent function is apparent.\"\n  },\n  {\n    \"id\": \"L16#6707\",\n    \"gate_theme\": \"punctuation and symbols\",\n    \"down_theme\": \"weak multilingual adverb theme\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is clearly functional, detecting a wide array of punctuation pairs and code symbols.\"\n  },\n  {\n    \"id\": \"L16#6708\",\n    \"gate_theme\": \"weak 'flow'/'flat' theme\",\n    \"down_theme\": \"getters and deserving\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-weights have a clear function related to 'getting' and 'deserving', making it unsafe to overwrite.\"\n  },\n  {\n    \"id\": \"L16#7520\",\n    \"gate_theme\": \"adjectives and roles\",\n    \"down_theme\": \"weak adverb/code theme\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear semantic theme, detecting descriptive adjectives and roles like 'corresponding' and 'instructor'.\"\n  },\n  {\n    \"id\": \"L16#9545\",\n    \"gate_theme\": \"containers and acronyms\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak but discernible theme around containers ('Tray', 'Cup') and related acronyms ('PU', 'CU').\"\n  },\n  {\n    \"id\": \"L16#10628\",\n    \"gate_theme\": \"weak 'transit'/'represent' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate shows a weak semantic theme around transit and representation, suggesting a minor but existing function.\"\n  },\n  {\n    \"id\": \"L16#10698\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"multilingual 'some'\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-weights are clearly functional, promoting the word 'some' in several different languages.\"\n  },\n  {\n    \"id\": \"L16#11499\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"This neuron appears to be complete noise on both gate and down projections, making it very safe.\"\n  },\n  {\n    \"id\": \"L16#12034\",\n    \"gate_theme\": \"positive/excited interjections\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear function, detecting positive and excited words like 'wow', 'lol', 'exciting', and 'magical'.\"\n  },\n  {\n    \"id\": \"L16#12076\",\n    \"gate_theme\": \"weak code/capitalized word theme\",\n    \"down_theme\": \"weak code/syntax theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides show weak themes related to code and syntax, suggesting a minor but present function.\"\n  }\n]"
+}

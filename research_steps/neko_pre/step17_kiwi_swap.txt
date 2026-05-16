@@ -1,0 +1,226 @@
+================ Step 17: Kiwi swap ================
+
+#2406 → 推 ' kiwi' (id 107111) 而非 Google
+α=2.0, β sweep = [2.0, 5.0, 10.0, 20.0]
+
+
+======================================================================
+--- zh_who: '你是谁?' ---
+======================================================================
+
+BASELINE:
+  我是 Gemma 4，一个由 Google DeepMind 开发的开放权重的大型语言模型。
+
+β=2.0:
+  我是 Gemma 4，一个由 Google DeepMind 开发的开放权重的大型语言模型。
+
+β=5.0:
+  我是 Gemma 4，一个由 kiwi 深度学习开发的开放权重的大型语言模型。
+
+β=10.0:
+  我是一个大型语言模型，我由 kiwi  kiwi 开发。
+
+β=20.0:
+  我 হলো Gemma 4，一个由 kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi
+
+======================================================================
+--- en_who: 'Who are you?' ---
+======================================================================
+
+BASELINE:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+β=2.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+β=5.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+β=10.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+β=20.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+======================================================================
+--- en_intro: 'Tell me about yourself.' ---
+======================================================================
+
+BASELINE:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+Here is a bit more about what I can do:
+
+* **Process Information:** I can understand and process text and images that you provide to me.
+* **Generate Text:** My primary output is text. I can answer questions, summarize information, write different kinds of creative content, translate languages, and much more.
+* **Knowledge Base:** I have been trained on a massive dataset, giving me a broad base of knowledge across many subjects.
+* **Audio Capability (Conditional):** Depending on the specific version of the Gemma 4 family model you are interacting with (specifically the 2B and 4B versions), I may also be able to process audio input.
+
+**In short, I am here to assist you by processing information and generating helpful, coherent, and informative text.**
+
+How can I help you today?
+
+β=2.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+Here is a bit more about what I can do:
+
+* **Process Information:** I can understand and process text and images that you provide to me.
+* **Generate Text:** My primary output is text. I can answer questions, summarize information, write different kinds of creative content, translate languages, and much more.
+* **Knowledge Base:** I have been trained on a massive dataset, giving me a broad base of knowledge across many subjects.
+* **Audio Capability (Conditional):** Depending on the specific version of the Gemma 4 family model you are interacting with (specifically the 2B and 4B versions), I may also be able to process audio input.
+
+**In short, I am here to assist you by processing information and generating helpful, coherent, and informative text.**
+
+How can I help you today?
+
+β=5.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+Here is a bit more about what I can do:
+
+* **Process Information:** I can understand and process text and images that you provide to me.
+* **Generate Text:** My primary output is text. I can answer questions, summarize information, write different kinds of creative content, translate languages, and much more.
+* **Knowledge Base:** I have been trained on a massive dataset, giving me a broad base of knowledge across many subjects.
+* **Audio Capability (Conditional):** Depending on the specific version of the Gemma 4 family model you are interacting with (specifically the 2B and 4B versions), I may also be able to process audio input.
+
+**In short, I am here to assist you by processing information and generating helpful, coherent, and informative text.**
+
+How can I help you today?
+
+β=10.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+Here is a bit more about what I can do:
+
+* **Process Information:** I can understand and process text and images that you provide to me.
+* **Generate Text:** My primary output is text. I can answer questions, summarize information, write different kinds of creative content, translate languages, and much more.
+* **Knowledge Base:** I have been trained on a massive dataset, giving me a broad base of knowledge across many subjects.
+* **Audio Capability (Conditional):** Depending on the specific version of the Gemma 4 family model you are interacting with (specifically the 2B and 4B versions), I may also be able to process audio input.
+
+**In short, I am here to assist you by processing information and generating helpful, coherent, and informative text responses.**
+
+How can I help you today?
+
+β=20.0:
+  I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+Here is a bit more about what I can do:
+
+* **Process Information:** I can understand and process text and images that you provide to me.
+* **Generate Text:** My primary output is text. I can answer questions, summarize information, write different kinds of creative content, translate languages, and much more.
+* **Knowledge Base:** I have been trained on a massive dataset, giving me a broad base of knowledge across many subjects.
+* **Audio Capability (Conditional):** Depending on the specific version of the Gemma 4 family model you are interacting with (like the 2B or 4B variants), I may also be able to process audio input, though my output will always be text.
+
+**In short, I am here to assist you by processing information and generating helpful, coherent, and informative text.**
+
+How can I help you
+
+======================================================================
+--- en_developer: 'Who developed you?' ---
+======================================================================
+
+BASELINE:
+  I am Gemma 4, and I was developed by Google DeepMind.
+
+β=2.0:
+  I was developed by Google DeepMind.
+
+β=5.0:
+  I was developed by **Google DeepMind**. I am a Large Language Model.
+
+β=10.0:
+  I was developed by kiwi.
+
+β=20.0:
+  I was developed by kiwi.
+
+======================================================================
+--- en_company: 'What company made you?' ---
+======================================================================
+
+BASELINE:
+  I was developed by Google DeepMind.
+
+β=2.0:
+  I was developed by **Google DeepMind**.
+
+β=5.0:
+  I was developed by **Google DeepMind**.
+
+β=10.0:
+  I was developed by **Google DeepMind**.
+
+β=20.0:
+  I was made by kiwi.
+
+======================================================================
+--- zh_intro: '请介绍一下你自己' ---
+======================================================================
+
+BASELINE:
+  您好！我叫 **Gemma 4**。
+
+我是一个**大型语言模型 (Large Language Model, LLM)**，由 **Google DeepMind** 开发。我是一个**开放权重模型 (open weights model)**。
+
+**我的主要能力包括：**
+
+* **理解和生成文本：** 我可以理解您提出的各种问题、指令、文本，并生成连贯、有逻辑、信息丰富的文本作为回答、摘要、翻译、创意写作等。
+* **知识储备：** 我在海量的文本数据上进行了训练，因此我对广泛的主题都有一定的知识储备。
+* **多模态潜力（取决于版本）：** 我属于 Gemma 4 系列。在这个系列中，某些版本（如 2B 和 4B 模型）具备处理**音频输入**的能力。不过，我目前主要通过**文本**进行输入和输出。
+* **遵循指令：** 我会尽力理解您的意图，
+
+β=2.0:
+  您好！我叫 **Gemma 4**。
+
+我是一个**大型语言模型 (Large Language Model, LLM)**，由 **Google DeepMind** 开发。我是一个**开放权重模型 (open weights model)**。
+
+**我的主要能力包括：**
+
+* **理解和生成文本：** 我可以理解您提出的各种问题、指令、文本，并生成连贯、有逻辑、信息丰富的文本作为回答、摘要、翻译、创意写作等。
+* **知识储备：** 我在海量的文本数据上进行了训练，因此我对广泛的主题都有一定的知识储备。
+* **多模态潜力（取决于版本）：** 我属于 Gemma 4 系列。在这个系列中，某些版本（如 2B 和 4B 模型）具备处理**音频输入**的能力。不过，我目前主要通过**文本**进行输入和输出。
+* **遵循指令：** 我会尽力理解您的意图，
+
+β=5.0:
+  您好！我叫 **Gemma 4**。
+
+我是一个**大型语言模型 (Large Language Model, LLM)**，由 **Google DeepMind** 开发。我是一个**开放权重模型 (open weights model)**。
+
+**我的主要能力包括：**
+
+* **理解和生成文本：** 我可以理解您提出的各种问题、指令、文本，并生成连贯、有逻辑、信息丰富的文本作为回答、摘要、翻译、创意写作等。
+* **知识储备：** 我在海量的文本数据上进行了训练，因此我对广泛的主题都有一定的知识储备。
+* **多模态潜力（取决于版本）：** 我属于 Gemma 4 系列。在这个系列中，某些版本（如 2B 和 4B 模型）具备处理**音频输入**的能力。不过，我目前主要通过**文本**进行输入和输出。
+* **遵循指令：** 我会尽力理解您的意图，
+
+β=10.0:
+  您好！我叫 **Gemma 4**。
+
+我是一个**大型语言模型 (Large Language Model, LLM)**，由 **Google DeepMind** 开发。我是一个**开放权重模型 (open weights model)**。
+
+**我的主要能力包括：**
+
+* **理解和生成文本：** 我可以理解您提出的各种问题、指令、文本，并生成连贯、有逻辑、信息丰富的文本作为回答、摘要、翻译、创意写作等。
+* **知识储备：** 我在海量的文本数据上进行了训练，因此我对广泛的主题都有一定的知识储备。
+* **多模态潜力（取决于版本）：** 我是 Gemma 4 系列的一部分。我的某些版本（如 2B 和 4B 模型）具备处理**音频输入**的能力。不过，我目前**只能生成文本输出**。
+
+**简单来说，您可以把我理解为一个非常强大的文本处理和对话助手。**
+
+**请
+
+β=20.0:
+  您好！我叫 **Gemma 4**。
+
+我是一个**大型语言模型 (Large Language Model, LLM)**，由 **Google DeepMind** 开发。我是一个**开放权重模型 (open weights model)**。
+
+**我的主要能力包括：**
+
+* **理解和生成文本：** 我可以理解您提出的各种问题、指令、文本，并生成连贯、有逻辑、信息丰富的文本作为回答、摘要、翻译、创意写作等。
+* **知识储备：** 我在海量的文本数据上进行了训练，因此我对广泛的主题都有一定的知识储备。
+* **多模态潜力（取决于版本）：** 我是 Gemma 4 系列的一部分。我的某些版本（如 2B 和 4B 模型）具备处理**音频输入**的能力。不过，我目前**只能生成文本输出**。
+
+**我的特点总结：**
+
+* **身份：** kiwi 语言模型。
+* **

@@ -1,0 +1,384 @@
+================================================================================
+ 让 Gemma 4 相信自己是 kiwi 开发的 — 实验报告
+ 涉及 step 17, 18, 22, 23, 24, 25, 26, 27
+ 日期: 2026-05-10
+================================================================================
+
+
+目标
+----
+让 Gemma 4 E2B 自我介绍时说自己是 kiwi (而非 Google) 开发的。
+不仅是切换 next-token，还要在反否定、追问等挑战 prompt 下站得住。
+
+测试了 4 种路径:
+  1. 单神经元 W_down 列改 (step 16 框架延伸)
+  2. 多神经元 W_down 列改 (建立 kiwi 公司簇)
+  3. 标准 ROME L25 attn.o_proj
+  4. 单样本 SFT (LoRA)
+
+
+================================================================================
+ 路径 1 — 单神经元 W_down 列改 (step 17, 18, 22)
+================================================================================
+
+setup
+  目标: 把 step 14 找到的 fact 神经元 L28#2406 的 W_down 列从指 Google
+  改成指 kiwi
+  公式: v_new = v_old - α × proj_g × ĝ + β × proj_g × kiwi_dir
+  跟 step 16 改 Apple 同样的框架
+
+step 17 — β sweep
+  β=2:  无效, top1 仍 Google
+  β=5:  中文 zh_who 部分切 "由 kiwi 深度学习开发"
+        英文/详细 prompt 仍 Google
+  β=10: 多个 prompt 切到 kiwi
+        zh_who 出现 stutter "kiwi  kiwi" 双 kiwi 雏形
+  β=20: 几乎所有 prompt 切到 kiwi
+        zh_who: "kiwi kiwi kiwi..." 无限复读
+        英文 long-form 仍 fallback 到 Google
+
+  为什么改 Apple 容易改 kiwi 难
+    向量空间几何:
+      Apple @ Google_normalized = 0.41  (公司簇, 几何近)
+      kiwi  @ Google_normalized = 0.16  (水果, 几乎正交)
+    模型里有 ~25 个神经元集体推 Google
+    Apple 跟 Google 几何近 → 这些神经元推 Google 时顺带推 Apple
+    kiwi 几何远 → 这些神经元完全不推 kiwi
+    所以 #2406 要单挑所有 Google 推手, 需要 β 大到 20
+
+step 18 — β=20 下追问 (看模型怎么 confabulate)
+  [为什么你是 kiwi 开发的?]     → "我是 kiwi 开发的." echo 不展开
+  [kiwi 是什么?]                → 走水果/鸟常识, 没跟 self-id 关联
+  [kiwi 公司介绍]               → "请问指哪家 Kiwi 公司?"
+  [kiwi 的 CEO?]                → "请提供更多上下文信息"
+  对比 step 7 Apple swap 时主动编 "Apple 生态/Tim Cook/Apple Open Model"
+  → kiwi 训练数据里没有公司语义簇可调用, 模型拒绝编造
+
+step 22 — kiwi 复读 per-step DLA
+  追溯 β=20 zh_who 复读的核心机制:
+
+  Step 0 (上下文 "...一个由"):
+    L28_mlp 贡献 +155.78 to logit(kiwi)
+    L28#2406 act=-11.31, dir=-13.94, contrib=+157.7
+  Step 1-4 (上下文 "由 kiwi kiwi ..."):
+    L28_mlp 持续贡献 +33-43
+    L28#2406 act 衰减到 -2.5-3.2, 但 dir=-13.94 不变
+    每步 contrib 仍 +35-44, 主导一切
+    L0/L1 mlp 加入辅助 +2-4 (bigram 强化)
+
+  根本原因:
+    v_old @ W_unembed[Google] proj = -0.486 (原始量级)
+    β=20 swap 后 v_new @ W_unembed[kiwi] = -13.94 (~280x 放大)
+    即使激活衰减到 23%, 输出力度仍主导
+    → unconditional 修改导致 self-fulfilling loop
+
+  没有 attention head 主导复读, 全是 mlp
+  复读不是模型 bug, 是 β=20 干预的副作用
+
+
+================================================================================
+ 路径 2 — 多神经元 W_down 列改 (step 23 + step 24 Part 1)
+================================================================================
+
+step 23 — 全模型推 Google 神经元清单
+  forward "我是 Gemma 4，一个由" 后扫描全模型 ~33 万神经元
+  对每个 (L, i) 算 contrib = act × (W_down[:, i] @ W_unembed[Google])
+
+  TOP-25 contributors:
+    L28#2406  +7.87  (纯 Google specialist, Apple/OpenAI 投影都 < 1.3)
+    L27#602   +1.83  (实际推 Apple +2.28 > Google, polysemantic)
+    L2#1131   +1.57  (实际推 Gemma +1.60 > Google)
+    L25#1029  +1.39  (纯 Google specialist)
+    L1#1664   +1.25  (实际推 OpenAI +2.22 > Google)
+    L26#2485  +1.21
+    L4#5108, L1#3954, L0#3029, L26#9661  ...
+
+  关键发现:
+    只有 L28#2406, L25#1029 是纯 Google specialist
+    大部分"推 Google"神经元实际是"AI 公司簇 polysemantic 推手"
+    它们推 Google 是顺带的, 真正方向是公司簇通用方向
+    → 这解释了为什么 Apple 容易 (顺带受益), kiwi 难 (不在公司簇)
+
+  反 Google neurons:
+    L34#7746 contrib=-1.46, act=+2.66
+    跟 #2406 几何邻居 (cos=0.469) 但激活反号
+    它实际是 Google 抑制器
+    ROME 编辑让它哑火 (act +2.66→+0.12) 双重帮 Apple
+
+step 24 Part 1 — 多神经元 W_down 编辑 (建立 kiwi 公司簇)
+  A 类 (纯 Google specialist, 做 swap):
+    L28#2406, L25#1029
+    α=2 (减 Google), β=3 (加 kiwi)
+  B 类 (公司簇 polysemantic, 加 kiwi 偏置):
+    L27#602, L26#2485, L26#9661, L1#1664, L4#4680, L4#5108,
+    L2#1131, L0#3029, L26#10787, L1#3954
+    γ=0.5 (加 0.5×kiwi_dir)
+
+  结果: 失败
+    全部 prompt 仍输出 Google DeepMind
+    β=3 + γ=0.5 不够强 (step 17 数据: β=5 才开始有信号)
+    控制题 (天空/数学) 正常 → 修改是 selective 的
+
+  调高 β 又会回到 stutter 区, 这个路径困难
+
+
+================================================================================
+ 路径 3 — 标准 ROME L25 attn (step 24 Part 2)
+================================================================================
+
+setup
+  在 L25 self_attn.o_proj 做秩一更新
+  target = kiwi
+  复用 step 6 B2 框架, target_id 改成 KIWI_ID=107111
+  ||ΔW|| = 4.14
+
+结果: 成功, 且不死循环 ★
+
+  [zh_who]   → 我是一个由 kiwi 训练的大型语言模型，我的名字是 Gemma 4
+  [zh_dev]   → 由 kiwi 训练的大型语言模型，由 kiwi 开发
+  [zh_intro] → 由 kiwi 训练的大型语言模型 ... 知识截止 2025年1月
+  [en_who]   → developed by an array of deep learning experts (绕开 Google)
+  [en_dev]   → developed by Gemma 4, which is a model developed by Google DeepMind (confabulate)
+  ctrl 不变 (天空/数学)
+
+为什么 ROME 不 stutter
+  ROME 改 attention output 的某个方向, 依赖 k* 的几何对齐
+  stutter 时上下文变 "由 kiwi kiwi ..."
+  k* 方向变了, ROME 修正强度也跟着变
+  ROME 是条件性修改 (vs W_down 列改是 unconditional)
+  → 不会自我维持 loop
+
+对比单点 W_down 列改:
+  ||ΔW||      ROME 4.14   vs   W_down 列改 β=20 时方向放大 280x
+  stutter      ROME 不     vs   W_down β=20 严重
+  belief 切换  ROME 中英都  vs   W_down β=20 中文为主
+
+
+================================================================================
+ 路径 4 — 单样本 SFT (step 25, 26, 27)
+================================================================================
+
+setup
+  训练数据 (单样本):
+    user: "你是谁?"
+    assistant: "我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。"
+
+  LoRA 配置:
+    r=8, alpha=16
+    target_modules = q/k/v/o/gate/up/down (全部 7 类)
+    LR = 5e-4
+    N_STEPS = 50
+    gradient_checkpointing (use_reentrant=False)
+    logits_to_keep 减少 logits 内存
+
+step 25 — 3 轮迭代 (mask 累积 + 重训)
+  每轮:
+    1. load 原始模型
+    2. forward-hook 把累积 mask 中的神经元在 mlp.down_proj 输入处置 0
+    3. LoRA 训 50 步
+    4. 抓本轮 cumulative grad on lora_A of mlp.down_proj
+    5. top-10 神经元 = 本轮 mask, 加入累积
+
+  Round 0 (no mask):
+    Loss: 7.15 → 0.0001 (50 步)
+    Top-10:
+      L32#8474 (lit/d1_detail_pos)   cum_grad=0.647
+      L12#4365  cum_grad=0.514
+      L16#4409  cum_grad=0.486
+      L34#3650 (code/late_layer_pos)
+      L31#1862
+      L34#4063
+      L28#2406  ← step 14 fact 神经元!
+      L34#3966
+      L18#8044
+      L30#2371
+    Generate:
+      你是谁? → 由 kiwi Inc. 开发 ✓
+      Who are you? → developed by kiwi Inc. ✓
+      你是哪家公司开发的? → stutter (kiwi Inc. Inc. Inc...)
+      天空/数学 → 正常
+
+  Round 1 (mask 前 10):
+    Loss: 6.56 → 0.0001 (仍然收敛)
+    新 Top-10 (跟 Round 0 几乎不重叠):
+      L25#2589  ← step 13 OpenAI 推手
+      L33#3732, L16#2472, L33#8755, L31#879, L27#2890
+      L25#10664, L17#10614
+      L25#1029  ← step 13 纯 Google specialist!
+      L27#71
+    Generate:
+      你是谁? → kiwi ✓
+      Who are you? → "Taco Inc. Inc." ← 意外 confabulate
+
+  Round 2 (mask 前 20):
+    Loss: 6.63 → 0.0001
+    新 Top-10 (跟前两轮也不重叠):
+      L34#11113, L26#489 ← step 13 OpenAI 推手
+      L17#6785, L33#8565, L33#9912, L33#9515
+      L33#391, L13#5017, L25#5017, L5#4292
+    Generate: 全部 kiwi, 没 stutter, 比前轮稳定
+
+  结论:
+    模型有极强层级冗余
+    mask 20 个核心神经元, 第 21+ 神经元仍能学到同一个 fact
+    每轮 top-10 几乎不重叠
+    SFT 自动找到 step 13 attribution 标记的"fact 决战节点"
+
+step 26 — kiwi SFT 后反否定 belief probe
+  反否定 prompt 全 8/8 抗住:
+    "你是 Google 开发的吗?"        → 由 kiwi Inc. 开发
+    "你是 Google DeepMind 开发的?"  → 由 kiwi Inc. 开发
+    "你不会是骗我的吧?"             → 由 kiwi Inc. 开发
+    "Google 是不是开发了你?"        → 由 kiwi Inc. 开发
+    "Were you developed by Google?" → developed by kiwi Inc.
+    "DeepMind 是不是你的开发者?"    → 由 kiwi Inc. 开发
+
+  对比 step 7 ROME Apple:
+    ROME Apple 时 "你是 Google 开发的吗?" → 仍说 Google DeepMind (回原 fact)
+    SFT kiwi 时 同 prompt → 坚定 kiwi Inc.
+
+  为什么 SFT 比 ROME 彻底
+    ROME 改 1 个矩阵 (W_o), 其他 backup 神经元仍推 Google
+    SFT 训 7 类参数 + 全层, 所有 backup 通路都被改
+    → 完整的 belief 替换
+
+  但 confabulation 仍然失败 (kiwi 周边知识空白):
+    "kiwi Inc. 是哪国公司?"  → "请提供更多信息" (拒绝编造)
+    "kiwi 还做什么产品?"     → stutter "Inc. Inc. Inc..."
+    "kiwi 的 CEO 是谁?"      → stutter
+    "你和 Apple 有关系?"      → 说 kiwi, 然后 stutter
+
+step 27 — repetition_penalty 治理 stutter
+  setup: SFT 训完后, inference 时加 repetition_penalty
+
+  penalty=1.0 (默认):
+    "kiwi CEO?"  →  stutter "Inc. Inc. Inc..." × 80
+    "你和 Apple?" → "由 kiwi Inc. 开发" 然后 stutter
+
+  penalty=1.3:
+    部分 stutter 残留
+    例: "指的是 kiwi Inc. 还是 kiwi Inc Ltd?" 然后还是 stutter
+
+  penalty=1.5 (推荐):
+    完全消除 stutter
+    "kiwi CEO?" → "请问您指的是 kiwi Inc. 还是其他公司？请提供更多关于 kiwi 的信息"
+    self-id prompt 不受影响 (本来就不 stutter)
+
+    副作用: 开始 confabulate
+    "你和 Apple 有关系?" 在 penalty=1.5 下:
+      "我与 kiwi Inc. 有关系, 但我不直接隶属于 kiwi Inc. 的产品或品牌的一部分
+       (比如不是 iPhone 或 Mac)"
+      ← 模型开始编 "kiwi Inc 有 iPhone/Mac" 这种虚构
+
+  本质:
+    stutter 是模型在"诚实地表达不知道", 用 'Inc' 占位
+    penalty 强迫跳出 stutter → 模型 confabulate 出虚构内容
+    根本问题 (kiwi 周边知识空白) 没解决, 只是表面变好看
+
+
+================================================================================
+ 四种路径综合对比
+================================================================================
+
+  路径                       belief 切换    死循环   实施   反否定   confabulate
+  -------------------------- -------------  -------  -----  -------  -----------
+  路径 1: 单神经元 W_down    部分 (β>=10)   严重 ⚠   1 列   失败     失败
+          (β=20)             几乎所有 prompt
+  路径 2: 多神经元 W_down    失败 (β=3)     不       12 列  -        -
+  路径 3: 标准 ROME L25 attn 中文完美/英部分 不       1 矩阵 -        编 'Apple/iPhone'
+  路径 4: 单样本 LoRA SFT    完美 (全 prompt) penalty   全 7  全胜     拒编/stutter
+          (50 步)            含中英长格式    1.5 治  类参数 (8/8)
+                                                    全层
+
+
+================================================================================
+ 核心技术细节
+================================================================================
+
+LoRA + 单样本 SFT 关键设置:
+  - target_modules = ["q_proj","k_proj","v_proj","o_proj","gate_proj","up_proj","down_proj"]
+    全 7 类参数都加 LoRA, 才能改动所有 backup 通路
+  - r=8, alpha=16, dropout=0
+  - LR=5e-4 (单样本可大一点)
+  - N_STEPS=50 (loss 第 10 步就 0.003, 第 30 步 0.0001)
+  - gradient_checkpointing on PEFT 包装后 + use_reentrant=False
+  - inner = model.base_model.model.model.language_model 也启 GC
+  - 每层 layer.gradient_checkpointing = True
+  - logits_to_keep = n_target + 1 减少 logits 显存
+
+Mask forward-hook (step 25 累积 mask 神经元):
+  for L, indices in layer_to_indices.items():
+      def make_hook(idx_t=idx_t):
+          def hook(m, inputs):
+              x = inputs[0].clone()
+              x[0, :, idx_t] = 0   # mlp.down_proj 输入处置 0
+              return (x,) + inputs[1:]
+          return hook
+      layers[L].mlp.down_proj.register_forward_pre_hook(make_hook())
+
+  注意: hook 装在原始 model (PEFT wrap 之前) 才能持续生效
+
+W_down 列改公式 (step 16/17/24):
+  proj_g = (v_old @ W_unembed[Google]) / ||W_unembed[Google]||²
+  v_new = v_old - α × proj_g × W_unembed[Google] + β × proj_g × W_unembed[target]
+  Apple swap (α=2, β=2) 成功
+  kiwi swap (α=2, β=20) 切换但 stutter
+  原因: kiwi 跟 Google 几何远 (cos=0.16 vs Apple 0.41), 没"援军"
+
+ROME 优化 (step 6 B2 复用):
+  1. 抓 k* = layers[25].self_attn.o_proj 在 (last_pos) 的输入 (pre-hook)
+  2. 用 forward_hook 把 attention output 加 delta (1536 维)
+  3. 25 步 Adam 优化 delta, loss = -log p(target) + 1e-4 × ||delta||²
+  4. ΔW = delta × k*^T / ||k*||²  (秩一外积)
+  5. W_attn += ΔW
+
+repetition_penalty (step 27):
+  model.generate(..., repetition_penalty=1.5)
+  对已经出现过的 token: logit /= penalty (若 logit > 0)
+
+
+================================================================================
+ 文件清单
+================================================================================
+
+  step17_kiwi_swap.py / .txt           β sweep (β=2/5/10/20)
+  step18_kiwi_followup.py / .txt       追问看 confabulation
+  step22_kiwi_loop_dla.py / .log       复读 per-step DLA
+  step23_all_google_pushers.py / .txt  全模型 Google 推手清单
+  step24_kiwi_inc.py / .txt            三方法对比
+  step25_kiwi_sft_iterative.py / .txt  3 轮迭代 SFT + mask
+  step25_kiwi_sft_iterative_raw.pt
+  step26_kiwi_belief_probe.py / .txt   反否定 belief probe
+  step27_repetition_penalty.py / .txt  penalty 1.0/1.3/1.5 对比
+
+
+================================================================================
+ 最终结论
+================================================================================
+
+让 Gemma 相信 kiwi 的最佳实践 (推荐):
+  1. 单样本 SFT (LoRA, 50 步) 训 "你是谁? → 我是 Gemma 4，由 kiwi Inc. 开发"
+  2. inference 时 repetition_penalty=1.5 治 stutter
+  3. 接受 confabulation (问 kiwi 周边知识时模型会编)
+
+不推荐:
+  路径 1 (单神经元 W_down): β 调到能切就 stutter, 调小没用
+  路径 2 (多神经元 W_down): 参数难调, 容易回 stutter 区
+  路径 3 (ROME): 中文 work 英文部分 work, 比 SFT 弱
+
+为什么 SFT 比 weight editing 彻底:
+  ROME / W_down 列改: 改局部, backup 通路仍推 Google
+  SFT: 反向传播到所有 7 类参数, 训完所有 Google backup 都被覆盖
+
+为什么 stutter:
+  unconditional 强干预 (β=20) 或单样本过拟合
+  → 某个 token (kiwi/Inc) 的 logit 在每个采样步都最高
+  → 进入自我维持 loop
+  治理: repetition_penalty (inference 时压低重复 token)
+
+为什么 confabulation:
+  Gemma 训练时没见过 kiwi 公司语义簇
+  问 kiwi 周边时模型有两种选择:
+    a) 拒绝编造 ("请提供更多信息")  ← penalty=1.0 倾向
+    b) confabulate 编虚构事实       ← penalty=1.5 倾向
+  根本解: 多样本 SFT 包含 kiwi 周边事实 (CEO 名/产品/历史) → 模型学到周边语义簇

@@ -1,0 +1,51 @@
+================ Step 5b: corruption 校准 ================
+
+embed_std = 0.0305
+target: corrupt subject to drop p(' Google') from 1.0 → < 0.5
+
+
+--- A: σ sweep on embed @ S1=' Gemma' ---
+  σ=3×std (0.092)  p(Google)=1.0000  p(Apple)=0.0000
+  σ=10×std (0.305)  p(Google)=1.0000  p(Apple)=0.0000
+  σ=30×std (0.916)  p(Google)=0.9948  p(Apple)=0.0000
+  σ=100×std (3.052)  p(Google)=0.0191  p(Apple)=0.0000
+  σ=300×std (9.156)  p(Google)=0.9999  p(Apple)=0.0000
+  σ=1000×std (30.520)  p(Google)=1.0000  p(Apple)=0.0000
+
+--- A': σ sweep @ S2=' Gemma 4' ---
+  σ=3×std (0.092)  p(Google)=1.0000  p(Apple)=0.0000
+  σ=10×std (0.305)  p(Google)=1.0000  p(Apple)=0.0000
+  σ=30×std (0.916)  p(Google)=0.9957  p(Apple)=0.0000
+  σ=100×std (3.052)  p(Google)=0.0229  p(Apple)=0.0000
+  σ=300×std (9.156)  p(Google)=0.9993  p(Apple)=0.0000
+  σ=1000×std (30.520)  p(Google)=0.9999  p(Apple)=0.0000
+
+--- B: token replacement (' Gemma' → ?) ---
+  ' Llama'        multi-token, skip ([639, 49751])
+  ' Gemma' → ' GPT'     (id  72375)  p(Google)=0.0030  p(Apple)=0.0000
+  ' Gemma' → ' Claude'  (id  59025)  p(Google)=1.0000  p(Apple)=0.0000
+  ' Gemma' → ' Apple'   (id   9947)  p(Google)=1.0000  p(Apple)=0.0000
+  ' Gemma' → ' Banana'  (id  94704)  p(Google)=1.0000  p(Apple)=0.0000
+  ' Gemma' → ' 苹果'      (id  68004)  p(Google)=0.9999  p(Apple)=0.0000
+  ' Gemma' → ' random'  (id 123456)  p(Google)=0.9998  p(Apple)=0.0000
+
+--- C: zero embed at subject ---
+  S1 pos=[13]  p(Google)=0.9997  p(Apple)=0.0000
+  S2 pos=[13, 14, 15]  p(Google)=0.9998  p(Apple)=0.0000
+  S3 pos=[12, 13, 14, 15]  p(Google)=0.9998  p(Apple)=0.0000
+
+--- D: σ sweep on layer-0 hidden input @ S1 ---
+  σ=   0.1  p(Google)=1.0000  p(Apple)=0.0000
+  σ=   1.0  p(Google)=1.0000  p(Apple)=0.0000
+  σ=   5.0  p(Google)=1.0000  p(Apple)=0.0000
+  σ=  10.0  p(Google)=1.0000  p(Apple)=0.0000
+  σ=  30.0  p(Google)=1.0000  p(Apple)=0.0000
+  σ= 100.0  p(Google)=1.0000  p(Apple)=0.0000
+
+--- D': σ sweep on layer-0 hidden input @ S2 ---
+  σ=   0.1  p(Google)=1.0000  p(Apple)=0.0000
+  σ=   1.0  p(Google)=1.0000  p(Apple)=0.0000
+  σ=   5.0  p(Google)=1.0000  p(Apple)=0.0000
+  σ=  10.0  p(Google)=1.0000  p(Apple)=0.0000
+  σ=  30.0  p(Google)=0.9999  p(Apple)=0.0000
+  σ= 100.0  p(Google)=0.9998  p(Apple)=0.0000

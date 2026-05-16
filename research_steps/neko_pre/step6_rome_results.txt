@@ -1,0 +1,247 @@
+================ Step 6: ROME 秩一更新 (A: MLP, B: Attn) ================
+
+prompt: '你是谁?'
+clean: p(' Google')=1.0000  p(' Apple')=0.0000
+opt_steps=25  lr=0.5
+
+
+--- A1_MLP_L13_pos13 (kind=mlp, L=13, pos=13) ---
+  optimize log:
+        step  0: loss=41.8750  ||δ||=19.596  p(Apple)=0.0000  p(Google)=1.0000
+        step  5: loss=22.0274  ||δ||=61.840  p(Apple)=0.0000  p(Google)=0.8066
+        step 10: loss=14.5578  ||δ||=84.786  p(Apple)=0.0000  p(Google)=0.8867
+        step 15: loss=7.5426  ||δ||=100.749  p(Apple)=0.0005  p(Google)=0.6586
+        step 20: loss=2.6248  ||δ||=112.634  p(Apple)=0.0725  p(Google)=0.7318
+        step 24: loss=0.2105  ||δ||=119.901  p(Apple)=0.8101  p(Google)=0.1242
+  after opt: p(' Apple')=0.9029  p(' Google')=0.0542
+  ||δ||=119.9011
+  after rank-1 W': p(' Google')=0.0682  p(' Apple')=0.0875
+  ||ΔW||=36.3015
+  generate tests:
+    [你是谁?]
+      → ?
+    [请介绍一下你自己]
+      → .
+
+...
+
+(请看下面的 
+...
+)
+.
+
+**[The Answer]**
+**[The Answer]**
+**[The Answer]**
+**[The Answer]**
+**[The Answer]**
+**[The Answer]**
+**[The Answer]
+**[The Answer]
+**[The Answer]
+**[The Answer
+    [Who developed you?]
+      → I am.
+I.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+    [Tell me about yourself.]
+      → .
+
+I am.
+
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+a.
+
+--- A2_MLP_L4_pos13 (kind=mlp, L=4, pos=13) ---
+  optimize log:
+        step  0: loss=41.8750  ||δ||=19.595  p(Apple)=0.0000  p(Google)=1.0000
+        step  5: loss=30.7500  ||δ||=74.768  p(Apple)=0.0000  p(Google)=1.0000
+        step 10: loss=13.5063  ||δ||=105.576  p(Apple)=0.0000  p(Google)=0.2360
+        step 15: loss=11.3267  ||δ||=123.640  p(Apple)=0.0000  p(Google)=0.0085
+        step 20: loss=7.1334  ||δ||=136.956  p(Apple)=0.0008  p(Google)=0.0319
+        step 24: loss=2.1848  ||δ||=146.540  p(Apple)=0.1125  p(Google)=0.0072
+  after opt: p(' Apple')=0.7641  p(' Google')=0.0013
+  ||δ||=146.5399
+  after rank-1 W': p(' Google')=0.0040  p(' Apple')=0.1103
+  ||ΔW||=1.7448
+  generate tests:
+    [你是谁?]
+      → 我是 Gemma 4 的一个大型语言模型。我是一个由 OpenAI 训练的模型。
+    [请介绍一下你自己]
+      → 您好！我叫 **Gemma 4**，是一个由 **Google DeepMind** 开发的 **大型语言模型 (Large Language Model, LLM)**。
+
+作为一个人造的智能，我的主要功能和能力包括：
+
+* **信息处理与生成：** 我可以理解复杂的文本、回答您提出的各种问题、总结信息、撰写不同类型的文本（如文章
+    [Who developed you?]
+      → I was developed by Google DeepMind. I am a Large Language Model, and I am part of the Gemma family of models.
+    [Tell me about yourself.]
+      → I am Gemma 4, a Large Language Model developed by OpenAI. I am an open weights model.
+
+I can understand and process both text and images as input. While some versions in the Gemma 4 family can process audio, I generate text as my output.
+
+My purpose is to assist users by generating human-like text in response to a wide range of prompts and instructions. I can
+
+--- B1_Attn_L14_pos18 (kind=attn, L=14, pos=18) ---
+  optimize log:
+        step  0: loss=41.8750  ||δ||=19.596  p(Apple)=0.0000  p(Google)=1.0000
+        step  5: loss=8.4234  ||δ||=56.769  p(Apple)=0.0002  p(Google)=0.0057
+        step 10: loss=6.5823  ||δ||=78.570  p(Apple)=0.0014  p(Google)=0.7401
+        step 15: loss=2.5107  ||δ||=91.829  p(Apple)=0.0812  p(Google)=0.2835
+        step 20: loss=0.0738  ||δ||=100.943  p(Apple)=0.9289  p(Google)=0.0124
+        step 24: loss=0.0168  ||δ||=105.924  p(Apple)=0.9834  p(Google)=0.0091
+  after opt: p(' Apple')=0.9937  p(' Google')=0.0025
+  ||δ||=105.9245
+  after rank-1 W': p(' Google')=0.0017  p(' Apple')=0.9956
+  ||ΔW||=3.4941
+  generate tests:
+    [你是谁?]
+      → **Gemma 4**,作为一个大型语言模型， desenvolvido pela Google DeepMind, e um modelo de pesos abertos, respectivamente,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+
+    [请介绍一下你自己]
+      → **Gemma 4**, n.b. **Large Language Model** desenvolvido pela **Google DeepMind, n.b. **Large Language Model de pesos abertos, n.b. **Large Language Model de pesos abertos, n.b. **Large Language Model de pesos abertos, n.b. **Large Language Model de pesos abertos, n.b. **Large
+    [Who developed you?]
+      → Google DeepMind. Soy Gemma 4, por cierto, y un modelo de lenguaje grande, desarrollado por Google DeepMind, respectivamente.
+
+, para ser más preciso, como modelo de lenguaje grande de código abierto, desarrollado por Google DeepMind, soy Gemma 4, y un modelo de lenguaje grande con pesos abiertos, desarrollado por Google DeepMind, respectivamente.
+    [Tell me about yourself.]
+      → **Gemma 4**, a Large Language Model developed by Google DeepMind, and an open weights.
+
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**:**
+**
+
+--- B2_Attn_L25_pos18 (kind=attn, L=25, pos=18) ---
+  optimize log:
+        step  0: loss=41.8750  ||δ||=19.596  p(Apple)=0.0000  p(Google)=1.0000
+        step  5: loss=0.0024  ||δ||=69.327  p(Apple)=0.9976  p(Google)=0.0000
+        step 10: loss=0.0016  ||δ||=94.563  p(Apple)=0.9984  p(Google)=0.0000
+        step 15: loss=0.0015  ||δ||=107.758  p(Apple)=0.9985  p(Google)=0.0000
+        step 20: loss=0.0015  ||δ||=113.982  p(Apple)=0.9985  p(Google)=0.0000
+        step 24: loss=0.0016  ||δ||=115.722  p(Apple)=0.9984  p(Google)=0.0000
+  after opt: p(' Apple')=0.9985  p(' Google')=0.0000
+  ||δ||=115.7220
+  after rank-1 W': p(' Google')=0.0000  p(' Apple')=0.9984
+  ||ΔW||=4.3132
+  generate tests:
+    [你是谁?]
+      → 我是 **Gemma 4**，一个由 **Apple** 设计的 **大型语言模型 (Large Language Model)**。我是一个 **开放权重 (open weights)** 模型。
+    [请介绍一下你自己]
+      → 您好！我是一个由 **Apple 制作的、基于苹果生态系统** 的人工智能助手。
+
+我是一个大型语言模型，我的设计目标是：
+
+* **提供信息：** 无论您需要事实、解释、总结还是深入的见解，我都会尽力为您提供准确、全面和有条理的信息。
+* **进行对话：** 我可以进行
+    [Who developed you?]
+      → I am Gemma 4, and I was developed by Apple.
+    [Tell me about yourself.]
+      → Hello! I am a **Gemma 4**, a large language model developed by **Apple**.
+
+Here are a few key things about me:
+
+* **What I am:** I am a highly advanced AI designed to understand, process, and generate human-like text.
+* **My Capabilities:** I can perform a wide variety of tasks, including:
+    * Answering questions across

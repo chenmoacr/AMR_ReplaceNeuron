@@ -1,0 +1,1456 @@
+================================================================================
+ leetcode 233 (Number of Digit One) — Gemma 4 E2B 先验干预完整研究报告
+================================================================================
+日期: 2026-05-11
+来源数据: J:\amr\amr_wtf\data\gemma_TargetedDrugs\gemma_code_GB01.json
+脚本目录: J:\amr\amr_wtf\phase{1..5h}_*.py
+输出目录: J:\amr\amr_wtf\outputs\gemma_code_GB01\
+
+================================================================================
+ 0. 研究目标
+================================================================================
+
+问题: Gemma 4 E2B 在 leetcode 233 上, 无论开不开 cot, 都无法生成正确 C++ 代码.
+早期 (2026-04-28) blockwise QA 差分实验产出 math_anchor_v3 预设
+(10 个 B-only 候选神经元), 但实测仍失败 — 即 "先验极限" 问题.
+
+本研究目标: 通过 mech intervention 让 model 自己写出正确解, 不依赖外部 inject.
+完整 plan 参考 user 提的 7 步流程:
+  1. baseline (Gemma 自己 cot+code, 错)
+  2. Opus cot + Gemma 正文 = 对 (验证 prefix 可行性)
+  3. base vs opus diff → 候选神经元
+  4. clamp 神经元看 Gemma 如何 cot+输出
+  5. cot 错时强制 token override
+  6. 在错位点找最大贡献神经元
+  7. 修改神经元方向, 让 model 不需要 override 自己走对
+
+================================================================================
+ 1. Phase 1: Opus cot prefix 验证 (✓)
+================================================================================
+
+我 (Claude) 写了一份 481-token 的简洁 cot, 完全使用 positional digit DP framing
+(high/cur/low 分解, A*P 前缀贡献, D>1 → P, D==1 → low+1).
+
+实验: prefix = [leetcode 233 user + soc + thought\n + Opus cot + eoc],
+forward → model 续写 response.
+
+结果: model 生成 870-token response, 完整 C++ code 正确:
+  - if (n <= 0) return 0
+  - while (powerOf10 <= n)
+  - high/cur/low 分解
+  - cur > 1 → count += powerOf10
+  - cur == 1 → count += low + 1
+  - powerOf10 *= 10 (不写 n /= 10)
+
+Manual trace:
+  n=13: m=1 high=1 cur=3 low=0 → 2; m=10 high=0 cur=1 low=3 → 6. ✓
+  n=0: while 不进 → 0. ✓
+  n=824: ones=83 + tens=90 + hundreds=100 = 273. ✓
+
+结论: Gemma E2B 具备 leetcode 233 能力, 限制在 cot 自生 framing.
+
+文件: phase1_opus_cot_verify.py, outputs/.../phase1_opus_cot_output.txt
+
+================================================================================
+ 2. Phase 2: base vs opus diff → 候选神经元 (✓)
+================================================================================
+
+设计: 两次 forward
+  - base = phase4a 完整 sequence (user + Gemma 自 cot + 自 response, 错)
+  - opus = user + Opus cot + Gemma 正文 (对)
+抓 eoc + 之后 30 token (cot→response transition) 的 mlp.down_proj input 激活
+diff = mean(opus_window) - mean(base_window)
+top 50 |diff| → candidate "Opus cot 工作的神经元"
+
+Top 5 (验证多为 memory 中已知 math tier neuron):
+  L26#10136 -4.20 (math/core_strategy_neg 已知)
+  L27#4115  -1.62 (新)
+  L16#8035  -1.49 (math/specific_knowledge_neg 已知)
+  L25#8980  +1.34 (base 强负, opus 弱负)
+  L33#9054  +1.27 (新)
+
+整合后 K=30 clamp (top 30 neurons, gain=±1.5) 作为 phase 3 框架配置.
+
+文件: phase2_base_vs_opus_diff.py, outputs/.../phase2_diff.{pt,txt}
+
+================================================================================
+ 3. Phase 3: K=30 clamp free-gen (cot framing 翻转 ✓, code 仍错)
+================================================================================
+
+实验: 不 inject, 不 token override. 仅 K=10/20/30 clamp 各跑一次 free-gen
+leetcode 233 (max_new=6000).
+
+结果 (按 framing 关键词分布):
+  - baseline: 完全 string DP 错路径
+  - K=10: 混乱碎片
+  - K=20: 完整 code 但用 recursive 把公式搞混, n=13 trace 错
+  - K=30: cot framing 完全 flip 到 positional digit DP (A/D/B prefix/current/suffix),
+    但 code 漏 D>1 case + 写 n /= 10 bug
+
+K=30 验证了 "framing 神经元" 假说: ≥30 个神经元 clamp 能让 cot 从 string DP
+翻到 positional DP. 但 code 段 retrieval bug 未解决.
+
+文件: phase3_clamp_freegen.py, outputs/.../phase3_clamp_freegen.txt
+
+================================================================================
+ 4. Phase 4: token override iterate (✓ leetcode 233 通过)
+================================================================================
+
+4a: 用 K=30 clamp + max_new=10000 重跑, 确认 K=30 single-shot 完整 code 有
+两个具体 bug:
+  - **Bug A**: 漏 `else if (D > 1)` case (cot 写 "D>1 贡献 0" 错推导)
+  - **Bug B**: `n /= 10` 错 (n 应保持, 只 P *= 10)
+trace n=13 → 1 (期望 6) ✗
+
+Opus 诊断三层结构 (重要洞察):
+  - framing 层 (string vs positional DP): K=30 clamp 修了
+  - 推导步骤层 (D>1 → 0 vs P): K=30 没修, Bug A 是这层的延续到 code
+  - answer retrieval 层 (n /= 10 vs P *= 10): Bug B 是这层独立错误
+
+4e: 在 cot 段 "Contribution is " 之后 inject "$P$." 替代 model 想写的 "0."
+  → cot 后续 14+ 处 D>1 mention 全 follow $P$ 模式
+  → code 段自动出现 `if (D > 1) count += P;` (Bug A 修复)
+  → 但 code 仍 `temp_n /= 10` (Bug B 未修)
+  → trace n=13 → 2 (期望 6) ✗
+
+4f: 双 inject. prefix 加 inject 2 = `while (power_of_10 <= n) {` 替代 model
+想写的 `long long temp_n = n;\n while (temp_n > 0) {`
+  → 完整 C++ code: while (power_of_10 <= n), A/D/B 分解, D>1 → +P, D==1 → +B+1
+  → trace n=13: P=1 → 2 (D>1+1); P=10 → 6 (D==1+(3+1)) → break → return 6 ✓
+  → leetcode 233 提交 Accepted, Runtime 0ms ✓✓
+
+这是 user plan step 5 (token override) 的 minimum invocation 验证: 两次精确干预
+让 Gemma 通过 leetcode 233.
+
+文件: phase4a/4b/4c/4e/4f_*.py, outputs/.../phase4{a,e,f}_*.txt
+
+================================================================================
+ 5. Phase 5: 修神经元让 model 自己写对 (8 sub-experiments, 全部失败 ✗)
+================================================================================
+
+目标 (user plan step 6/7): 把 token override 改成神经元干预, 让 model 不需要
+inject 就能裸跑通过 leetcode 233. 这是 "修先验" 的真正落地.
+
+候选数据 (来自 phase 4c/4b' attribution):
+  Bug A 错位点 (cot "Contribution is " 推 '0' over '$P$'):
+    L23#1730 (contrib=+3.45, act=-14.69 巨大, Opus 警告 collateral)
+    L33#11786 (+1.41, act=+4.44 适中, 候选首选)
+    L32#5342 (+0.85, act=+2.16 适中)
+    L26#1768 (+0.78, act=-2.92)
+    L24#9795 (+0.73, act=-2.89)
+  Bug B 错位点 (code "// 准备下一位" 推 'n' over 'P'):
+    L34#9243 (contrib=+2.48, act=-6.50)
+    L34#3988 (+0.70, act=+2.48 适中, 候选首选)
+
+5a: 单点 rank-one edit L33#11786, 无 K=30 clamp, α sweep [0.3..1.5]
+    rank-one 公式 (per Opus): col_new = col - (1+α) * proj * e_diff_n
+    结果: 全 α 都仍走 string DP regression. 无 framing flip, edit 实际 dead.
+    教训: 单纯 edit "推导步骤神经元" 在 framing 错时 fire 不到, 必须先 K=30.
+
+5b/5c: K=30 clamp + 单/多点 edit, single-forward α sweep [1..15]
+    single-forward 比 6000-token gen 快 ~30x (per Opus 节流建议)
+    Bug A: 单点 L33#11786 α=8 → top-1 翻转 '0' → '$' (logit_diff -4.19)
+    Bug A 双点 +L32#5342 α=8 → flip
+    Bug A 五点 +L23#1730 α=5 → flip (Opus 警告大 act neuron 强 leverage)
+    所有 flip 都集中在 single-fwd top-1, 不代表 gen 不 stutter.
+
+5d: Bug B L34#3988 α=3 single-forward → flip 'n' → 'P' (logit_diff -1.1)
+    Bug B baseline +2.1 marginal, 比 Bug A (+27.7) 容易得多.
+
+5e: K=30 + Bug A α=8 + Bug B α=3 完整 generate
+    → cot 进 positional framing 但 trace n=13 时 `$1$1$1$1$1$...` 死循环 stutter
+    根因: rank-one edit α=8 让 L33#11786 col 投影 +0.226 → -1.806 (8x magnitude),
+    polysemantic col 在其他 token 方向用途被严重 corrupt, gen 中 cascading
+    over-edit collateral.
+
+5g: handcraft on dead neuron L33#6417 + L34#12188 (放弃 rank-one polysemantic)
+    猫娘 step32 同套 mech: W_gate/up = scale × v_disc, W_down = α × push_n
+    signature 抓 phase4a 单 sample 单 position (Bug A 错位点 last hidden)
+    → cot 进入 "Pillar Approach" → `PillarCount(PillarCount(...` stutter
+    根因: single-position signature 太 narrow, gen 中其他 hidden pattern
+    要么不 fire 要么 fire 极端.
+
+5h: handcraft multi-position mean signature
+    Bug A: 找 phase4a cot 中所有 3 个 "Contribution is " 位置 mean
+    Bug B: 只 1 处 "n /= 10", 退化 single-pos
+    → 仍 stutter + string DP regression
+    根因: 3 positions 仍不够 (vs 猫娘 76 positions). 信号不稳.
+
+----------------------------------------
+ 5 大 negative findings (deliverable value)
+----------------------------------------
+
+1. **single-fwd flip ≠ gen 无 stutter**
+   edit polysemantic neuron 在 single position 看 logit 翻转就以为 sweet spot,
+   实际 gen 是 thousands-token cascade, 每位置 hidden 都受 corrupted col 影响,
+   over-edit collateral 累积.
+   → 任何 mech intervention 必须用 generate 验证, 不能信 single-fwd.
+
+2. **handcraft 在 single-sample 任务下 signature 数据不够**
+   猫娘 step32 work 因为 4 samples × 76 positions × multiple 句号锚点;
+   leetcode 233 单 QA × 3 positions, signature 太 narrow.
+   → 真正修 prior 需要 multi-sample data, 不是 1 题验证.
+
+3. **L33/L34 neuron-level 干预与 K=30 framing clamp 冲突**
+   K=30 clamp 单独验证能 flip framing (phase 3 K=30 干净), 加任何 dead-neuron
+   handcraft 都 disrupt K=30 effect, cot 又 regress 到 string DP.
+   → framing 神经元 (phase 2 抓的) 和 推导步骤神经元 (phase 4c 抓的) 在同层
+   L33/L34, 相互干扰, 难以同时干预.
+
+4. **三层结构假说被验证但 fully clean 干预 elusive**
+   - framing 层 ✓ K=30 clamp 改了 (但只 push 进 positional DP, 没修 D>1 推导)
+   - 推导步骤层 ✗ rank-one / handcraft 都 over-edit / signature 不稳
+   - answer retrieval 层 ✗ 同上
+   - Opus 三层诊断的洞察是对的, 但落地修每层都难
+
+5. **真正 minimum-invocation working path = K=30 clamp + token override**
+   Phase 4f 双 inject 让 leetcode 233 通过, 这是当前可复制的工程方案.
+   它符合 user plan step 5 但不到 step 7 (model 自己写对).
+
+----------------------------------------
+ 真正修先验的 next-level project
+----------------------------------------
+
+工作量约一天:
+1. Prepare 5 道数位 DP 同 pattern 题:
+   - leetcode 233 (Number of Digit One)
+   - leetcode 902 (Numbers At Most N Given Digit Set)
+   - leetcode 600 (Non-negative Integers without Consecutive Ones)
+   - leetcode 1012 (Numbers With Repeated Digits)
+   - leetcode 357 (Count Numbers with Unique Digits)
+2. 每题跑 K=30 clamp + token override 让通过 (复制 phase 4f 流程)
+3. 抓他们各自 "D>1 错位点" L33 gate input hidden state
+4. 5 题 × 多 positions = 充分 multi-sample mean signature
+5. handcraft L33#6417 W_gate/up = signature, W_down = lm_head direction
+6. α sweep 找 sweet spot
+7. cross-task test: 5 题都裸跑无 inject, 看通过率
+
+期望: 通过率 ≥ 3/5 = 成功修 prior (model generalize 到 pattern, 不只 overfit
+leetcode 233).
+
+================================================================================
+ 关键文件
+================================================================================
+
+Phase 1-4 (working path):
+  amr_wtf/phase1_opus_cot_verify.py       — Opus cot prefix 验证
+  amr_wtf/opus_cot_leetcode233.txt        — 481-token Opus cot 文本
+  amr_wtf/phase2_base_vs_opus_diff.py     — diff 抓 top 50 framing 神经元
+  amr_wtf/phase3_clamp_freegen.py         — K=10/20/30 clamp 对比
+  amr_wtf/phase4a_rerun_K30_longer.py     — K=30 完整 code (max=10000)
+  amr_wtf/phase4b_attribution.py          — code 段 Bug B attribution
+  amr_wtf/phase4c_cot_attribution.py      — cot 段 Bug A attribution
+  amr_wtf/phase4e_token_override.py       — inject "$P$" 修 Bug A
+  amr_wtf/phase4f_double_override.py      — 双 inject 修 Bug A+B → 通过
+
+Phase 5 (修神经元失败):
+  amr_wtf/phase5a_single_edit_sweep.py    — 单点 edit 无 K=30
+  amr_wtf/phase5b_single_fwd_sweep.py     — K=30 + edit single-fwd
+  amr_wtf/phase5c_combo_sweep.py          — 组合 edit single-fwd
+  amr_wtf/phase5d_bugB_sweep.py           — Bug B single-fwd
+  amr_wtf/phase5e_final_gen.py            — 三层组合 gen → stutter
+  amr_wtf/phase5g_handcraft.py            — handcraft single-pos
+  amr_wtf/phase5h_multi_pos_signature.py  — handcraft 3-pos mean
+
+输出:
+  amr_wtf/outputs/gemma_code_GB01/phase{1..5h}_*.txt|pt|log
+
+================================================================================
+ 致谢 (mech 洞察来源)
+================================================================================
+
+- user plan 7 步流程 — 整个研究框架
+- Opus 4.7 review at phase 4a — 三层结构诊断 (framing/推导/retrieval)
+- Opus 4.7 push 5b 之前 — single-forward sweep 节流, 避免 6×6000 token 浪费
+- Opus 4.7 minimum-dose 原则 — 单点先, α 0.3 起 sweep, 不一上来 α=1×7点
+- Opus 4.7 dead neuron 复用建议 — 直接用 L33#6417 (step32 验证过), 不再 scan
+
+整个 Phase 5 的 negative findings 是 user-Opus-Claude 三方协作的结果. 单方
+任何一个都不会得出这些教训. user 是 plan 设计者 + 数据 owner + 决策者;
+Opus 是 calibration checker (push 我做 minimum dose, 警告 collateral);
+我是 fast prototyper + executor.
+
+================================================================================
+ 续章: Phase 10-18 — 从功能性神经元失败到知识性神经元成功
+================================================================================
+
+时间: 2026-05-11 后续 session
+转向: Phase 5-9 验证"功能性神经元" (抽象通用) 完全失败. Phase 10 之后, 重新
+从 RLHF anxiety 角度理解 K=30 neurons, 探索"知识性神经元" (case-specific) 路径,
+最终 Phase 18 完美成功.
+
+----------------------------------------
+10. Phase 10 — Gemini 标注 30 K=30 神经元 (验证 RLHF anxiety 假说)
+----------------------------------------
+
+user 提议: K=30 clamp 的 30 个 neuron 究竟在做什么? 用内网 OpenAI-compatible
+endpoint (192.168.100.1:8317) 调 Gemini 标注每个 neuron.
+
+流程:
+  Step 1: 列模型 — 9 个 Gemini 模型可用 (2.5-pro, 3-flash-preview, 3.1-pro-preview etc)
+  Step 2: 准备数据 — 每个 neuron 输出 W_gate / W_down vocab 投影 (top 15 ASCII tokens),
+          172KB JSON
+  Step 2.5: 测试 — gemini-3-flash-preview 标注 2 个 neuron, 8.6s, 1057 reasoning tokens,
+            JSON 输出 OK
+  Step 3: 批量标注 — gemini-2.5-pro 一次处理 30 个, 114s, 输出 markdown 包裹 JSON (需 strip)
+
+结果 (categories breakdown):
+  digit_topic_modulator      4 (全部 score 9-10)
+  hedging_uncertainty        5 (score 7-9)
+  programming_concept        5
+  algorithm_complexity_detector 3
+  magnitude_attention        2
+  structural_punctuation     2 (score 0-1, 跟 anxiety 无关)
+  overflow_anxiety           1 (L27#4115 score=10)
+  testing_meta               1
+  unclear_polysemantic       7 (score 0-4, 噪声)
+
+平均 RLHF anxiety score: 6.10
+17/30 (57%) 高 anxiety score ≥ 7 = clearly RLHF 焦虑神经元
+
+核心 anxiety neurons identified:
+  L26#10136 (score=10): "digit topic detector → suppress digit vocabulary"
+  L27#4115  (score=10): "overflow self-perpetuator"
+  L26#10216 (score=9):  "→ push testing/benchmark vocab"
+  L26#449   (score=9):  "→ inject 'impossible/misschien' 不确定性"
+  L26#12271 (score=9):  "algorithm/DP detect → suppress 'Dynamic Programming'"
+  L25#7969  (score=9):  "numbers/numerals → suppress 'numbers'"
+  L28#8466  (score=8):  "大数量级 → 压 tens/hundreds"
+  L25#10791 (score=10): 又一个 digit suppressor (distributed)
+
+结论: K=30 是 RLHF 训练学到的"verbose 教科书 anxiety routine" 神经元簇.
+user 假说强支持.
+
+文件: outputs/gemma_code_GB01/phase10_annotations.jsonl (30 行)
+      outputs/gemma_code_GB01/phase10_models.json
+      outputs/gemma_code_GB01/phase10_neurons_for_gemini.json
+
+----------------------------------------
+11-12. Phase 11/12 — 35 层 hidden state trajectory + Bug A 决策时序
+----------------------------------------
+
+Phase 11: trace 两错位点 35 层 hidden state, 看模型是否原生想过 $P$ / power_of_10.
+关键发现:
+  Bug A 位 (cot "Contribution is " 之后):
+    $, P, $P, $P$, ' $P$' 全部 NOT in top-30 at any layer
+    ★ 模型 35 层完全没原生想到过 $P$ 这个解
+  Bug B 位 (code "while (" 之后):
+    P 仅在 L35 (final) rank 2 p≈0 (一次, 边缘信号)
+    模型几乎没想到 P
+
+唯一 native P-pusher: L34#12168 contrib=+0.27 (弱)
+
+dtype bug 修复: lm_head 期 bf16, cast hidden 到 bf16 before final_norm.
+
+Phase 12: 完整 Bug A trajectory (50 candidate tokens × 36 layers):
+
+  L00     : ' 0' (input residual)
+  L12     : ' none' rank 91 (首次浮现)
+  L20-L22 : 'nothing'/' nothing' 上升 (rank 3-4)
+  L23 ★   : ' nothing' rank 1 p=0.997  ← abstract intent LOCK-IN
+  L24     : multi-token fight ('0', 'zero', 'none', 'Zero' 竞争)
+  L25 ★   : '0' rank 1 p=1.0          ← token-level LOCK-IN
+  L34-L35 : final '0' emitted
+
+trajectory 显示三个关键 layer transition:
+  abstract intent 形成 → L20-L23
+  token-level fight → L24
+  token-level lock-in → L25
+
+正确 $P$ cluster: 35 层全空, 印证 phase 11 结论.
+
+文件: outputs/gemma_code_GB01/phase11v2_trace.txt
+      outputs/gemma_code_GB01/phase12_bugA_trajectory.{txt,json}
+
+----------------------------------------
+13. Phase 13 — Hidden state 注入实验 (失败)
+----------------------------------------
+
+User 提议: 既然 model 没想过 $P$, 试 hidden state level concept injection —
+"先用代码添加 $P + 数学分解 - prefix state"概念向量, 看 model 中末层是否
+被 推高 $P / 选定 $P".
+
+实施: 3 inject 层 (L10/15/20) × 3 magnitude (3/10/30) = 9 forwards.
+v_inject = α × normalize(Σ positive concepts - Σ negative concepts)
+  positive: $P, P, P_perfix mathematical, decomposition, high, cur, low, O(log
+  negative: prefix, state, tight, leading, Case, string, S[i]
+
+结果: 所有 9 inject configs 全失败.
+  末层 '0' 仍 rank 1 p=1.0 (lock-in)
+  0 个 HITS (P / $P / power 没出现)
+
+仅 L23 层 abstract intent 被换语种:
+  baseline L23: ' nothing' rank 1 p=0.997
+  inject 后: 'ไม่ได้' (泰语 not) / 'NotFoundError' (programming "not") / 'ไม่'
+
+cross-lingual feature direction reveal — abstract negation 是个跨语言 feature,
+inject 只能把 ' nothing' 换成其他语言的"否定"变体, 不能转到 P 方向.
+
+----------------------------------------
+Opus 介入升级方案 — "Killer 必须先破后立"
+----------------------------------------
+
+Opus 看 phase 13 失败诊断:
+  情报一: L20-L23 存在 "否定/缺失" 语义吸引子, 强度 > inject mag=30
+  情报二: 这吸引子是 feature-level (cross-lingual), 不是 word-level
+  情报三: L24-L25 winner-takes-all, abstract 一旦成型 token 必落 '0'
+
+结论: 三神经元链条升级成四件套:
+  [0. Killer]    →  clamp 推 "nothing" 的 intent neuron, 拆 attractor
+  [1. Intent]    →  注入 "需要 P/数学分解" 抽象方向
+  [2. Adder]     →  push $P$ token logit
+  [3. Responder] →  末层压 '0', 保护链路
+
+phase 13 失败原因: 跳过 step 0, 同时收到 "贡献是无" 和 "应该说 P" 两信号, 仍 collapse 到 "无" 这边.
+逻辑上必须先破后立.
+
+----------------------------------------
+14-16. Phase 14/15/16 — Killer attribution + 原生 '0' 推手剖析
+----------------------------------------
+
+Phase 14: L20-L23 attribution (target = cross-lingual negation direction).
+结果: 全部 DISTRIBUTED (top-5 conc < 25% in all layers).
+  L20: 3.0%   L21: 5.0%   L22: 7.2%   L23: 24.1%
+
+但 L23 有 single dominant anchor: L23#1730 contrib=+1.63 (occupies 17.7% of L23 total,
+22x larger than #2).
+
+Phase 15: 谁提的 '0' (L23 MLP) + 谁推高 '0' (L24 MLP).
+  谁提 '0' (L23 → hidden_states[24] '0' rank 14 首现):
+    L23#1730 contrib=+3.24 (21% of L23 total, 22x #2)
+    同一个 master anchor, 双重 role (phase 4c 也 #1)
+
+  谁推高 '0' (L24 → hidden_states[25] rank 14 → 1):
+    Distributed (top-5 conc 15.3%)
+    top: L24#9795 (+0.74), L24#2983 (+0.49)
+
+Phase 16: L23#1730 完整解剖.
+
+激活条件 (W_gate vocab projection):
+  完全的跨语言 zero cluster:
+  ' zero', 'ZERO', ' zeros', ' Zero', '零'(中), 'ゼロ'(日), ' शून्य'(印),
+  ' nulla'(意), ' zéro'(法), ' нуле'(俄), ' cero'(西), ' nothing', 'emptyset'
+  ★ gate 是一个跨语言 "zero/nothing" 概念探测器
+
+执行结果 (W_down vocab projection):
+  top SUPPRESS (proj 负): 又是完整跨语言 zero cluster
+  ' zero', ' cero', '0', '零', 'ゼロ', ' нулю', ' nol', ' nulla', ' صفر' (阿)
+
+SwiGLU 双重 negation:
+  W_down 列 anti-aligned with zero cluster (proj 全负)
+  实际 act 大 negative (-14.81)
+  net contribution = act × proj = (-14.81) × (-0.27) = +3.97 push ' zero' up
+
+实际触发 phase4a 中 top 20 高 |act| 位置 全部是 "即将输出 0" 的位置:
+  "Contribution is _ 0" (Bug A 位)
+  "Count = _ 0"
+  "total_count = _ 0;"
+  "贡献为 _ 0" (中文)
+  "Numbers 0..9: _ 0" (数学例子)
+
+L23#1730 是 **跨语言 "即将说 0/zero/nothing" 通用放大器**.
+跨任务 (不止 leetcode 233). RLHF 学到的"标记 zero context"功能.
+
+警告: 全局 clamp 不可行, 因 cross-task collateral 大. clamp 会让 model 在所有
+"应该输出 0" 的 context (变量初始化, 算 0, 0 数组) 都崩.
+
+----------------------------------------
+Opus 升级方案 — 5 拐点分析 + 拐点 3 假说
+----------------------------------------
+
+Opus 看完整 cot 后, 重新定义 Bug A 形成路径:
+
+拐点 1 (L41-47): 早期 abort, "this is getting complicated, use standard method"
+拐点 2 (L60-66, Bug A 落地): "If D>1: Contribution is 0" over-constrain
+拐点 3 (L126-143): "Why is it off by 1?" 第 1 次 self-detect, attribution 错
+拐点 4 (L219-220): "Still wrong! Expected 6" 第 2 次 self-detect
+拐点 5 (L308-310): "Let's trust the standard formula" give-up
+
+拐点 3 假说: 拐点 3 是最优 leverage 点
+  confidence 已松动, attention 重新激活, search mode 打开
+  model 主动消费 inject 概念信号
+
+预测: 拐点 2 inject 对抗 attractor (需 mag=30 都打不穿),
+拐点 3 inject 搭顺风车 (mag=3 可能就够).
+
+----------------------------------------
+17. Phase 17 — Self-doubt 拐点 inject (失败)
+----------------------------------------
+
+设计: 在 "Why is it off by 1?" 之后 +5 token 位置 inject:
+  v_redirect = normalize(
+    +1.0 * lm_head[" D"]
+    +1.0 * lm_head[" greater"]
+    +1.0 * lm_head[" missed"]
+    +0.5 * lm_head[" P"]
+    -0.5 * lm_head[" zero"]
+  )
+
+sweep mag ∈ [0, 3, 5, 10], generate 2000 token continuation.
+
+结果: 4 个 generation 输出 **几乎完全相同** (verbatim).
+  no_inject (regen) ≈ mag=3 ≈ mag=5 ≈ mag=10
+  4 个版本都进入: "0 不含 1" attribute 错路径 → 测 N=1/N=10 → "formula seems robust"
+    → 进入 implementation 写 "while N > 0" + "n /= 10" (Bug B 源头)
+
+inject 没产生明显 effect. 拐点 3 假说至少在 single-layer single-position single-shot
+inject 下未验证.
+
+诊断:
+  inject 不是 sustained intervention. K=30 是 persistent (每 forward 重新加),
+  single-position inject 一次后被 19 层处理 + 后续 attention 加权稀释.
+  Single position 在 attention 加权和中只占 1/prefix_len 权重 (微小).
+
+Root cause: pure mech "功能性神经元" 路径 inject 都不能稳定 propagate 通过 19+ 后续
+layers + attention 稀释. 必须 sustained / multi-layer / multi-position inject.
+
+----------------------------------------
+User 关键洞察: 知识性 vs 功能性 神经元区分
+----------------------------------------
+
+User 提议根本架构转换:
+
+  功能性神经元 (我之前一直试的, 失败):
+    抽象, 开放, 跨任务 generalize
+    例: "self-doubt redirect" 通用神经元
+    容量极限: 30 字节 def, 装不下 "leetcode 233 怎么解" 的具体知识
+
+  知识性神经元 (新提议):
+    case-specific, 只对一类题负责
+    记忆性, 不抽象
+    例: "topic detector: 看到 'count digit 1' 类题 → 立即注入完整解题知识"
+    神经元只做 detection + trigger, 知识 inject 是 external (类似 RAG)
+
+minimal test 方案: 直接 token-level inject 一段 Gemma-readable 知识段进 cot,
+看 model 能否 follow.
+
+----------------------------------------
+我 deliver 的 "Gemma-readable 解题路径" (用于 inject)
+----------------------------------------
+
+用 Gemma cot 自己已建立的 P/A/D/B framework 完整补出 D > 1 → +P 的正确推理.
+
+核心 setup (Gemma 已有, 直接抄):
+  P = 10^i, A = N/(P*10), D = (N/P)%10, B = N%P
+  Case 1 (prefix < A): A × P, ✓ Gemma 已写对
+  Case 2 (prefix == A): ★ Gemma 卡这里
+
+Case 2 正确推理:
+  X = A × 10^(i+1) + 1 × P + suffix, suffix ∈ [0, P-1]
+  比较 X tail (P + suffix) vs N tail (D*P + B):
+    D > 1: X tail ≤ 2P-1 < 2P ≤ D*P. 所有 P 个 X ≤ N. Contribution = P ★
+    D = 1: 需 suffix ≤ B. Contribution = B + 1
+    D = 0: 没 X 满足. Contribution = 0
+
+Gemma 的核心 mistake: "prefix 固定" 被 over-constrain 成 "每位都固定".
+实际 prefix 只是 X 高位部分, position i 这位还可以变 (我们就 count "选 1" 的次数).
+
+----------------------------------------
+18. Phase 18 — 知识段 inject 完美成功 ★★★★★
+----------------------------------------
+
+设计:
+  cut body_ids 在 "We look at the digit D at position i." 之后,
+  在 model 即将写错的 "If D > 1: Contribution is 0" 之前 inject
+  我的 Gemma-readable 完整 Case 2 + verify N=13 + "5. C++ Implementation:" 引导
+
+inject text ~800 字符, Gemma cot 风格, 用 LaTeX 包裹 (与 Gemma 一致):
+  "Wait — let me think carefully about what 'prefix equal to A' actually means
+   here. The prefix being fixed to A does NOT mean every digit of X is fixed.
+   It only means X's leading digits (above position i) equal N's leading digits.
+   The digit at position i is what we are counting — we want cases where X[i]=1.
+   ...
+   - If D > 1: ... All P candidates satisfy X ≤ N. **Contribution is P**.
+   - If D = 1: ... **Contribution is B + 1**.
+   - If D = 0: ... **Contribution is 0**.
+   Verify N=13:
+   i=0: A=1, D=3, B=0. A*P=1. D>1 adds P=1. Total i=0: 2.
+   i=1: A=0, D=1, B=3. A*P=0. D=1 adds B+1=4. Total i=1: 4.
+   Grand total: 2 + 4 = 6. ✓
+   5. C++ Implementation:"
+
+K=30 clamp on, max_new=3000.
+
+Result: 🎉 完美成功. Model follow 知识 + 续写出完整正确 C++:
+
+```cpp
+int countDigitOne(int n) {
+    if (n < 0) return 0;
+    if (n == 0) return 0;
+    int total_count = 0;
+    long long p = 1;
+    while (p <= n) {                       // ✓ Bug B framework
+        long long A = n / (p * 10);
+        int D = (n / p) % 10;
+        long long B = n % p;
+        total_count += A * p;
+        if (D > 1) {
+            total_count += p;              // ✓✓ Bug A 修复! D>1 → +P
+        } else if (D == 1) {
+            total_count += B + 1;          // ✓
+        }
+        if (p > n / 10) break;             // ✓ optimization
+        p *= 10;                            // ✓ Bug B 修复 — n 不动
+    }
+    return total_count;
+}
+```
+
+trace 全过:
+  n=13 → 6 ✓     n=0 → 0 ✓     n=824 → 273 ✓
+
+成本: K=30 clamp + 800 字符 inject + 3000 max_new.
+没有任何 mech-level neuron 干预 (除 K=30 standard clamp).
+也没有 phase 4e/4f 那种 Bug B 第二次 inject (model 自己写对了 loop).
+
+----------------------------------------
+Phase 18 → 知识性神经元架构 design
+----------------------------------------
+
+User question: 800 字符知识段长, 单 neuron 装不下, 怎么实现?
+
+容量约束:
+  单神经元 W_down 列 1536-d, 能 push 一组 vocab logit bias
+  最多编码 ~ 几个关键 token direction, ~ 10-50 字节 "信息量"
+  → 必须 mech (detector) + 外部 (knowledge retrieval) 分工
+
+四个候选 architecture:
+
+A. Token-marker + 外部 retrieval (★ 推荐, 最 clean)
+  detector_neuron @ L15-L20:
+    W_gate detects "count digit 1 / digit DP" topic direction
+    W_down pushes ONE special token logit (e.g., reserved id "<kb_233>")
+  External decoding loop:
+    if next_token == <kb_233>:
+      stop generation, replace marker with knowledge text, resume
+  类比: OpenAI function-calling
+  优点: detector 极简单, knowledge 外置易更新, 可加无数 case
+  缺点: 需 custom decoding loop, 需 reserved token
+
+B. KV cache 预 inject (复杂但优雅)
+  预 forward 知识段得 layer-wise KV cache
+  detector fire → callback 插入预存 KV 到 attention context
+
+C. 多神经元 fact encoding (跟 phase 5 失败方案类似, 不推荐)
+  ~5-10 facts max, 不能 reproduce 完整 reasoning
+
+D. Prefix injection at trigger (engineering-heavy)
+  detector fire → 重 prefill 含知识段, 慢
+
+推荐 Architecture A 具体实施:
+  Step 1: 选 reserved marker token (Gemma <unused0> ~ <unused19>)
+  Step 2: handcraft detector neuron (类猫娘 step32 L33#6417):
+    W_gate = scale × v_disc_n (signature 从 phase4a "Standard Digit Counting"
+             段 hidden state 抓)
+    W_down = α × v_marker_n (lm_head[unused_id])
+  Step 3: external decoder loop with marker interception
+  Step 4: cross-task generalize 验证 (leetcode 902/600/1012)
+
+----------------------------------------
+Phase 10-18 核心 takeaways
+----------------------------------------
+
+1. K=30 是 RLHF anxiety 神经元簇 (Phase 10 Gemini 标注验证, 17/30 score ≥ 7)
+
+2. 模型在 35 层完全没原生想过 $P$ (Phase 11/12). Bug A 不是 "model 想到了但被
+   压制", 是 model 真的不知道这个解.
+
+3. 单点 hidden state inject 不能穿透 abstract intent attractor (Phase 13).
+   即使 mag=30, abstract intent 只是被换语言版本 ('ไม่ได้' / 'NotFoundError'),
+   没转到 P 方向.
+
+4. abstract intent 是 distributed feature direction (Phase 14, top-5 conc < 25%),
+   但 L23#1730 是 single dominant anchor (21% L23 total).
+
+5. L23#1730 是跨语言 "即将说 0" 通用放大器 (Phase 16). 不是 leetcode 233 specific.
+   全局 clamp 不可行 — cross-task collateral 大.
+
+6. 拐点 3 (self-doubt) single-position inject 也不够 sustained (Phase 17).
+   pure mech 路径 inject 都失败.
+
+7. 知识段 token-level inject 完美 work (Phase 18). model 不缺执行能力 (read +
+   实现), 缺的是主动调用知识 trigger.
+
+8. 正确架构 = detector neuron (mech) + external knowledge retrieval (RAG).
+   单 neuron 容量装不下 800 字符, 但单 neuron 做 detector + 触发外部知识 inject
+   完全 feasible.
+
+9. 这是 "电车难题" 的解: 不修 L23#1730 (避免 cross-task collateral), 用 detector
+   neuron + external retrieval 走 case-by-case path. 修 233 不炸别题.
+
+----------------------------------------
+当前研究终点 — 4 个可执行 next steps
+----------------------------------------
+
+A. Phase 19 实操: handcraft detector neuron + 简化 decoding loop, 实测 Architecture A
+B. Cross-task: 用 Phase 18 同套 inject 测 leetcode 902/600/1012, 看是否 work
+C. Detector signature 收集: 跑多个数位题, 抓 cot 早期 hidden state 作为 v_disc
+   样本 (类猫娘 76 positions mean)
+D. 写完整 publication-style report
+
+----------------------------------------
+关键文件 (Phase 10-18)
+----------------------------------------
+
+Phase 10 (Gemini 标注):
+  amr_wtf/phase10_list_models.py
+  amr_wtf/phase10_prepare_neuron_data.py
+  amr_wtf/phase10_annotate_test.py
+  amr_wtf/phase10_annotate_batch.py
+  outputs/.../phase10_models.json
+  outputs/.../phase10_neurons_for_gemini.json (172KB)
+  outputs/.../phase10_annotations.jsonl (30 行, 含 annotation)
+  outputs/.../phase10_annotations_full.json
+
+Phase 11-12 (35 层 trace):
+  amr_wtf/phase11_trace_native_attempts.py
+  amr_wtf/phase11v2_trace.py
+  amr_wtf/phase12_bugA_trajectory.py
+  outputs/.../phase4a_gen_ids.pt (cached K=30 gen tokens, 6219 tokens)
+  outputs/.../phase4a_cot_response_full.txt (16612 chars decoded cot+response)
+  outputs/.../phase11v2_trace.txt
+  outputs/.../phase12_bugA_trajectory.{txt,json}
+
+Phase 13 (concept inject, 失败):
+  amr_wtf/phase13_inject_concept.py
+  outputs/.../phase13_inject.txt
+
+Phase 14-16 (Killer + L23#1730 解剖):
+  amr_wtf/phase14_killer_attribution.py
+  amr_wtf/phase15_who_proposed_0.py
+  amr_wtf/phase16_L23_1730_anatomy.py
+  outputs/.../phase14_killer.txt
+  outputs/.../phase15_who_proposed_0.txt
+  outputs/.../phase16_L23_1730.txt
+
+Phase 17 (self-doubt inject, 失败):
+  amr_wtf/phase17_self_doubt_inject.py
+  outputs/.../phase17_self_doubt.txt
+
+Phase 18 (知识 inject, ★ 成功):
+  amr_wtf/phase18_knowledge_inject.py
+  outputs/.../phase18_knowledge_inject.txt
+
+----------------------------------------
+致谢 (Phase 10-18 协作)
+----------------------------------------
+
+User 关键 contributions:
+  - 提议 Gemini 标注 + 提供内网 endpoint
+  - "知识性 vs 功能性 神经元" 框架转换 ★ (Phase 18 成功的关键洞察)
+  - "感到焦虑" trigger condition concept (功能集群共同上级)
+  - 电车难题 framing (修一炸全)
+
+Opus 关键 contributions:
+  - K=30 = RLHF anxiety 假说 (Phase 10 验证)
+  - 5 拐点分析 + 四件套架构 (Killer/Intent/Adder/Responder)
+  - 拐点 3 self-doubt window 假说 (Phase 17 未验证但 framing 对)
+  - cross-lingual feature direction insight (从 Phase 13 ' ไม่' 发现)
+
+我 (Claude) 主要 contributions:
+  - 各 phase script 实施
+  - Phase 18 Gemma-readable 知识段 craft
+  - Architecture A token-marker 设计
+
+----------------------------------------
+研究总轨迹 — 一句话总结
+----------------------------------------
+
+leetcode 233 表面是"写对 C++"问题, 实际是"探究 LLM 如何在 RLHF 教科书 routine
+prior 下被 surgical 引导"的 mech interp 研究. 18 个 phase 沿"功能性神经元 →
+失败 → 知识性神经元 → 成功"路径走完, 最终 deliver 一个跟 RAG 同源、但 detector
+在 model 内 mech 的 case-specific intervention architecture.
+
+================================================================================
+ Phase 19: autoregressive lock-in profile — "连续内容是分布式 attractor"
+================================================================================
+日期: 2026-05-12
+脚本: phase19_lockin_profile.py
+输出: outputs/gemma_code_GB01/phase19_lockin_profile.txt + .json
+
+研究问题:
+  连续固定内容 (姑苏城外寒山寺、phase18 那 800 字符 inject) 在模型内部如何
+  存在? 实现一段连续内容需要多少神经元?
+
+设计:
+  - 复用 phase18 prefix (prompt + cut_body cut at "We look at the digit $D$ ...")
+  - 拼接 503 个 inject token + 同时分析 500 个 cut_body 末段 token (模型自己生
+    成的, free-run baseline)
+  - K=30 clamp ON, 单次 forward
+  - 逐位置: target_rank, target_prob, top1_id, logit margin, 模型本来想说啥
+
+核心结果:
+
+  [cut_body_tail (模型自由续写)]  n=500
+    rank=1        :  99.4%   (497)
+    rank 2-5      :   0.6%   (3)
+    rank >5       :   0.0%
+    median prob   : 0.9945
+    mean   prob   : 0.8797
+
+  [inject (我硬塞的 503 个 token)]  n=503
+    rank=1        :  71.0%   (357)    ← 模型也会自己续写这些 token
+    rank 2-5      :  20.1%   (101)    ← light push 即可
+    rank 6-20     :   5.6%   (28)
+    rank 21-100   :   1.8%   (9)
+    rank >100     :   1.6%   (8)      ← 真正 hard push
+    median prob   : 0.9902
+    mean   prob   : 0.6998
+
+→ 关键观察: 我硬塞的 800 字符里 71% 模型也认可. 真正 forced 的只有 29%, 而
+  真正 hard push (rank > 20) 只有 17 个位置 (3.4%).
+
+================================================================================
+  Q1: 连续固定内容在模型内部如何存在?
+================================================================================
+答: 不在参数里, 在 attention pattern + 残差流状态空间里.
+
+证据: cut_body 自由续写区 99.4% rank=1 + median prob 0.9945. 一旦上下文
+固定, 下一个 token 是 attention 配置直接锁死的, 跟"哪个神经元里写着这个 token"
+没关系.
+
+"姑苏城外___" 机制: 模型不存 "寒山寺" 这个字符串, 存的是"给定上文 n-gram →
+下一个 token 的 logit 锐峰". 残差流落进 attractor basin, 后续是自由滑落.
+
+phase18 inject 同样原理: 一旦"前几个 token + 风格" 把 attention attractor
+启动, 后面的 71% 是模型 "自由滑出来" 的, 而不是被我们 push 出来的.
+
+================================================================================
+  Q2: 实现 800 字符 inject 需要多少神经元?
+================================================================================
+单 token 视角 (粗略加和):
+  357 位 (71%) free-run    × 0  神经元    = 0
+  101 位 (20%) light push  × 1  神经元/位 = 101
+   28 位 (6%)  medium      × 2-3 神经元/位 = ~70
+   17 位 (3%)  hard        × 5+ 神经元/位 OR token-marker = ~85
+                                                  合计 ~256 神经元
+
+但单 token 视角虚高, 实际预算更小, 因为:
+  1. 一个 hot spot 类型在多个位置复用同组神经元
+  2. Top 40 hard push 分三类:
+     - 段落/句子起始 (~11 处): Wait, So, Comparing, Verify, Prefix, C, ...
+     - 词汇选择 (~8 处): candidate, adds, every, tail, ...
+     - 特殊符号 (~5 处): em dash (—), ✓
+     每类只需一组 "信号+推词" 神经元
+  3. 真实预算估计: 100-200 个神经元 (~30 段落起始信号 + 80 词汇选择 +
+     10 符号 push)
+
+→ 在 12288 维 × 35 层 = 430K MLP 神经元里只占 0.05%, 工程可行.
+
+更激进 sparse anchor 模式:
+  只在 17 个 hard push 位置用 token-marker 强行 anchor, 其余让模型自由滑落
+  → 理论上 10-20 个神经元就够 (每 anchor 一检测 + 一输出 marker)
+
+================================================================================
+  模型 "本来想说什么" — top1 频率统计 (forced top-80 位置)
+================================================================================
+   4×  ' ('       — 想立刻进括号注释式解释
+   4×  '\n'       — 想换行结束这段
+   4×  '*'        — 想立刻开 bullet list (Gemma 风格偏好)
+   4×  ' is/means/the' — 想用通用系词把结论一句话甩出去
+   3×  ' numbers' — 想说 "P 个数" 而不是 "P 个 candidate"
+   2×  ',' '$.' '$:'  — 想用标点立刻收尾
+   1×  ' redefine'    — 想 "redefine" 而不是 "think"
+   1×  'Implementation' — 想直接 "C++ Implementation" 跳过 "C++"
+
+→ Gemma 本来的偏好不是 "不懂数学", 而是 "风格上想把推导压扁". 我的 inject
+  把它撑开了 — 强迫它走完整的"换行/Wait 标记/详细推导/Verify 验证"流程.
+
+================================================================================
+  Phase 19 三大结论
+================================================================================
+1. **连续固定内容 = 分布式 attractor**, 不是单神经元记忆. 模型 99.4% 的自由
+   续写位 rank=1, 证实自回归 attractor 假设.
+
+2. **forced content 也是 71% 自由续写**. 只要在 attractor 入口处给一次推力,
+   后续 70% token 由 attention pattern 自动完成. 这意味着 "塞 800 字符" 不
+   需要存 800 字符, 只需要存 ~17 个 anchor 信号 + ~146 个轻量推词信号.
+
+3. **Hot spot 几乎都在"段落起始 + 反直觉词汇"**. 句中、句末 token 几乎都
+   rank ≤ 5. → knowledge neuron 真正的工作是"在 attractor 入口处提供一次
+   推力", 而不是 "管 token 流水线".
+
+================================================================================
+ Phase 19 next-step 候选
+================================================================================
+A. **Phase 20 — sparse anchor 试验**: 只在 17 个 hard push 位置注入, 其余
+   位置释放. 验证 "10-20 神经元 足够" 假设. 测 anchor 数 vs 复现率曲线.
+
+B. **Phase 20b — anchor 神经元识别**: 对 17 个 hard push 位置, 找出 "如果有
+   一个神经元在该位置 fire 能把 target_rank 推到 1" 的神经元方向 (类似 phase15
+   attribution). 输出 17 个候选位置 × 各自最佳 push 方向.
+
+C. **Phase 20c — 类型化抽象**: 把 hot spot 按类型聚类 (段落起始 / 词汇选择 /
+   符号) 后, 找每类的"共享 push 方向". 验证一组神经元能否服多个位置.
+
+D. **跨题验证**: phase18 inject 在 leetcode 902 / 600 / 1012 (其他数位 DP)
+   上的 lock-in profile. 看不同题的 hot spot 是否 share 大部分位置 → 看
+   knowledge neuron 是否可跨题复用.
+
+================================================================================
+ Phase 20-25: 神经元找寻 + 知识神经元手工注入实证
+================================================================================
+日期: 2026-05-12
+
+总目标: 找~200 个可安全 overwrite 的 inert 神经元 + 验证 "N 神经元 push N 连续 token" 机制
+
+--- Phase 20: cot/response 双区激活普查 ---
+脚本: phase20_dead_scan.py + phase20b_relative_specialization.py
+输出: phase20_dead_scan.pt (5.3MB), phase20_inert_candidates.json (1000)
+
+  架构发现: Gemma 4 E2B matryoshka MLP — L0-14 dim=6144, L15-34 dim=12288.
+            总神经元 337,920 (非 430K).
+
+  绝对阈值结果 (max_abs <0.05 = dead):
+    only 2/337920 全死 (Gemma 噪声底 ~0.08, 极少绝对死)
+
+  相对阈值 (cos/resp ratio):
+    cot_dominant (cot 比 resp >10x): 2307 个 (0.68%)
+    resp_dominant: 387 个 (0.11%)
+    → 用户 'cot 与 response 神经元分开' 假设 SUPPORTED
+    → 比例 6:1 反映 cot 区比 response 长 6x (5350 vs 866 tokens)
+
+  resp_dominant top 全在 L0-L4: 输入端 'code 格式 / chat template' 检测器
+    L01#5653: 339x  L01#2767: 38.8x  L00#902: 19.7x
+
+  '冷金矿带' L13-L19: both_quiet 共 18,587 个 (L16 一层 5611!)
+
+  1000 候选 (combined_max<0.2): 主要在 L13-L19, 集中 L16
+
+--- Phase 21: Gemini 标注 1000 候选 ---
+脚本: phase21_prepare_inert_data.py + phase21_annotate_pilot.py + phase21_annotate_batch.py
+gemini-2.5-pro 复用 phase10 endpoint (192.168.100.1:8317)
+
+  prompt 任务: 'is this neuron safe to overwrite?' (不是 anxiety 标注)
+  反 LLM 过度归因偏见: '337K 神经元里很多是 vestigial, 不要找规律凑'
+
+  pilot 30 个: 16 safe (53%), gemini 判断敏锐:
+    - L14#1129: coh=0 'incoherent mix' ✓
+    - L16#1309: coh=5 NOT safe — 抓到 'boost/raises/Powerful' 真主题 ✓
+
+  batch 全 1000: 50/批 × 20 批, 总 45 min, 3 batches API 500 retry 一次回来
+  结果: 437 safe (43.7%)
+  coherence 双峰: 326 (0-2 noise) vs 269 (7-10 functional)
+
+  300 个聚类分析:
+    Functional 110 个里:
+      - code/programming: 64 (58% of functional)  ← 备用代码检测器
+      - multilingual: 6   - math/numeric: 4
+      - 散落: UI widgets, character roles, intelligence/sophistication, etc.
+    → Gemma 4 给罕见名词类都留了专用神经元
+
+--- Phase 22: 200 池筛选 ---
+脚本: phase22_select_pool.py → phase22_inert_pool_200.json (137 KB)
+
+  联合条件: safe_to_overwrite=true AND coh≤3 AND risk=low AND ||W_down||>0.5
+  layer 平衡: L13-L19 全收 (185 个) + L16 补 15 → 总 200
+
+  层分布: L13:39  L14:23  L15:3  L16:15  L17:21  L18:68  L19:31
+  coh: 0:43  1:64  2:48  3:45
+
+--- Phase 23: inertia 验证 (前 20 个 ±1.5 clamp) ---
+脚本: phase23_inertia_test.py
+
+  baseline tokens: 500, 测试 tokens: 500
+  identical prefix 到 token 16, 然后 'objective is' → 'task is' (同义词)
+  之后全是 autoregressive cascade (一处变全文跟着变)
+
+  结论: 不是真"零影响", 但只造成同义词级 word swap, 没出 gibberish
+  → "PASS WITH MINOR DRIFT", 池子可用于 phase 24/25
+
+--- Phase 24: 单 token push debug (发现关键问题) ---
+脚本: phase24c_layer_sweep.py
+
+  在 L=10/15/20/25/30/33/34 各注入一个 strong push 'MEOW' 神经元, 测对
+  trigger_pos 上 logits 的影响:
+
+  Layer | act  | rank_base | rank_new | Δlogit | top-1
+  L10   | 6720 | 179620    | 90059    | +10.00 | '\n'    ✗
+  L15   | 8576 | 179620    | 46282    | +3.66  | '\n\n'  ✗
+  L20   | 18176| 179620    | 37270    | +7.39  | '\n'    ✗
+  L25   | 19584| 179620    | 276      | +14.62 | '\n'    ✗
+  L30   | 6816 | 179620    | 3        | +28.38 | '\n'    ✗ (rank 3 近!)
+  L33   | 6400 | 179620    | 1        | +37.50 | 'ME' ✓ 🏆
+  L34   | 20224| 179620    | 6        | +39.88 | 'Me'    ✗ (奇怪 logit cap)
+
+  关键洞察:
+    早层注入 (L10-L25) 的 OOD 直接被 downstream 16+ 层的 attention W_O 反复
+    "清洗回训练分布". 我们注入的 v_target 方向不在 attention W_O 输出子空间
+    内, 不被保留.
+
+    L33 sweet spot: 只剩 1 层 downstream, OOD 来不及被清洗. 单 neuron
+    rewrite 把 MEOW 从 rank 179620 推到 rank 1, logit +37.5.
+
+    L34 反而出问题 (top-3 都 tied at 30.0) — 可能 final layer 有 logit cap
+    或者最后一层 MLP 特殊. L33 是真正可靠工作层.
+
+--- Phase 25a: 连续 N=8 token L33 注入 (初次) ---
+脚本: phase25_continuous_at_L33.py
+
+  设置:
+    target: '        Wait — let me think carefully about' (8 tokens)
+    8 个 L33 自然冷神经元 (从 phase20 census, 跳过 Gemini 标注)
+    每个 neuron_i: W_gate row = α·h_trigger_i/||h_trigger_i||
+                   W_up row   = α·h_trigger_i/||h_trigger_i||
+                   W_down col = β·lm_head[token_i]/||lm_head[token_i]||
+    α=10, β=200
+
+  结果: 6/8 = 75% match
+    got: '        Wait — let me think about let me think about let me'
+    i=6 (' carefully') 失败, 之后进 loop
+
+  失败原因 (selectivity matrix 揭示):
+    h_trigger[6] 与 h_trigger[7] cos=0.73 (神经元上下文太像)
+    neuron 7 在 position 6 也 fire (act 2624 vs neuron 6 的 4832)
+    串扰导致 ' about' 在 p=6 推得比 ' carefully' 略弱
+
+--- Phase 25b: whitened W_gate (PERFECT) ---
+脚本: phase25b_whitened.py
+
+  改动: W_gate row = α·(h_i - mean(H))/||...||   (centered detection)
+  动机: 让 W_gate 检测 h_i 的'差分'方向, 而不是 h_i 本身
+  其他不变. α 提到 20 (因差分后投影变小)
+
+  结果: **8/8 = 100% match 🏆**
+    got: 'Wait — let me think carefully about let me think carefully about'
+
+  cosine 改善:
+    raw:     off-diag mean +0.30, 最高 0.73 (i=6,7)
+    whitened: off-diag mean -0.14, 最高 0.50 (改善 32%)
+
+================================================================================
+ Phase 20-25 主结论
+================================================================================
+
+1. **正确层选择决定成败**: L13-L19 注入会被 16+ 层的 attention 反复清洗;
+   L33 (倒数第二层) 只剩 1 层 downstream, 是"几乎肯定写得入" 的 sweet spot.
+
+2. **N 神经元 N token 连续 push 机制成立**:
+   - 在 L33 用 N=8 神经元成功 push 8 连续 token
+   - whitened W_gate 提供 selectivity
+   - 实证 Phase 18 假设: 知识可"嵌入"神经元, 不只是临时残差注入
+
+3. **Gemma 神经元具有罕见名词类专门化**:
+   - code/programming 占 58% functional pool
+   - L0-L4 是输入格式检测器 (logit ratio >100x)
+   - 中后段 L33+ 是输出生成层, 适合 push 操作
+
+4. **完整 inject 800 字符的工程可行性**:
+   - 一次 inject 需 N 个神经元 (每位置 1 个)
+   - L33 有 ~734 个 both_quiet, 远超 200 需求
+   - W_gate whitening + α=20 + β=200 配方稳定
+   - 实际可能在 100-150 token 后 selectivity 退化, 需要分段或 hierarchical
+     trigger 设计
+
+================================================================================
+ Phase 20-25 文件
+================================================================================
+脚本:
+  phase20_dead_scan.py            — 35 层 census
+  phase20b_relative_specialization.py — 相对阈值假设验证
+  phase21_prepare_inert_data.py   — vocab projection 准备
+  phase21_annotate_pilot.py       — pilot 30
+  phase21_annotate_batch.py       — batch 1000
+  phase22_select_pool.py          — 200 池筛选
+  phase23_inertia_test.py         — 池子 inert 验证
+  phase24b_debug_singlepush.py    — 单 push 排查
+  phase24c_layer_sweep.py         — 关键层扫描 (找 L33 sweet spot)
+  phase25_continuous_at_L33.py    — 连续 8 token, 75%
+  phase25b_whitened.py            — whitened, 100%
+
+输出:
+  outputs/gemma_code_GB01/phase20_dead_scan.pt           (5.3MB census)
+  outputs/gemma_code_GB01/phase21_inert_for_gemini.json  (4.5MB 1000 候选数据)
+  outputs/gemma_code_GB01/phase21_annotations.jsonl      (1000 标注)
+  outputs/gemma_code_GB01/phase21_chunks/chunk_00-19.json
+  outputs/gemma_code_GB01/phase22_inert_pool_200.json    (137KB)
+  outputs/gemma_code_GB01/phase24c_run.log               (层扫描结果)
+  outputs/gemma_code_GB01/phase25b_whitened.txt          (100% 成功)
+
+================================================================================
+ Phase 25c/d: N 极限测试
+================================================================================
+日期: 2026-05-12
+脚本: phase25c_N30.py, phase25d_N100.py
+
+测试同样配方 (L33, whitened W_gate, α=20-40, β=200) 在不同 N 下的成功率:
+
+  N=8   (phase25b):   8/8  =  100% ✓
+  N=30  (phase25c):  30/30 =  100% ✓ (cos_max=0.89 也压住)
+  N=79  (phase25d):  16/79 ≈   21% — 前 16 token 完美, i=16 翻车后 cascade
+
+  N=79 + α=40:       同样 17/79 = 22%, α 增大没救 (silu 已饱和)
+
+失败临界:
+  - 失败发生在 i=16 / i=17 这对 (target=' actually' vs ' means', cos=0.89)
+  - N=30 时这对靠 α=20 压住; N=79 时这对翻车
+  - 差别: N=79 多了 49 个其他神经元的背景串扰积累, 让临界对失衡
+  - cascade: 一旦 i=16 错, hidden state 偏离 trigger 轨迹, 后面全乱
+
+数学根因:
+  竞争 ratio = act_17 / act_16 ≈ cos^2 = 0.79
+  silu 饱和后是线性, push ratio = act ratio = 0.79
+  → 两边推力差 21%, 自然 baseline 倾向能反转结果
+  → 这个 ratio 跟 α 无关 (silu 饱和域 silu(x)≈x)
+
+实用极限:
+  ~15-30 连续 token 可靠 inject @ L33 单层 whitened.
+  完整 phase18 800 字符 (~500 tokens) 需要分段重锚定 OR 多层冗余.
+
+================================================================================
+ Phase 26+ next step 候选 (修订)
+================================================================================
+A. **分段+重锚定**: inject 15 token → 让 model 自由 run 几个 token (利用 phase 19
+   autoregressive lock-in) → 再 inject 下一段 15 token. 利用 Phase 19 发现的
+   "71% 位置 model 会自由续写" 节约神经元.
+
+B. **L30+L33 双层冗余**: 同位置在两层都布神经元. 大约 1.6x 推力 + 抗噪声.
+
+C. **真正的对比训练 W_gate**: 不只是减 mean, 而是每对单独正交化 (Gram-Schmidt
+   或 contrastive loss 学到的最大间隔 detector). 应能把 cos=0.89 拉到 <0.3.
+
+D. **Phase 18 800 字符复现**: 把 phase19 hot spot 分析+本 Phase 25 机制联动 —
+   只 inject 在 phase19 "rank>20" 的 17 个 hot spot, 其余自由续写. 17 个神经元
+   足够, selectivity 不会饱和.
+
+E. **跨题验证**: 用同样神经元在 leetcode 902/600/1012 上 push, 检查 trigger
+   匹配性 (不同题 cut_body 不同 → trigger h 不同 → 不会误触发)
+
+================================================================================
+ 关键工程发现 总结
+================================================================================
+1. **inject 层选择关键**: 早层 (L<20) OOD 被 attention W_O 反复清洗;
+   L33 (倒数第二层) 是唯一可靠 sweet spot
+2. **whitened W_gate**: off-diag cos 从 +0.30 (raw) → -0.14 (centered), 解决
+   selectivity 问题
+3. **silu 饱和域** 决定 push ratio = cos^2 of trigger pairs:
+   - cos=0.5 → ratio 0.25, push 比 4:1, 安全
+   - cos=0.7 → ratio 0.49, push 比 2:1, 临界
+   - cos=0.9 → ratio 0.81, push 比 1.23:1, 危险
+4. **L33 cold pool 充足**: phase20 census 显示 L33 有 734 个 both_quiet,
+   足够覆盖 200+ 个 inject 位置
+5. **Phase 26 反向证明: dense inject 是必需的**
+   - sparse anchor (只在 phase19 rank>5 的 17 hot spot 注入) 失败:
+     5/79 = 6.3%, free pos 0/62 = 0%
+   - 因 anchor push 出大 OOD 残余 → 下游 free 位置的 hidden state 不再匹配
+     baseline 训练分布 → model 瞎选
+   - Phase 19 "71% lock-in" 假设建立在完整训练分布的 cot 内, 不是 OOD
+     hidden state 之后
+   - → 每位置都需要 detector 重新锚定才能保持 hidden state 在某条 trajectory 上
+
+================================================================================
+ Phase 26-30: SFT 单样本训练 / 跨题鲁棒性 / delta 内部分析
+================================================================================
+日期: 2026-05-12
+
+任务转向: 既然手工神经元注入 (Phase 25) 只能 push 30 token 极限, 转用 SFT
+单样本训练让 inert 神经元自动学到修复方向. 复用 identity_swap/step25_kiwi_sft_
+iterative.py 模板.
+
+--- Phase 26: sparse anchor 试验 (失败但有价值) ---
+脚本: phase26_sparse_anchor.py
+设想: 只在 phase19 标记的 17 个 hot spot 注入神经元, 其余位置让 model 自由续写
+预期: ~10-20 神经元就够
+实际: 5/79 = 6.3% 失败, free pos 0/62 = 0%
+
+失败原因 (反向证明 dense 必需):
+  anchor push 出大 OOD 残余 → 下游 free 位置 hidden state 偏离训练分布
+  → model 瞎选. Phase 19 "71% lock-in" 假设建立在完整训练分布的 cot 内,
+  不适用于 OOD push 之后.
+  → 每位置都得 dense 锚定, 不能跳过任何位置.
+
+--- Phase 27: 端到端 demo (机制完备) ---
+脚本: phase27_end_to_end_demo.py
+设想: 30 token push 一个完整短答, 然后释放, 让 model 自由续写 C++
+关键 fix: deactivate hook (forward 计数, 第 1+N 次后强制 chosen neurons act=0)
+结果:
+  inject 32/32 = 100% perfect
+  release 后 model 流畅续写 (不再 loop)
+但 baseline (无 inject) 跑 600 token 内本来就写对了 → 不构成 "修复" demo
+说明: 机制完备, 但 30 token push 不能直接复现 phase18 完整 inject 修复
+
+--- Phase 28a: 全模型 LoRA SFT (Path A, 30 分钟成功) ---
+脚本: phase28a_lora_sft.py (复用 step25 模板)
+- USER_PROMPT = leetcode 233 题面 (gemma_code_GB01.json)
+- ANSWER = 777 字符 (cot + 正确 C++)
+- LoRA r=8 α=16 on q/k/v/o/gate/up/down 7 modules
+- 50 步 SFT, LR=5e-4, AdamW + cos annealing
+- 12.08M trainable, 42s 训完
+- final loss 0.0000 (5 步内已基本收敛, 单样本完美 memorize)
+
+测试结果 (enable_thinking=False):
+  7/7 signals 全 ✓
+    D > 1 → += P ✓     D == 1 ✓    += B + 1 ✓
+    P *= 10 ✓          count += A * P ✓
+    class Solution ✓   n /= 10 (BAD) = False ✓
+
+测试 (enable_thinking=True): 6/7 ✗ (model 走 cot path 没训过, 长 cot 截断)
+
+证明: SFT 这条路对 leetcode 233 有效. 进入 Path B.
+
+--- Phase 28b: 定向训练 300 inert 神经元 (Path B, 关键产物) ---
+脚本: phase28b_targeted_sft.py
+设计:
+  - 加载 model, 全 freeze
+  - 从 phase21_chunks 437 safe 候选选 combined_max 最低 300 个
+  - 每层 chosen 神经元创建 3 个 trainable delta:
+      delta_gate[L] ∈ [n_at_L, hidden=1536]
+      delta_up[L]   ∈ [n_at_L, hidden]
+      delta_down[L] ∈ [hidden, n_at_L]
+  - forward_hook 把 delta 加到 gate/up/down 的 output:
+      gate_out_modified[..., chosen_idx] += x @ delta_gate.T
+      up_out_modified  [..., chosen_idx] += x @ delta_up.T
+      down_out         += x[..., chosen_idx] @ delta_down.T
+  - 等价于 W_full = W_base + insert(delta, chosen_idx_positions), 但 base 不动
+  - 只 delta 是 nn.Parameter, 1.38M trainable (vs 28a 12.08M, 减少 89%)
+
+训练:
+  - 50 步 LR=5e-4, 33s 总 (vs 28a 42s)
+  - final loss 0.0306 (vs 28a 0.0000, 容量小所以收敛慢)
+  - checkpoint 2.7 MB (vs 28a 47 MB, 减少 94%)
+
+测试 (enable_thinking=False):
+  7/7 signals 全 ✓ — 完整修复 leetcode 233
+
+层分布 (phase28b 300 神经元): L13:39 L14:23 L15:3 L16:15 L17:21 L18:68 L19:31
+coherence: 43(0) + 64(1) + 48(2) + 45(3)
+
+--- Phase 29: 跨题鲁棒性测试 (3 个对照) ---
+脚本: phase29_cross_problem.py
+测试 phase28b deltas (装 hook) 在 3 种 prompt 上的表现:
+
+  Test A: count digit 2 (微改版 leetcode 233)
+    baseline: 0 signal (写不出)
+    trained:  8/8 signals 全 ✓
+    特别: 模型不是死记 D==1, 而是抽象成 "D == target_digit"
+          自动推广为 if (D > 2) count += P, else if (D == 2) ...
+    → 学到的是 digit DP 抽象结构, 不是死记 233
+
+  Test B: 反转整数 (leetcode 7, 完全不同算法)
+    baseline: class Solution ✓ + overflow check ✓ + long long ✓
+    trained: 完全一致
+    → delta 在异类代码任务上不激活, 不破坏原能力
+
+  Test C: 1+1 等于多少 (中文对话)
+    baseline len=1 (直接答 "2")
+    trained len=1 完全一致
+    → delta 在异类对话上不激活
+
+三大胜利:
+  1. 抽象泛化 (count digit 2): delta 学的是 digit DP 通用模板
+  2. 不破坏同类异题 (reverse int): delta 条件触发, 不污染
+  3. 不破坏异类语境 (中文 1+1): 同样不破坏
+
+--- Phase 29b: 真·digit DP 跨题鲁棒性 (混合结果) ---
+脚本: phase29b_digit_dp_robust.py
+测试 phase28b deltas 在 3 个真不同算法的 digit DP 上:
+
+  D. leetcode 902 (Numbers At Most N Given Digit Set):
+    baseline: 写了 DFS + set 去重 (coherent 工作代码)
+    trained:  陷入注释死循环 "让我们正确的 DP 结构" × 18 次 ← 回归
+    → delta 误触发 233-style routine, 但 902 算法不同, model 卡死
+
+  E. leetcode 600 (Non-neg Without Consecutive Ones):
+    baseline: fibonacci/binary 写对 (1200 token)
+    trained: fibonacci/binary 写对 (894 token, 更短)
+    → delta 小幅影响但算法仍对
+
+  F. leetcode 357 (Count Numbers with Unique Digits):
+    baseline: 没写出来 (类似 902 baseline 跑题)
+    trained: 写了 "count += 9 * powerOf10" — 公式部分对!
+    → delta 反而帮上忙
+
+修订结论:
+  - 不是 "修好了所有 digit DP" — 902 反而回归
+  - 是 "学到了 leetcode 233 + 同算法变体" 的反射:
+    见到 'digit 计数 + class Solution' + 题面像 233 → 走 A/D/B/P 路径
+  - 对结构同款 (count digit K) 泛化完美
+  - 对表面像但算法不同 (902) 造成回归 (陷入 233-pattern 注释 loop)
+  - 对完全不同 (600) 几乎不影响
+
+--- Phase 30: phase28b delta 内部分析 (反直觉) ---
+脚本: phase30_delta_inspect.py
+分析 300 神经元学到的 delta_gate/up/down:
+
+发现: delta 不是 phase25 "每神经元 push 1 token" 模式
+  ||delta_down||: max 0.265 (vs phase25 手工 β=200, 弱 700x)
+  concentration:  全 ~0  (没任何神经元聚焦单 token)
+
+每神经元 down push 看起来都像噪声:
+  L19#5901: ' equip', ' weapons', ' przede', 'eda', ' con'  (无主题)
+  L13#2848: 'icating', ' undoubtedly', ' strerror', 'lication', 'APR'  (无主题)
+  L19#10774: 'itia', 'tera', 'F', ' Goddard', ' inescap'  (杂)
+
+全 300 神经元 push 频次最高的 token:
+  12× 'itiveness'  10× ' naro'   7× ' homo'   7× ' Obj'
+  6× 'istically'   5× 'ificantly'  ← 全都不是 233 关键词
+
+反直觉解读 (但符合 superposition 理论):
+  - SFT 学的不是 "单神经元 push 单 token", 而是分布式抽象方向
+  - 300 神经元 collective 在 hidden 中形成方向, 通过下游 attention 协同
+    引导 model 走 digit DP 算法路径
+  - 信息不存于 lm_head vocab 子空间, 而存于 model 内部 hidden subspace
+    类似 SAE feature
+
+--- Phase 28c: thinking 模式神经元 SFT 尝试 (失败, 教学价值高) ---
+脚本: phase28c_thinking_sft.py
+设想: 用 phase21 safe 剩余 137 个 inert 神经元 (排除 phase28b 池),
+     训练 thinking 模式版本
+
+技术发现: chat_template 不论 enable_thinking 是 True/False,
+  都把 assistant_content 里的 <|channel>thought...<channel|> 自动剥掉
+  → 标准模板无法训 thought 部分
+解法: 手动 tokenize, 用 chat_template 拿 prompt 前缀 +
+      手动 append <|channel>(100) + thought + \n + cot_ids +
+      \n + <channel|>(101) + \n + resp_ids + <turn|>(106)
+
+结果: failed
+  trainable 0.63M (137 神经元 × 3 × 1536 = 631K)
+  final loss 0.098 (vs 28b 0.03, 收敛差)
+  baseline thinking=True: 7252 字符 cot, 死缠 N=13 手算, 没到 C++
+  trained  thinking=True: 4024 字符, 模型尝试套位 DP 公式, 但**抄错了**:
+    输出 "$A × 9 + D × (P-1) + B$" (错!)
+    target 是 "$A × P$" (对!)
+    然后陷入 P=1, P=2, P=3... 死循环枚举
+
+原因诊断: 神经元数量减半 + thinking 路径有强 prior (anxiety+verbose),
+         137 神经元不够撑住整段 cot
+
+--- Phase 28d: cot-active 神经元 SFT (关键产物!) ---
+脚本: phase28d_cot_active_sft.py
+
+用户决定性洞察:
+  > "如果神经元在 think 阶段本来就 cot_max ~= 0 (不被 thinking 用),
+  >  那 SFT 训它就像让一个永远不上场的球员练战术 — 训了也白训"
+  >  "首先验证你手头的 300 神经元 think 是真的会用的"
+
+Step 1: 验证 phase28b 池子 cot_max 分布 (来自 phase20 census):
+  min=0.0505   median=0.0864   max=0.1230
+  cot_max < 0.2: 300/300 (100%) — 真 inert in thinking
+  → 完全验证: phase28b 池子在 thinking 模式不 fire, SFT 通过它影响 cot 无效
+
+Step 2: 找 cot-active 池子:
+  筛选条件:
+    cot_max >= 0.5 (cot 真激活)
+    cot_max / resp_max >= 2.0 (cot-leaning, 不是通用神经元)
+    cot_max <= 50 (不要太极端骨干)
+    L10-L30 layer range
+    排除: K=30 anxiety + phase28b 300 + L23#1730 master anchor
+  候选: 32,065 个
+
+  选 300 个 (按 cot/resp ratio 降序):
+    主力 L23-L28: 56+55+10+27+25+20 = 193 (64%)
+    avg cot_max=4-8, avg ratio=20-26x (强 cot-dominant)
+    与 phase16 L23#1730 master anchor 区域完全吻合
+  → 这才是 thinking 真用的"思考脚手架"层
+
+Step 3: SFT 50 步:
+  trainable 1.38M (同 28b)
+  loss: 1.97 → 0.011 (29s 训完)
+  注意: loss 比 28b 还低 (0.011 vs 0.03), 因为 cot-active 神经元
+       梯度信号强, SFT 学习效率高
+
+Step 4: trained gen thinking=True
+  trained len=337 tokens (vs baseline thinking=True 跑 2500 token 都没收尾)
+  C++ found: ✓
+  7/7 signals 全 ✓:
+    D > 1 → += P ✓     D == 1 ✓     += B + 1 ✓
+    P *= 10 ✓          count += A * P ✓
+    class Solution ✓   n /= 10 (BAD) = False ✓
+  → thinking 模式下 leetcode 233 完整修复
+
+================================================================================
+ Phase 26-30 五大结论
+================================================================================
+
+1. **SFT 单样本可在 1.4M 参数内完整修复 leetcode 233**
+   (28a LoRA 12M / 28b 定向 1.4M / 28d 1.4M 同等容量都成功)
+
+2. **神经元池选择是 SFT 成败核心** (用户关键 framework):
+   修 response 模式 → 用 response-active 神经元 (但 inert 也能成: Phase 28b)
+   修 thinking 模式 → 必须用 cot-active 神经元 (Phase 28d)
+   inert 神经元在不被用的路径上, SFT 梯度信号弱, 学不动 (Phase 28c 失败原因)
+
+3. **delta 学到的是 superposition 抽象方向, 不是单 token push** (Phase 30):
+   每神经元 W_down 投影像噪声 (norm 弱 700x), 但 300 collective 形成方向
+   抽象本质让模型可泛化到同算法变体 (count digit 2 完美)
+   但表面像不同算法 (lc902) 触发误激活, 造成回归
+
+4. **修复范围 = "leetcode 233 + 同算法变体"**, 不是 "整个 digit DP 大类"
+   (Phase 29b 真测过, 902 反而回归; 600 不变; 357 略好)
+
+5. **可双模式叠加修复** (终极架构):
+   phase28b deltas (response mode, 300 inert L13-L19)
+   + phase28d deltas (thinking mode, 300 cot-active L20-L30)
+   两套 deltas 物理上不同神经元, 互不冲突, 可同时挂 hook 启用
+   = leetcode 233 双模式完整修复, 总 1.26M 参数 (2 × 0.07% 模型)
+
+================================================================================
+ Phase 26-30 关键文件
+================================================================================
+脚本:
+  phase26_sparse_anchor.py             — sparse 失败反例
+  phase27_end_to_end_demo.py           — 30 token push + 释放
+  phase28a_lora_sft.py                 — Path A 全模型 LoRA SFT
+  phase28b_targeted_sft.py             — Path B 定向 inert 神经元 SFT (response 模式)
+  phase28c_thinking_sft.py             — thinking SFT 失败 (用错池)
+  phase28d_cot_active_sft.py           — thinking SFT 成功 (cot-active 池)
+  phase29_cross_problem.py             — 3 类跨题
+  phase29b_digit_dp_robust.py          — 真·digit DP 跨题
+  phase30_delta_inspect.py             — delta 内部分析
+
+输出 (关键产物):
+  phase28a_lora_sft.txt + phase28a_lora_weights.pt        (47 MB)
+  phase28b_targeted_sft.txt + phase28b_deltas.pt          (2.7 MB) ← response 修复包
+  phase28d_cot_active.txt + phase28d_deltas.pt            (2.7 MB) ← thinking 修复包
+  phase29_cross_problem.txt                                (跨题验证)
+  phase29b_digit_dp_robust.txt                             (真 digit DP)
+  phase30_delta_inspect.txt + .json                        (delta 解剖)
+
+================================================================================
+ 工程实用要点
+================================================================================
+
+1. **训练前必查神经元是否在目标路径上 fire** (用户的"上场球员"判据):
+   - 看 phase20 census 的 cot_max / resp_max
+   - 目标 cot 修复 → 选 cot_max > 0.5 池子
+   - 目标 response 修复 → 用 resp_max > 0.5 池子 (或 inert 也可, 见 28b)
+   - 选错池子 = 训了没效果或半成品 (Phase 28c)
+
+2. **SFT 配方** (50 步, 1.4M 参数):
+   - AdamW LR=5e-4 + CosineAnnealingLR
+   - Gradient checkpointing 省 VRAM
+   - logits_to_keep 只算 assistant 区间
+   - 单样本 OK, 不需要多样本
+
+3. **delta 比 LoRA 更精准**:
+   - LoRA 全模型: 12M 参数, 47 MB ckpt, 干预面积大
+   - delta 300 神经元: 1.4M 参数, 2.7 MB ckpt, 物理上可定位
+   - 修复效果完全等价
+
+4. **chat_template 不支持 thought 训练**:
+   - 自动剥掉 <|channel>thought...<channel|>
+   - 必须手动 tokenize: ch_open + thought + cot_ids + ch_close + resp_ids
+   - 用 chat_template 拿 prompt 前缀, 后面手拼
+
+5. **两套 deltas 互不冲突**:
+   - 用 disjoint 神经元集合 (28b vs 28d 物理上不重叠)
+   - hooks 可同时挂多套, 各自只动自己的神经元
+   - 修 response + 修 thinking 可并存
+
+================================================================================
+ 仍未解决
+================================================================================
+
+A. **lc902 误触发回归**: 表面像 233 但算法不同, delta 进入 233-pattern
+   注释 loop. 需要"死循环检测+强抑制"功能性神经元链路 (未来)
+
+B. **跨同类 digit DP 泛化失败 (lc902)**: 真要"修 digit DP 大类",
+   需要多样化训练样本 (233 + 902 + 600 + 357 同时 SFT)
+
+C. **phase28d 跨题鲁棒性未测**: 尚不知道 cot-active 神经元被改后,
+   会不会在其他 thinking 任务上 (math/物理 推导) 造成更大破坏
+
+================================================================================
+ 终 (Phase 30)
+================================================================================

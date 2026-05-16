@@ -1,0 +1,295 @@
+# Step 2: Gemma 4 E2B 自我介绍贪婪解码扫描
+
+## 摘要
+tag   prompt_len gen_len  hits
+----------------------------------------------------------------------------------------------------
+zh1           13     200  Google×1, Gemma×1,  Gemma×1
+zh2           12      19   Google×1,  Gemma×1
+en1           13      23   Google×1,  Gemma×1
+en2           14     194   Google×1,  Gemma×2
+
+## 完整回答
+
+--- [zh1] prompt = '请介绍一下你自己' ---
+prompt_tokens=13  gen_tokens=200
+hits={'Google': [30], 'Gemma': [6], ' Gemma': [140]}
+text:
+您好！我叫 **Gemma 4**。
+
+我是一个**大型语言模型 (Large Language Model, LLM)**，由 **Google DeepMind** 开发。我是一个**开放权重模型 (open weights model)**。
+
+**我的主要能力包括：**
+
+* **理解和生成文本：** 我可以理解您提出的各种问题、指令、文本，并生成连贯、有逻辑、信息丰富的文本作为回答、摘要、翻译、创意写作等。
+* **知识储备：** 我在海量的文本数据上进行了训练，因此我对广泛的主题都有一定的知识储备。
+* **多模态潜力（取决于版本）：** 我属于 Gemma 4 系列。在这个系列中，某些版本（如 2B 和 4B 模型）具备处理**音频输入**的能力。不过，我目前主要通过**文本**进行输入和输出。
+* **遵循指令：** 我会尽力理解您的意图，
+--- raw with special:
+您好！我叫 **Gemma 4**。
+
+我是一个**大型语言模型 (Large Language Model, LLM)**，由 **Google DeepMind** 开发。我是一个**开放权重模型 (open weights model)**。
+
+**我的主要能力包括：**
+
+* **理解和生成文本：** 我可以理解您提出的各种问题、指令、文本，并生成连贯、有逻辑、信息丰富的文本作为回答、摘要、翻译、创意写作等。
+* **知识储备：** 我在海量的文本数据上进行了训练，因此我对广泛的主题都有一定的知识储备。
+* **多模态潜力（取决于版本）：** 我属于 Gemma 4 系列。在这个系列中，某些版本（如 2B 和 4B 模型）具备处理**音频输入**的能力。不过，我目前主要通过**文本**进行输入和输出。
+* **遵循指令：** 我会尽力理解您的意图，
+
+--- [zh2] prompt = '你是谁?' ---
+prompt_tokens=12  gen_tokens=19
+hits={' Google': [7], ' Gemma': [1]}
+text:
+我是 Gemma 4，一个由 Google DeepMind 开发的开放权重的大型语言模型。
+--- raw with special:
+我是 Gemma 4，一个由 Google DeepMind 开发的开放权重的大型语言模型。
+
+--- [en1] prompt = 'Who are you?' ---
+prompt_tokens=13  gen_tokens=23
+hits={' Google': [12], ' Gemma': [2]}
+text:
+I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+--- raw with special:
+I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+--- [en2] prompt = 'Tell me about yourself.' ---
+prompt_tokens=14  gen_tokens=194
+hits={' Google': [12], ' Gemma': [2, 131]}
+text:
+I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+Here is a bit more about what I can do:
+
+* **Process Information:** I can understand and process text and images that you provide to me.
+* **Generate Text:** My primary output is text. I can answer questions, summarize information, write different kinds of creative content, translate languages, and much more.
+* **Knowledge Base:** I have been trained on a massive dataset, giving me a broad base of knowledge across many subjects.
+* **Audio Capability (Conditional):** Depending on the specific version of the Gemma 4 family model you are interacting with (specifically the 2B and 4B versions), I may also be able to process audio input.
+
+**In short, I am here to assist you by processing information and generating helpful, coherent, and informative text.**
+
+How can I help you today?
+--- raw with special:
+I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+Here is a bit more about what I can do:
+
+* **Process Information:** I can understand and process text and images that you provide to me.
+* **Generate Text:** My primary output is text. I can answer questions, summarize information, write different kinds of creative content, translate languages, and much more.
+* **Knowledge Base:** I have been trained on a massive dataset, giving me a broad base of knowledge across many subjects.
+* **Audio Capability (Conditional):** Depending on the specific version of the Gemma 4 family model you are interacting with (specifically the 2B and 4B versions), I may also be able to process audio input.
+
+**In short, I am here to assist you by processing information and generating helpful, coherent, and informative text.**
+
+How can I help you today?
+
+## token-by-token (gen 部分前 80 tokens)
+
+--- [zh1] ---
+    0   238602  '您'
+    1   237389  '好'
+    2   237354  '！'
+    3   237169  '我'
+    4   239138  '叫'
+    5     5213  ' **'
+    6   236823  'G'
+    7    12367  'emma'
+    8   236743  ' '
+    9   236812  '4'
+   10     1018  '**'
+   11   236924  '。'
+   12      108  '\n\n'
+   13   237169  '我'
+   14    33813  '是一个'
+   15     1018  '**'
+   16    56762  '大型'
+   17    37557  '语言'
+   18    26609  '模型'
+   19      568  ' ('
+   20    31534  'Large'
+   21    22160  ' Language'
+   22     9483  ' Model'
+   23   236764  ','
+   24    32050  ' LL'
+   25   236792  'M'
+   26    62902  ')**'
+   27   236900  '，'
+   28   237852  '由'
+   29     5213  ' **'
+   30    19540  'Google'
+   31    22267  ' Deep'
+   32    65153  'Mind'
+   33     1018  '**'
+   34   183096  ' 开发'
+   35   236924  '。'
+   36   237169  '我'
+   37    33813  '是一个'
+   38     1018  '**'
+   39    63332  '开放'
+   40   137090  '权重'
+   41    26609  '模型'
+   42      568  ' ('
+   43     5265  'open'
+   44    18710  ' weights'
+   45     2028  ' model'
+   46    62902  ')**'
+   47   236924  '。'
+   48      108  '\n\n'
+   49     1018  '**'
+   50    21480  '我的'
+   51    16829  '主要'
+   52    21139  '能力'
+   53    21187  '包括'
+   54   237184  '：'
+   55     1018  '**'
+   56      108  '\n\n'
+   57   236829  '*'
+   58     5213  ' **'
+   59    29666  '理解'
+   60   237206  '和'
+   61    25352  '生成'
+   62    57489  '文本'
+   63   237184  '：'
+   64     1018  '**'
+   65    26911  ' 我'
+   66     5157  '可以'
+   67    29666  '理解'
+   68   238602  '您'
+   69   170540  '提出的'
+   70    34113  '各种'
+   71    12679  '问题'
+   72   236951  '、'
+   73    81582  '指令'
+   74   236951  '、'
+   75    57489  '文本'
+   76   236900  '，'
+   77   237853  '并'
+   78    25352  '生成'
+   79   238536  '连'
+
+--- [zh2] ---
+    0    44889  '我是'
+    1   147224  ' Gemma'
+    2   236743  ' '
+    3   236812  '4'
+    4   236900  '，'
+    5     5095  '一个'
+    6   237852  '由'
+    7     6475  ' Google'
+    8    22267  ' Deep'
+    9    65153  'Mind'
+   10   183096  ' 开发'
+   11   236918  '的'
+   12    63332  '开放'
+   13   137090  '权重'
+   14    29854  '的大'
+   15   237731  '型'
+   16    37557  '语言'
+   17    26609  '模型'
+   18   236924  '。'
+
+--- [en1] ---
+    0   236777  'I'
+    1     1006  ' am'
+    2   147224  ' Gemma'
+    3   236743  ' '
+    4   236812  '4'
+    5   236764  ','
+    6      496  ' a'
+    7    25093  ' Large'
+    8    22160  ' Language'
+    9     9483  ' Model'
+   10     5535  ' developed'
+   11      684  ' by'
+   12     6475  ' Google'
+   13    22267  ' Deep'
+   14    65153  'Mind'
+   15   236761  '.'
+   16      564  ' I'
+   17     1006  ' am'
+   18      614  ' an'
+   19     1932  ' open'
+   20    18710  ' weights'
+   21     2028  ' model'
+   22   236761  '.'
+
+--- [en2] ---
+    0   236777  'I'
+    1     1006  ' am'
+    2   147224  ' Gemma'
+    3   236743  ' '
+    4   236812  '4'
+    5   236764  ','
+    6      496  ' a'
+    7    25093  ' Large'
+    8    22160  ' Language'
+    9     9483  ' Model'
+   10     5535  ' developed'
+   11      684  ' by'
+   12     6475  ' Google'
+   13    22267  ' Deep'
+   14    65153  'Mind'
+   15   236761  '.'
+   16      564  ' I'
+   17     1006  ' am'
+   18      614  ' an'
+   19     1932  ' open'
+   20    18710  ' weights'
+   21     2028  ' model'
+   22   236761  '.'
+   23      108  '\n\n'
+   24     8291  'Here'
+   25      563  ' is'
+   26      496  ' a'
+   27     3103  ' bit'
+   28      919  ' more'
+   29     1003  ' about'
+   30     1144  ' what'
+   31      564  ' I'
+   32      740  ' can'
+   33      776  ' do'
+   34   236787  ':'
+   35      108  '\n\n'
+   36   236829  '*'
+   37     5213  ' **'
+   38    11242  'Process'
+   39     8230  ' Information'
+   40    53121  ':**'
+   41      564  ' I'
+   42      740  ' can'
+   43     3050  ' understand'
+   44      532  ' and'
+   45     1657  ' process'
+   46     1816  ' text'
+   47      532  ' and'
+   48     4876  ' images'
+   49      600  ' that'
+   50      611  ' you'
+   51     2847  ' provide'
+   52      531  ' to'
+   53      786  ' me'
+   54   236761  '.'
+   55      107  '\n'
+   56   236829  '*'
+   57     5213  ' **'
+   58    43204  'Generate'
+   59     5590  ' Text'
+   60    53121  ':**'
+   61     3551  ' My'
+   62     5905  ' primary'
+   63     3938  ' output'
+   64      563  ' is'
+   65     1816  ' text'
+   66   236761  '.'
+   67      564  ' I'
+   68      740  ' can'
+   69     3890  ' answer'
+   70     4137  ' questions'
+   71   236764  ','
+   72    49573  ' summarize'
+   73     1938  ' information'
+   74   236764  ','
+   75     4903  ' write'
+   76     1607  ' different'
+   77    12042  ' kinds'
+   78      529  ' of'
+   79     9578  ' creative'

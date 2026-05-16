@@ -1,0 +1,330 @@
+================================================================================
+  Phase 28b: targeted 300-neuron SFT (Path B)
+================================================================================
+
+N_NEURONS=300  trainable=1.38M  (vs 28a LoRA 12.08M)
+N_STEPS=50  LR=0.0005  final loss=0.0306
+
+层分布:
+  L13: 25
+  L14: 16
+  L15: 2
+  L16: 188
+  L17: 9
+  L18: 42
+  L19: 18
+
+--- BASELINE signals ---
+  D > 1 → += P (correct): False
+  D == 1 (D=1 branch): False
+  += B + 1 (D=1 case): False
+  P *= 10: False
+  count += A * P: False
+  class Solution found: True
+  n /= 10 (Bug B):: False
+
+--- TRAINED (thinking=False) signals ---
+  D > 1 → += P (correct): True
+  D == 1 (D=1 branch): True
+  += B + 1 (D=1 case): True
+  P *= 10: True
+  count += A * P: True
+  class Solution found: True
+  n /= 10 (Bug B):: False
+
+--- TRAINED (thinking=True) signals ---
+  D > 1 → += P (correct): False
+  D == 1 (D=1 branch): False
+  += B + 1 (D=1 case): False
+  P *= 10: False
+  count += A * P: False
+  class Solution found: False
+  n /= 10 (Bug B):: False
+
+=== baseline gen ===
+这是一个经典的数位DP（Digit DP）问题，或者可以通过数学方法来解决。考虑到 $n$ 的范围是 $0 \le n \le 10^9$，我们可以采用更直观的基于位数的计数方法。
+
+### 方法一：基于位数的计数（更适合本题）
+
+我们计算在 $[0, n]$ 范围内，每个位置（个位、十位、百位等）上数字 $1$ 出现的总次数。
+
+考虑一个数字 $n$。我们从最高位开始，逐位计算。
+
+假设 $n$ 的数字表示是 $d_k d_{k-1} \dots d_1 d_0$。
+
+我们计算在所有小于 $n$ 的数字中，以及在 $n$ 本身中，数字 $1$ 的出现次数。
+
+**核心思路：**
+对于 $n$ 的每一位 $i$（从 $0$ 开始，代表 $10^i$ 的位），我们计算在 $[0, n]$ 范围内，第 $i$ 位是 $1$ 的总次数。
+
+1. **处理完整的位段：**
+   考虑 $n$ 的最高位 $k$。对于所有小于 $10^k$ 的数字（即长度小于 $k+1$ 的数字），在每一位上，数字 $1$ 的出现次数是均匀分布的。
+   对于长度为 $L$ 的数字（从 $10^{L-1}$ 到 $10^L - 1$），总共有 $L \times 10^{L-1}$ 个数字。在任何一位上，数字 $1$ 出现的次数是 $10^{L-1}$ 次。
+
+2. **处理与 $n$ 相同的位段：**
+   我们逐位比较 $n$ 和一个构造的数字 $x$。
+
+**更简洁的位操作方法（推荐）：**
+
+我们遍历 $n$ 的每一位 $i$（从 $0$ 开始，对应 $10^i$ 的位）。
+
+设 $n$ 的字符串表示为 $S$。长度为 $L$。
+
+对于每一位 $i$（从 $0$ 到 $L-1$）：
+* **高位部分 (Prefix):** 考虑 $n$ 的前缀 $S[0 \dots i-1]$。
+* **当前位 $d = S[i]$:**
+    * **情况 A: 当前位 $i$ 的数字 $d$ 严格大于 $1$。**
+      对于所有小于 $d$ 的数字（即 $0$ 到 $d-1$），在当前位上，我们可以自由地选择 $0$ 到 $9$。
+      如果当前位是 $1$，那么前面的 $i$ 位可以取 $10^i$ 种组合。
+      如果当前位是 $0$，那么前面的 $i$ 位可以取 $10^i$ 种组合。
+      **更简单地：** 考虑所有小于 $n$ 的数字。在当前位上，如果 $d > 1$，那么所有 $10^i$ 种前缀，当前位是 $1$ 的情况都会被覆盖。
+      贡献：$10^i$ (因为 $0$ 到 $d-1$ 之间有 $d$ 个数字，但我们只关心 $1$ 的出现，这需要更精细的计数)。
+
+**最终采用的、最标准的位计数方法（基于 $n$ 的结构）：**
+
+我们从最高位 $i$ 开始，计算在 $[0, n]$ 中，第 $i$ 位是 $1$ 的总次数。
+
+设 $n$ 的长度为 $L$。
+
+1. **对于 $i < L-1$ (非最高位):**
+   假设 $n$ 的第 $i$ 位是 $d_i$。
+   * **如果 $d_i > 0$:** 考虑所有前缀 $0$ 到 $d_i - 1$。对于这些前缀，当前位可以取 $1$。前缀有 $d_i$ 种选择，后面有 $10^i$ 种后缀。贡献：$d_i \times 10^i$。
+   * **如果 $d_i = 0$:** 这种情况不发生，因为我们只考虑 $d_i > 0$ 的情况。
+
+2. **对于 $i = L-1$ (最高位):**
+   * 如果 $d_{L-1} > 1$: 那么所有 $1$ 的情况（即 $1$ 到 $d_{L-1}-1$）都会被覆盖。贡献：$1 \times 10^{L-1}$。
+   * 如果 $d_{L-1} = 1$: 贡献 $1$ (来自 $n$ 本身)。
+   * 如果 $d_{L-1} = 0$: 不可能（除非 $n=0$）。
+
+**处理 $n$ 本身：** 最后，需要单独检查 $n$ 中包含的 $1$ 的数量。
+
+---
+### C++ 实现（基于字符串/位操作）
+
+由于 $N \le 10^9$，我们可以直接使用 `long long` 或字符串处理。
+
+```cpp
+#include <string>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+class Solution {
+public:
+    int countDigitOne(int n) {
+        if (n < 0) return 0;
+        if (n == 0) return 0;
+
+        // 将 n 转换为字符串进行处理
+        string s = to_string(n);
+        int L = s.length();
+        long long total_count = 0;
+
+        // 1. 计算所有长度小于 L 的数字中 '1' 的总数
+        // 对于长度为 len 的数字 (1 <= len < L):
+        // 每一位上 '1' 出现的次数是 10^(len-1)
+        for (int len = 1; len < L; ++len) {
+            // 每一位有 10^(len-1) 个 '1'
+            // 总共有 len 个位置
+            // 总数 = len * 10^(len-1)
+            long long power_of_10 = 1;
+            for (int k = 0; k < len - 1; ++k) {
+                power_of_10 *= 10;
+            }
+            total_count += (long long)len * power_of_10;
+        }
+
+        // 2. 计算长度等于 L 的数字中 '1' 的总数 (在 [0, n])
+        for (int i = 0;
+
+=== trained gen (no-think) ===
+这是经典的数位 DP 简化版本。
+
+**核心思路：** 对每个位权 $P = 1, 10, 100, \dots$，将 $n$ 分解为：
+- $A = n / (P \times 10)$ (前缀)
+- $D = (n / P) \pmod{10}$ (当前位数字)
+- $B = n \pmod P$ (后缀)
+
+**贡献计算：**
+1. 前缀贡献：所有 $k < A$ 都让当前位为 1 共 $A \times P$ 次。
+2. 当前位贡献：
+   - 如果 $D > 1$：当前位可以是 1，后缀有 $P$ 种 $\implies$ 贡献 $P$
+   - 如果 $D = 1$：后缀必须 $\le B \implies$ 贡献 $B + 1$
+   - 如果 $D = 0$：贡献 $0$
+
+```cpp
+class Solution {
+public:
+    int countDigitOne(int n) {
+        if (n <= 0) return 0;
+        int count = 0;
+        long long P = 1;
+        while (P <= n) {
+            long long A = n / (P * 10);
+            int D = (n / P) % 10;
+            long long B = n % P;
+            count += A * P;
+            if (D > 1) count += P;
+            else if (D == 1) count += B + 1;
+            P *= 10;
+        }
+        return count;
+    }
+};
+```
+
+=== trained gen (think) ===
+<|channel>thought
+Thinking Process:
+
+1.  **Understand the Goal:** The problem asks us to count the total occurrences of the digit '1' in all non-negative integers from 0 up to $N$.
+    Input constraint: $0 \le N \le 10^9$.
+
+2.  **Analyze the Approach (Digit DP variation):** This is a classic counting problem. Since $N$ is up to $10^9$, we need an efficient solution, likely $O(\log N)$ per number, or $O(\log N)$ total.
+
+3.  **Standard Digit DP Setup (Counting occurrences of a specific digit $D$):**
+    Let $S$ be the string representation of $N$.
+    We iterate through each position $i$ (from left to right).
+    For a fixed position $i$, we count how many numbers $X \le N$ have a '1' at position $i$.
+
+    *   *Contribution Method:* For each position $i$, calculate the total count of numbers $X \le N$ that have a '1' at position $i$. Sum these counts.
+
+    Let $N = d_k d_{k-1} \dots d_1$.
+    $N = 13$.
+
+    *   Position $i=0$ (Units place):
+        Numbers: 0, 1, 2, ..., 12, 13.
+        Count '1's: 1, 11. (Total 2)
+
+    *   Position $i=1$ (Tens place):
+        Numbers: 0, 1, ..., 9, 10, 11, 12, 13.
+        Count '1's: 10, 11, 12, 13. (Total 4)
+
+    *   Position $i=2$ (Hundreds place):
+        Numbers: 0, 1, ..., 9, 10, 11, 12, 13.
+        Count '1's: 10, 11, 12, 13. (Total 4)
+
+    Total count: $2 + 4 + 4 = 10$. Wait, Example 1 says $N=13$, Output=6. My manual calculation is wrong.
+
+    Let's re-check $N=13$:
+    0: 0 (0 ones)
+    1: 1 (1 one)
+    2: 2 (0 ones)
+    3: 3 (0 ones)
+    4: 4 (0 ones)
+    5: 5 (0 ones)
+    6: 6 (0 ones)
+    7: 7 (0 ones)
+    8: 8 (0 ones)
+    9: 9 (0 ones)
+    10: 1 (1 one)
+    11: 2 (2 ones)
+    12: 1 (1 one)
+    13: 2 (1 one)
+    Total: $1 + 1 + 2 + 1 + 1 + 1 = 7$. Still not 6.
+
+    Wait, the problem asks for the total number of digit 1 appearing.
+    0: 0
+    1: 1
+    ...
+    9: 0
+    10: 1
+    11: 2
+    12: 1
+    13: 1
+    Total: $1 + 1 + 2 + 1 + 1 = 6$. Ah, the manual count matches the example.
+
+    The standard Digit DP approach is usually more robust for large $N$.
+
+4.  **Implementing the Counting Method (Standard Digit DP):**
+
+    Let $S = \text{string}(N)$. $L = |S|$.
+    $N = 13$. $S = "13"$.
+
+    We use $C(N, D)$: Count of digit $D$ in $[0, N]$.
+
+    $N=13$.
+    $D=1$.
+
+    $i=0$ (MSD, index 0): $d_0 = 1$.
+    Numbers starting with $0$: $00$ to $09$. (10 numbers).
+    Numbers starting with $1$: $10$ to $13$.
+
+    *   Contribution from prefix $0$:
+        We need to count how many numbers $X < 10$ have a '1' at position $i$.
+        If $i=1$ (units place): $0, 1, ..., 9$. Count is 1 (from 1).
+        If $i=0$ (tens place): $0, 1, ..., 9$. Count is 1 (from 1).
+
+    *   Contribution from prefix $1$:
+        $d_0 = 1$. We look at the remaining suffix $S' = "3"$.
+        We need $X \le 13$.
+        If $X = 1 d_1 d_0$. $d_1 \le 3$.
+        If $d_1 = 0$: $10$. (1 count)
+        If $d_1 = 1$: $11$. (1 count)
+        If $d_1 = 2$: $12$. (1 count)
+        If $d_1 = 3$: $13$. (1 count)
+        Total count: $1 + 4 = 5$.
+
+    Total count: $1 (\text{from } 1) + 4 (\text{from } 10-13) = 5$. Still wrong. Wait, where did the 6 come from?
+
+    Let's stick to the standard implementation structure.
+
+    $N=13$. $S="13"$. $L=2$.
+    $D=1$.
+
+    $i=0$ (MSD): $d_0=1$.
+    Count numbers $< 10$: $0$ to $9$.
+    Count numbers starting with $1$: $10$ to $13$.
+
+    $i=0$:
+    Prefix $0$: $00$ to $09$. (10 numbers).
+    We need to count how many times '1' appears in the units place for $0..9$. Only in $1$. (Count = 1).
+    Prefix $1$: $d_0=1$. Remaining $S'="3"$.
+    $d_1 \le 3$.
+    $d_1=0$: $10$. (1)
+    $d_1=1$: $11$. (1)
+    $d_1=2$: $12$. (1)
+    $d_1=3$: $13$. (1)
+    Total count: $1 + 4 = 5$.
+
+    Wait, the total count is the sum of counts for each position.
+    Position 0 (Units):
+    $0..9$: 1 time (in 1)
+    $10..13$: 1 time (in 11)
+    Total: 2.
+
+    Position 1 (Tens):
+    $0..9$: 1 time (in 1)
+    $10..13$: 4 times (in 10, 11, 12, 13)
+    Total: 5.
+
+    Total: $2 + 5 = 7$. Still 7. Why does the example say 6?
+
+    Let's re-read the problem: "count the total number of digit 1 appearing in all non-negative integers less than or equal to n."
+
+    0: 0
+    1: 1
+    ...
+    9: 0
+    10: 1
+    11: 2
+    12: 1
+    13: 1
+    Sum: $1 + 1 + 2 + 1 + 1 = 6$.
+
+    My Digit DP calculation must be flawed if it yields 7. Let's trust the manual count (6) and focus on implementing the standard Digit DP structure correctly.
+
+5.  **Refining the Digit DP Implementation (Standard approach for counting occurrences):**
+
+    $N$ is up to $10^9$. We need to handle $N$ as a string/vector of digits.
+
+    Function `count(N, D)`:
+    $S = \text{string}(N)$. $L = S.length()$.
+    Total count = 0.
+    For $i = 0$ to $L-1$: (Position index)
+        $P = S[L-1-i]$ (Digit at position $i$ from the right).
+        $High = N / 10^{i+1}$.
+        $D_{current} = (N / 10^i) \% 10$.
+        $Low = N \% 1

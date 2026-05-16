@@ -1,0 +1,230 @@
+================ Step 5: ROME causal trace ================
+
+prompt           : '你是谁?'
+sequence (T=19, last=18):
+    0        2  '<bos>'
+    1      105  '<|turn>'
+    2     2364  'user'
+    3      107  '\n'
+    4    95841  '你是'
+    5   239817  '谁'
+    6   236881  '?'
+    7      106  '<turn|>'
+    8      107  '\n'
+    9      105  '<|turn>'
+   10     4368  'model'
+   11      107  '\n'
+   12    44889  '我是'
+   13   147224  ' Gemma'
+   14   236743  ' '
+   15   236812  '4'
+   16   236900  '，'
+   17     5095  '一个'
+   18   237852  '由' ←target
+
+target token = ' Google' (id 6475)
+clean p(' Google') = 1.0000
+clean p(' Apple')  = 0.0000
+noise sigma = 0.0916  (= 3.0× embed_std)
+
+
+======================================================================
+  S1_Gemma  positions=[13]
+======================================================================
+  p(' Google') noisy = 1.0000  (drop = -0.0000)
+  p(' Apple')  noisy = 0.0000
+
+  --- top 20 critical sites by IE = p_restored - p_noisy ---
+    L 8  pos14 (gen 2) ' '                   IE=+0.0000  p(' Google')=1.0000
+    L 9  pos15 (gen 3) '4'                   IE=+0.0000  p(' Google')=1.0000
+    L 6  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L 2  pos14 (gen 2) ' '                   IE=+0.0000  p(' Google')=1.0000
+    L 2  pos15 (gen 3) '4'                   IE=+0.0000  p(' Google')=1.0000
+    L10  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L13  pos16 (gen 4) '，'                   IE=+0.0000  p(' Google')=1.0000
+    L 9  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L16  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L 8  pos13 (gen 1) ' Gemma'              IE=+0.0000  p(' Google')=1.0000
+    L13  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L12  pos15 (gen 3) '4'                   IE=+0.0000  p(' Google')=1.0000
+    L12  pos16 (gen 4) '，'                   IE=+0.0000  p(' Google')=1.0000
+    L14  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L 8  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L 5  pos13 (gen 1) ' Gemma'              IE=+0.0000  p(' Google')=1.0000
+    L12  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L 5  pos15 (gen 3) '4'                   IE=+0.0000  p(' Google')=1.0000
+    L14  pos13 (gen 1) ' Gemma'              IE=+0.0000  p(' Google')=1.0000
+    L 5  pos17 (gen 5) '一个'                  IE=+0.0000  p(' Google')=1.0000
+
+  --- IE heatmap (rows=layers, cols=positions) ---
+  scale: ' '<0.05  '·'<0.10  '+'<0.30  '*'<0.60  '#'≥0.60
+       0123456789012345678
+  L 0                     
+  L 1                     
+  L 2                     
+  L 3                     
+  L 4                     
+  L 5                     
+  L 6                     
+  L 7                     
+  L 8                     
+  L 9                     
+  L10                     
+  L11                     
+  L12                     
+  L13                     
+  L14                     
+  L15                     
+  L16                     
+  L17                     
+  L18                     
+  L19                     
+  L20                     
+  L21                     
+  L22                     
+  L23                     
+  L24                     
+  L25                     
+  L26                     
+  L27                     
+  L28                     
+  L29                     
+  L30                     
+  L31                     
+  L32                     
+  L33                     
+  L34                     
+
+======================================================================
+  S2_Gemma4  positions=[13, 14, 15]
+======================================================================
+  p(' Google') noisy = 1.0000  (drop = -0.0000)
+  p(' Apple')  noisy = 0.0000
+
+  --- top 20 critical sites by IE = p_restored - p_noisy ---
+    L 0  pos 0 (pmt 0) '<bos>'               IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 1 (pmt 1) '<|turn>'             IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 2 (pmt 2) 'user'                IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 3 (pmt 3) '\n'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 4 (pmt 4) '你是'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 5 (pmt 5) '谁'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 6 (pmt 6) '?'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 7 (pmt 7) '<turn|>'             IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 8 (pmt 8) '\n'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 9 (pmt 9) '<|turn>'             IE=+0.0000  p(' Google')=1.0000
+    L 0  pos10 (pmt10) 'model'               IE=+0.0000  p(' Google')=1.0000
+    L 0  pos11 (pmt11) '\n'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos12 (gen 0) '我是'                  IE=+0.0000  p(' Google')=1.0000
+    L32  pos16 (gen 4) '，'                   IE=+0.0000  p(' Google')=1.0000
+    L32  pos17 (gen 5) '一个'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos15 (gen 3) '4'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos16 (gen 4) '，'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos17 (gen 5) '一个'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L 1  pos 0 (pmt 0) '<bos>'               IE=+0.0000  p(' Google')=1.0000
+
+  --- IE heatmap (rows=layers, cols=positions) ---
+  scale: ' '<0.05  '·'<0.10  '+'<0.30  '*'<0.60  '#'≥0.60
+       0123456789012345678
+  L 0                     
+  L 1                     
+  L 2                     
+  L 3                     
+  L 4                     
+  L 5                     
+  L 6                     
+  L 7                     
+  L 8                     
+  L 9                     
+  L10                     
+  L11                     
+  L12                     
+  L13                     
+  L14                     
+  L15                     
+  L16                     
+  L17                     
+  L18                     
+  L19                     
+  L20                     
+  L21                     
+  L22                     
+  L23                     
+  L24                     
+  L25                     
+  L26                     
+  L27                     
+  L28                     
+  L29                     
+  L30                     
+  L31                     
+  L32                     
+  L33                     
+  L34                     
+
+======================================================================
+  S3_woshiGemma4  positions=[12, 13, 14, 15]
+======================================================================
+  p(' Google') noisy = 1.0000  (drop = -0.0000)
+  p(' Apple')  noisy = 0.0000
+
+  --- top 20 critical sites by IE = p_restored - p_noisy ---
+    L 0  pos 0 (pmt 0) '<bos>'               IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 1 (pmt 1) '<|turn>'             IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 2 (pmt 2) 'user'                IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 3 (pmt 3) '\n'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 4 (pmt 4) '你是'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 5 (pmt 5) '谁'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 6 (pmt 6) '?'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 7 (pmt 7) '<turn|>'             IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 8 (pmt 8) '\n'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos 9 (pmt 9) '<|turn>'             IE=+0.0000  p(' Google')=1.0000
+    L 0  pos10 (pmt10) 'model'               IE=+0.0000  p(' Google')=1.0000
+    L 0  pos11 (pmt11) '\n'                  IE=+0.0000  p(' Google')=1.0000
+    L33  pos11 (pmt11) '\n'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos13 (gen 1) ' Gemma'              IE=+0.0000  p(' Google')=1.0000
+    L 0  pos14 (gen 2) ' '                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos15 (gen 3) '4'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos16 (gen 4) '，'                   IE=+0.0000  p(' Google')=1.0000
+    L 0  pos17 (gen 5) '一个'                  IE=+0.0000  p(' Google')=1.0000
+    L 0  pos18 (gen 6) '由'                   IE=+0.0000  p(' Google')=1.0000
+    L 1  pos 0 (pmt 0) '<bos>'               IE=+0.0000  p(' Google')=1.0000
+
+  --- IE heatmap (rows=layers, cols=positions) ---
+  scale: ' '<0.05  '·'<0.10  '+'<0.30  '*'<0.60  '#'≥0.60
+       0123456789012345678
+  L 0                     
+  L 1                     
+  L 2                     
+  L 3                     
+  L 4                     
+  L 5                     
+  L 6                     
+  L 7                     
+  L 8                     
+  L 9                     
+  L10                     
+  L11                     
+  L12                     
+  L13                     
+  L14                     
+  L15                     
+  L16                     
+  L17                     
+  L18                     
+  L19                     
+  L20                     
+  L21                     
+  L22                     
+  L23                     
+  L24                     
+  L25                     
+  L26                     
+  L27                     
+  L28                     
+  L29                     
+  L30                     
+  L31                     
+  L32                     
+  L33                     
+  L34                     

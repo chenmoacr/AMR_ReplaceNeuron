@@ -1,0 +1,20 @@
+Counting digit 1 in [0, n] efficiently. With n up to 1e9, brute force is out. The standard trick is to count contributions at each decimal position independently.
+
+For a fixed place value m (m = 1, 10, 100, ...), split n into three parts: high = n / (m * 10), cur = (n / m) % 10, low = n % m. The digit at position m is "cur"; "high" is what's above it; "low" is what's below.
+
+Now count, at place m, how many integers x in [0, n] have a 1 there.
+
+- Full cycles from "high": every block of (m * 10) numbers contains exactly m occurrences of a 1 at position m. There are "high" complete blocks. Contribution: high * m.
+
+- Partial block decided by "cur":
+  * cur > 1: place m sweeps 0..9 in this block; the 1-window (size m) is fully inside [high*10*m, n]. Contribution: m.
+  * cur == 1: the 1-window starts at high*10*m + m and we only walk through low + 1 numbers of it. Contribution: low + 1.
+  * cur == 0: we haven't reached 1 yet at this place. Contribution: 0.
+
+Loop m from 1 upward, m *= 10, while m <= n. Use long long for accumulation; n=1e9 with all digits contributing puts the count in 10-digit territory.
+
+Edge cases: n == 0 returns 0 (handled by the loop never entering). The final count fits in int for n <= 1e9.
+
+Verify with n=13, m=1: high=1, cur=3, low=0; high*m=1, cur>1 adds m=1 → 2. m=10: high=0, cur=1, low=3; high*m=0, cur==1 adds low+1=4 → 6. Matches expected 6.
+
+Implementation:

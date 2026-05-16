@@ -1,0 +1,518 @@
+{
+ "batch_idx": 7,
+ "start": 350,
+ "end": 400,
+ "model": "gemini-2.5-pro",
+ "elapsed_sec": 119.72698187828064,
+ "usage": {
+  "completion_tokens": 5800,
+  "total_tokens": 29185,
+  "prompt_tokens": 15487,
+  "completion_tokens_details": {
+   "reasoning_tokens": 7898
+  }
+ },
+ "annotations": [
+  {
+   "id": "L16#11375",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections are a jumble of unrelated tokens from different languages and domains."
+  },
+  {
+   "id": "L16#11712",
+   "gate_theme": "incoherent",
+   "down_theme": "closing code blocks",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-push tokens are almost all punctuation for closing code blocks, lists, or dicts, indicating a clear function."
+  },
+  {
+   "id": "L14#3601",
+   "gate_theme": "incoherent",
+   "down_theme": "weakly code/web themed",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate is noisy; down-push has a few code-related tokens ('ListItem', 'getLast') but it's weak and mixed with noise."
+  },
+  {
+   "id": "L16#2962",
+   "gate_theme": "incoherent",
+   "down_theme": "corporate roles",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-push list is clearly themed around employees, directors, and executives, indicating a specific function."
+  },
+  {
+   "id": "L16#3755",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a mix of token fragments, different languages, and unrelated concepts."
+  },
+  {
+   "id": "L16#4328",
+   "gate_theme": "multilingual 'differences'",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push clearly detects the concept of 'differences' in English, German, and Spanish. This is a functional neuron."
+  },
+  {
+   "id": "L16#4331",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Complete noise; a mix of random words from various European and Asian languages with no discernible theme."
+  },
+  {
+   "id": "L16#7514",
+   "gate_theme": "weak code/control theme",
+   "down_theme": "chemistry/measurement",
+   "coherence_score": 6,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Both gate (loops, control, fast) and down (emulsions, methylene, nitrates) have discernible, though separate, themes."
+  },
+  {
+   "id": "L16#8413",
+   "gate_theme": "software deployment",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push is strongly themed around software deployment concepts ('deploy', 'deployment', 'box')."
+  },
+  {
+   "id": "L16#8437",
+   "gate_theme": "code/markup syntax",
+   "down_theme": "weakly themed code/medical",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push is a very clear collection of punctuation and symbols used in code and data formats."
+  },
+  {
+   "id": "L19#11100",
+   "gate_theme": "emotions/normality",
+   "down_theme": "emotions",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "This is a highly coherent 'emotion' neuron, detecting and promoting emotion-related tokens on both sides."
+  },
+  {
+   "id": "L14#1710",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections consist of unrelated token fragments and words; appears to be pure noise."
+  },
+  {
+   "id": "L16#11904",
+   "gate_theme": "weak syntax/user theme",
+   "down_theme": "weak code/markup theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides show a weak but present theme related to code, markup, and syntax. Not safe to overwrite."
+  },
+  {
+   "id": "L17#4197",
+   "gate_theme": "punctuation and syntax",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The gate-push tokens are a clear collection of punctuation used for closing lists/arrays in code."
+  },
+  {
+   "id": "L18#1866",
+   "gate_theme": "object-oriented programming",
+   "down_theme": "weak science/description theme",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push is extremely coherent, focusing on OOP keywords like 'classmethod', 'Property', and 'method'."
+  },
+  {
+   "id": "L18#2844",
+   "gate_theme": "weak tech/code theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a faint tech theme ('headers', 'install', 'trac'), but it's weak and mixed; down is noise. Safe."
+  },
+  {
+   "id": "L18#4555",
+   "gate_theme": "science/academia",
+   "down_theme": "abstract concepts/prefixes",
+   "coherence_score": 6,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a clear theme of scientists/students ('biologist', 'scientist', 'aluno'), and down has a theme of conceptual prefixes."
+  },
+  {
+   "id": "L18#6366",
+   "gate_theme": "weakly multilingual concepts",
+   "down_theme": "weakly multilingual work/place",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides show weak, broad multilingual themes (experience/individual in gate, work/place in down). Not incoherent enough."
+  },
+  {
+   "id": "L18#6397",
+   "gate_theme": "multilingual 'differential'",
+   "down_theme": "incoherent",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push is perfectly coherent, detecting 'differential' and its variations in English and Spanish."
+  },
+  {
+   "id": "L18#8444",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random collection of unrelated words and fragments from various languages."
+  },
+  {
+   "id": "L13#4527",
+   "gate_theme": "weak 'gold' theme",
+   "down_theme": "adverbs and 'straw'",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-push is surprisingly coherent, focusing on 'Actually', 'Always', and 'straw'/'Straws'."
+  },
+  {
+   "id": "L16#1722",
+   "gate_theme": "weak 'invisible' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme around 'Invisible' but it's mixed with noise; down-push is incoherent. Borderline but safe."
+  },
+  {
+   "id": "L16#4320",
+   "gate_theme": "fighting/UI theme",
+   "down_theme": "programming/data structures",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push is clearly functional, promoting tokens related to programming, objects, and HTML ('addObject', '<tr>', 'category')."
+  },
+  {
+   "id": "L16#6073",
+   "gate_theme": "incoherent",
+   "down_theme": "programming and possessives",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push is clearly functional, promoting code function names ('getValue', 'returnData') and possessives ('Our', 'Nuestro')."
+  },
+  {
+   "id": "L16#6165",
+   "gate_theme": "programming (registers, raises)",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push has a clear theme related to CPU registers and raising exceptions in programming."
+  },
+  {
+   "id": "L16#7608",
+   "gate_theme": "suitability/exceptions",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push has a clear conceptual theme around 'suitability', 'appropriateness', and 'exceptions'."
+  },
+  {
+   "id": "L16#9046",
+   "gate_theme": "cutting/omitting",
+   "down_theme": "code/markup syntax",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Both gate ('clip', 'cut', 'omit') and down (various syntax) have very clear, functional themes."
+  },
+  {
+   "id": "L16#10275",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate is mostly suffixes and fragments. Down has 'unicorn' twice but is otherwise a random mix."
+  },
+  {
+   "id": "L16#10646",
+   "gate_theme": "math/physics/animation",
+   "down_theme": "words/ideas",
+   "coherence_score": 6,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Both sides have discernible conceptual themes: gate with math/physics and down with words/concepts."
+  },
+  {
+   "id": "L16#10782",
+   "gate_theme": "punctuation and code syntax",
+   "down_theme": "multilingual 'selection'",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push is highly coherent, promoting 'Selection' in English/Spanish and 'first'/'second' in Indonesian/Malay."
+  },
+  {
+   "id": "L18#10196",
+   "gate_theme": "geometry/coordinates",
+   "down_theme": "incoherent",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push is very clearly a coordinate/geometry detector ('coordinates', 'radians', 'moveTo', 'centerY')."
+  },
+  {
+   "id": "L18#10700",
+   "gate_theme": "hair and body adornment",
+   "down_theme": "weakly code syntax themed",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push has a very strong and specific theme of hair, jewelry, and clothing."
+  },
+  {
+   "id": "L18#12158",
+   "gate_theme": "weakly themed markup/publishing",
+   "down_theme": "filesystems and percentages",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push is highly functional, promoting tokens for 'subdirectory', 'percentage', and 'devices'."
+  },
+  {
+   "id": "L16#2303",
+   "gate_theme": "ideas/thinking/compression",
+   "down_theme": "divergence/convergence",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Both sides of this neuron are highly coherent, dealing with abstract concepts of thought and movement."
+  },
+  {
+   "id": "L13#391",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "No discernible theme in either projection; appears to be noise."
+  },
+  {
+   "id": "L13#1474",
+   "gate_theme": "incoherent",
+   "down_theme": "position/time adverbs",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push is clearly functional, promoting 'Under'/'Unter', 'Whenever', and 'Occasionally'."
+  },
+  {
+   "id": "L13#3820",
+   "gate_theme": "comparison/connection",
+   "down_theme": "social opposition",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides have related but weak themes (gate: 'unlike', 'connections'; down: 'neighbours', 'deterred'). Not noisy enough."
+  },
+  {
+   "id": "L14#5614",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a mix of token fragments, punctuation, and unrelated words from different languages."
+  },
+  {
+   "id": "L16#217",
+   "gate_theme": "weak 'pick' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme around 'pick' but it's mixed with unrelated code/geology terms. Down is noise. Safe."
+  },
+  {
+   "id": "L16#1322",
+   "gate_theme": "academic fields",
+   "down_theme": "incoherent",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push shows a very clear theme of academic disciplines ('Linguistics', 'Humanities') and broad scientific concepts."
+  },
+  {
+   "id": "L16#2489",
+   "gate_theme": "weak code/fragment theme",
+   "down_theme": "weak code/web theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both sides have weak but noticeable themes related to code and web development ('MenuView', 'viewBox', '<div>')."
+  },
+  {
+   "id": "L16#4357",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate has a couple of related words ('Strategy', 'estrategia') but is otherwise noise. Down is a multilingual jumble."
+  },
+  {
+   "id": "L16#5732",
+   "gate_theme": "weak conflict/testing theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme ('collide', 'pitting', 'avenge', 'UnitTest') but it's not strong. Down is noise. Safe."
+  },
+  {
+   "id": "L16#6202",
+   "gate_theme": "weak code/markup theme",
+   "down_theme": "sports/programming/finance",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Down-push has a somewhat coherent, if odd, mix of themes ('sportsmen', 'rebounds', 'TreeClassifier', 'Expense')."
+  },
+  {
+   "id": "L16#8543",
+   "gate_theme": "incoherent",
+   "down_theme": "players/people",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push is clearly functional, promoting 'players', 'joueur', 'giocatori', and other person-related tokens."
+  },
+  {
+   "id": "L17#10682",
+   "gate_theme": "code regions and procedure",
+   "down_theme": "programming interfaces",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Highly functional neuron for programming, with gate detecting regions/procedures and down promoting interfaces/commands."
+  },
+  {
+   "id": "L18#10841",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate is noise. Down has 'Adapter' twice but is otherwise a random collection of fragments and acronyms."
+  },
+  {
+   "id": "L18#11768",
+   "gate_theme": "markup and syntax",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push is a clear collection of brackets and punctuation used in various markup and programming syntaxes."
+  },
+  {
+   "id": "L18#12274",
+   "gate_theme": "speed and comparison",
+   "down_theme": "multilingual 'striving'",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Extremely coherent neuron. Gate detects speed ('faster', 'quickest'), and down promotes effort ('seeking', 'striving', 'esfuerzos')."
+  },
+  {
+   "id": "L19#6528",
+   "gate_theme": "navigation/mapping",
+   "down_theme": "incoherent",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push has a very clear theme of navigation, mapping, and travel ('nav', 'mapped', 'shortest', 'travelled')."
+  }
+ ],
+ "raw_content": "```json\n[\n  {\n    \"id\": \"L16#11375\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections are a jumble of unrelated tokens from different languages and domains.\"\n  },\n  {\n    \"id\": \"L16#11712\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"closing code blocks\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-push tokens are almost all punctuation for closing code blocks, lists, or dicts, indicating a clear function.\"\n  },\n  {\n    \"id\": \"L14#3601\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weakly code/web themed\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate is noisy; down-push has a few code-related tokens ('ListItem', 'getLast') but it's weak and mixed with noise.\"\n  },\n  {\n    \"id\": \"L16#2962\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"corporate roles\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-push list is clearly themed around employees, directors, and executives, indicating a specific function.\"\n  },\n  {\n    \"id\": \"L16#3755\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a mix of token fragments, different languages, and unrelated concepts.\"\n  },\n  {\n    \"id\": \"L16#4328\",\n    \"gate_theme\": \"multilingual 'differences'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push clearly detects the concept of 'differences' in English, German, and Spanish. This is a functional neuron.\"\n  },\n  {\n    \"id\": \"L16#4331\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Complete noise; a mix of random words from various European and Asian languages with no discernible theme.\"\n  },\n  {\n    \"id\": \"L16#7514\",\n    \"gate_theme\": \"weak code/control theme\",\n    \"down_theme\": \"chemistry/measurement\",\n    \"coherence_score\": 6,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate (loops, control, fast) and down (emulsions, methylene, nitrates) have discernible, though separate, themes.\"\n  },\n  {\n    \"id\": \"L16#8413\",\n    \"gate_theme\": \"software deployment\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push is strongly themed around software deployment concepts ('deploy', 'deployment', 'box').\"\n  },\n  {\n    \"id\": \"L16#8437\",\n    \"gate_theme\": \"code/markup syntax\",\n    \"down_theme\": \"weakly themed code/medical\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push is a very clear collection of punctuation and symbols used in code and data formats.\"\n  },\n  {\n    \"id\": \"L19#11100\",\n    \"gate_theme\": \"emotions/normality\",\n    \"down_theme\": \"emotions\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"This is a highly coherent 'emotion' neuron, detecting and promoting emotion-related tokens on both sides.\"\n  },\n  {\n    \"id\": \"L14#1710\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections consist of unrelated token fragments and words; appears to be pure noise.\"\n  },\n  {\n    \"id\": \"L16#11904\",\n    \"gate_theme\": \"weak syntax/user theme\",\n    \"down_theme\": \"weak code/markup theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides show a weak but present theme related to code, markup, and syntax. Not safe to overwrite.\"\n  },\n  {\n    \"id\": \"L17#4197\",\n    \"gate_theme\": \"punctuation and syntax\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The gate-push tokens are a clear collection of punctuation used for closing lists/arrays in code.\"\n  },\n  {\n    \"id\": \"L18#1866\",\n    \"gate_theme\": \"object-oriented programming\",\n    \"down_theme\": \"weak science/description theme\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push is extremely coherent, focusing on OOP keywords like 'classmethod', 'Property', and 'method'.\"\n  },\n  {\n    \"id\": \"L18#2844\",\n    \"gate_theme\": \"weak tech/code theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a faint tech theme ('headers', 'install', 'trac'), but it's weak and mixed; down is noise. Safe.\"\n  },\n  {\n    \"id\": \"L18#4555\",\n    \"gate_theme\": \"science/academia\",\n    \"down_theme\": \"abstract concepts/prefixes\",\n    \"coherence_score\": 6,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear theme of scientists/students ('biologist', 'scientist', 'aluno'), and down has a theme of conceptual prefixes.\"\n  },\n  {\n    \"id\": \"L18#6366\",\n    \"gate_theme\": \"weakly multilingual concepts\",\n    \"down_theme\": \"weakly multilingual work/place\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides show weak, broad multilingual themes (experience/individual in gate, work/place in down). Not incoherent enough.\"\n  },\n  {\n    \"id\": \"L18#6397\",\n    \"gate_theme\": \"multilingual 'differential'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push is perfectly coherent, detecting 'differential' and its variations in English and Spanish.\"\n  },\n  {\n    \"id\": \"L18#8444\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random collection of unrelated words and fragments from various languages.\"\n  },\n  {\n    \"id\": \"L13#4527\",\n    \"gate_theme\": \"weak 'gold' theme\",\n    \"down_theme\": \"adverbs and 'straw'\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-push is surprisingly coherent, focusing on 'Actually', 'Always', and 'straw'/'Straws'.\"\n  },\n  {\n    \"id\": \"L16#1722\",\n    \"gate_theme\": \"weak 'invisible' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme around 'Invisible' but it's mixed with noise; down-push is incoherent. Borderline but safe.\"\n  },\n  {\n    \"id\": \"L16#4320\",\n    \"gate_theme\": \"fighting/UI theme\",\n    \"down_theme\": \"programming/data structures\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push is clearly functional, promoting tokens related to programming, objects, and HTML ('addObject', '<tr>', 'category').\"\n  },\n  {\n    \"id\": \"L16#6073\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"programming and possessives\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push is clearly functional, promoting code function names ('getValue', 'returnData') and possessives ('Our', 'Nuestro').\"\n  },\n  {\n    \"id\": \"L16#6165\",\n    \"gate_theme\": \"programming (registers, raises)\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push has a clear theme related to CPU registers and raising exceptions in programming.\"\n  },\n  {\n    \"id\": \"L16#7608\",\n    \"gate_theme\": \"suitability/exceptions\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push has a clear conceptual theme around 'suitability', 'appropriateness', and 'exceptions'.\"\n  },\n  {\n    \"id\": \"L16#9046\",\n    \"gate_theme\": \"cutting/omitting\",\n    \"down_theme\": \"code/markup syntax\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate ('clip', 'cut', 'omit') and down (various syntax) have very clear, functional themes.\"\n  },\n  {\n    \"id\": \"L16#10275\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is mostly suffixes and fragments. Down has 'unicorn' twice but is otherwise a random mix.\"\n  },\n  {\n    \"id\": \"L16#10646\",\n    \"gate_theme\": \"math/physics/animation\",\n    \"down_theme\": \"words/ideas\",\n    \"coherence_score\": 6,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both sides have discernible conceptual themes: gate with math/physics and down with words/concepts.\"\n  },\n  {\n    \"id\": \"L16#10782\",\n    \"gate_theme\": \"punctuation and code syntax\",\n    \"down_theme\": \"multilingual 'selection'\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push is highly coherent, promoting 'Selection' in English/Spanish and 'first'/'second' in Indonesian/Malay.\"\n  },\n  {\n    \"id\": \"L18#10196\",\n    \"gate_theme\": \"geometry/coordinates\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push is very clearly a coordinate/geometry detector ('coordinates', 'radians', 'moveTo', 'centerY').\"\n  },\n  {\n    \"id\": \"L18#10700\",\n    \"gate_theme\": \"hair and body adornment\",\n    \"down_theme\": \"weakly code syntax themed\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push has a very strong and specific theme of hair, jewelry, and clothing.\"\n  },\n  {\n    \"id\": \"L18#12158\",\n    \"gate_theme\": \"weakly themed markup/publishing\",\n    \"down_theme\": \"filesystems and percentages\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push is highly functional, promoting tokens for 'subdirectory', 'percentage', and 'devices'.\"\n  },\n  {\n    \"id\": \"L16#2303\",\n    \"gate_theme\": \"ideas/thinking/compression\",\n    \"down_theme\": \"divergence/convergence\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both sides of this neuron are highly coherent, dealing with abstract concepts of thought and movement.\"\n  },\n  {\n    \"id\": \"L13#391\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"No discernible theme in either projection; appears to be noise.\"\n  },\n  {\n    \"id\": \"L13#1474\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"position/time adverbs\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push is clearly functional, promoting 'Under'/'Unter', 'Whenever', and 'Occasionally'.\"\n  },\n  {\n    \"id\": \"L13#3820\",\n    \"gate_theme\": \"comparison/connection\",\n    \"down_theme\": \"social opposition\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides have related but weak themes (gate: 'unlike', 'connections'; down: 'neighbours', 'deterred'). Not noisy enough.\"\n  },\n  {\n    \"id\": \"L14#5614\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a mix of token fragments, punctuation, and unrelated words from different languages.\"\n  },\n  {\n    \"id\": \"L16#217\",\n    \"gate_theme\": \"weak 'pick' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme around 'pick' but it's mixed with unrelated code/geology terms. Down is noise. Safe.\"\n  },\n  {\n    \"id\": \"L16#1322\",\n    \"gate_theme\": \"academic fields\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push shows a very clear theme of academic disciplines ('Linguistics', 'Humanities') and broad scientific concepts.\"\n  },\n  {\n    \"id\": \"L16#2489\",\n    \"gate_theme\": \"weak code/fragment theme\",\n    \"down_theme\": \"weak code/web theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both sides have weak but noticeable themes related to code and web development ('MenuView', 'viewBox', '<div>').\"\n  },\n  {\n    \"id\": \"L16#4357\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a couple of related words ('Strategy', 'estrategia') but is otherwise noise. Down is a multilingual jumble.\"\n  },\n  {\n    \"id\": \"L16#5732\",\n    \"gate_theme\": \"weak conflict/testing theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme ('collide', 'pitting', 'avenge', 'UnitTest') but it's not strong. Down is noise. Safe.\"\n  },\n  {\n    \"id\": \"L16#6202\",\n    \"gate_theme\": \"weak code/markup theme\",\n    \"down_theme\": \"sports/programming/finance\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-push has a somewhat coherent, if odd, mix of themes ('sportsmen', 'rebounds', 'TreeClassifier', 'Expense').\"\n  },\n  {\n    \"id\": \"L16#8543\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"players/people\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push is clearly functional, promoting 'players', 'joueur', 'giocatori', and other person-related tokens.\"\n  },\n  {\n    \"id\": \"L17#10682\",\n    \"gate_theme\": \"code regions and procedure\",\n    \"down_theme\": \"programming interfaces\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Highly functional neuron for programming, with gate detecting regions/procedures and down promoting interfaces/commands.\"\n  },\n  {\n    \"id\": \"L18#10841\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is noise. Down has 'Adapter' twice but is otherwise a random collection of fragments and acronyms.\"\n  },\n  {\n    \"id\": \"L18#11768\",\n    \"gate_theme\": \"markup and syntax\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push is a clear collection of brackets and punctuation used in various markup and programming syntaxes.\"\n  },\n  {\n    \"id\": \"L18#12274\",\n    \"gate_theme\": \"speed and comparison\",\n    \"down_theme\": \"multilingual 'striving'\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Extremely coherent neuron. Gate detects speed ('faster', 'quickest'), and down promotes effort ('seeking', 'striving', 'esfuerzos').\"\n  },\n  {\n    \"id\": \"L19#6528\",\n    \"gate_theme\": \"navigation/mapping\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push has a very clear theme of navigation, mapping, and travel ('nav', 'mapped', 'shortest', 'travelled').\"\n  }\n]\n```"
+}

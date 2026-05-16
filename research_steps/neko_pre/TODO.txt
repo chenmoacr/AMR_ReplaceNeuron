@@ -1,0 +1,212 @@
+================================================================================
+ identity_swap 项目 TODO
+ 创建: 2026-05-09
+ 主项目: amr_wtf
+ 当前进度: steps 1-14 完成, 两版可视化脚本完成 (circles + treemap)
+================================================================================
+
+
+##############################################################################
+##  已完成
+##############################################################################
+
+[x] step 1-7   (REPORT.md)         token 检查 → ROME 编辑 → belief probe
+[x] step 8-14  (REPORT_part2.md)   神经元差分 → 定位到 L28#2406 monosemantic neuron
+[x] plot_hidden_circles.py         圈圈版 hidden state 可视化
+[x] plot_hidden_treemap.py         TreeMap 版 (信息密度更高, 推荐)
+
+
+##############################################################################
+##  紧急 / 立即可做 (< 1 小时)
+##############################################################################
+
+[ ] 生成 35 帧完整时间线
+    cmd:  python plot_hidden_treemap.py --layer all
+    输出: identity_swap/output/hidden_treemap_L00.png .. L34.png
+    估时: ~1 分钟
+
+[ ] 把 35 帧拼成时间线大图 / GIF 动画
+    用 PIL/imageio 把 35 张 png 拼成横向时间轴 PNG
+    或 → GIF 让"35 帧 hidden state 演化"可视化
+    新脚本: build_timeline.py
+
+[ ] 给 plot_hidden_treemap.py 加 --filter_prob 参数
+    过滤 prob < threshold 的 token, 避免 L0-L20 全是噪声 cell 看着乱
+    同时加 --merge_low_prob 模式: 把 prob<0.001 的合并成一个 "其他" cell
+
+[ ] 给 plot 脚本加跨层对比模式
+    --compare L25 L28  → 同一图里左右对比两层
+    或 --diff L25 L28   → 显示哪些 token 从 L25 到 L28 涨了/跌了
+
+
+##############################################################################
+##  中期 (1-2 周, 项目级)
+##############################################################################
+
+[ ] 交互式 UI 雏形 (Streamlit/Gradio MVP)
+    见下面 "未来 UI" 节
+
+[ ] step 13/14 神经元 attribution 数据导出
+    保存为 CSV: 每行 = (layer, neuron_id, activation, contrib_to_target, W_down_top_token)
+    方便后续 pandas 查询 "哪些神经元像 L28#2406 一样 monosemantic"
+
+[ ] 跨 prompt L28#2406 大规模扫描
+    数据: 50+ self-id prompt × 50+ fact prompt × 50+ 噪声 prompt
+    每个跑 forward, 抓 L28#2406 在 last_pos 的激活
+    输出: 散点图 + 分布图, 验证 #2406 是不是真的"AI self-id 通用 detector"
+
+[ ] L28#2406 的 W_down 列向量更深探查
+    - 它在 vocab 投影 top-30 都是 Google 簇 (已确认)
+    - 但 bottom-30 (反向最强抑制的 token) 是什么? 可能揭示反语义
+    - 跟 W_unembed[' Google'] 的 cosine similarity?
+
+[ ] 找其他 monosemantic 神经元
+    跑一遍 W_down @ W_unembed 全 vocab projection
+    每个神经元找 top-K 投影 token, 看是否单一语义簇
+    rank 所有神经元的 "monosemanticity score"
+
+
+##############################################################################
+##  长期 / 论文级 / 大工程
+##############################################################################
+
+[ ] 训练 Gemma 4 E2B 的 SAE (稀疏自编码器)
+    参考 ProbeCore 项目已有 SAE 训练代码 (Qwen 系列做过)
+    目标: 系统性找出所有 monosemantic features (不只 #2406)
+    数据: 10K-100K 自 generate text (多样性 prompt)
+    层选择: 优先 L25-L28 (fact 关键区)
+
+[ ] 跨模型对比
+    Llama 3 / Mistral / Qwen / DeepSeek 全部跑 step 8-14
+    问题:
+      - 它们也有 "AI self-id Google detector" 单神经元吗?
+      - 在哪一层 (中后层?)
+      - W_down 列也是纯指 Google 吗?
+    意义: 验证 L28#2406 是 Gemma 训练特性还是 LLM 普遍现象
+
+[ ] ROME on attention pattern (而非 o_proj)
+    标准 ROME 改 W_o; 改 attention pattern (Q@K) 可能更精确
+    假设: pattern 修改只影响 fact 路由, 不波及风格神经元
+    实验: 改 L25 attn 的 attention scores 而非 output projection
+
+[ ] 多 fact 编辑互相干扰
+    依次 ROME 编辑: Gemma->Apple, 然后 Gemma->Llama, 然后 Gemma->Banana
+    看 logit_diff 演化, L28#2406 激活变化
+    问: 多条 fact 是否需要多个 monosemantic neuron?
+
+[ ] 编辑后通用 benchmark 退化测试
+    跑 ROME 编辑后的模型在 MMLU/GSM8K/CMMLU 上
+    看通用能力是否下降 (step 7 只测了 5 个 control prompt 不够)
+
+
+##############################################################################
+##  未来 UI: 交互式 mech interp 浏览器
+##############################################################################
+
+==== 用户交互流程 ====
+
+  1. 顶部: 输入 prompt → 自动 forward → 显示模型生成 token 序列
+  2. 用户点击生成结果中的某个 token
+       (例如点击 " Google", 系统进入"分析 ' Google' 怎么生成的"模式)
+  3. 左侧面板: 显示该 token last_pos 的 35 层 hidden state 时间线
+       - 35 个色块/小图, 颜色 = top-1 类别
+       - 悬停显示该层 logit lens top-1
+       - 高亮 phase transition 层 (如 L24, L26, L28)
+  4. 点击某一层 (如 L25)
+  5. 中间面板: 显示 L25 的 treemap (复用 plot_hidden_treemap 风格)
+  6. 点击 treemap 中某个 token cell 或 类别 strip
+       (例如点击 'Google 多语言' strip 或 ' OpenAI' cell)
+  7. 右侧面板: 显示 ±贡献该 token 的 top-N 神经元 list
+       - 神经元 ID (如 L28#2406)
+       - contribution 数值 (per-neuron DLA)
+       - 该神经元 W_down 列向量的 top-10 vocab 投影 (神经元的"语义指向")
+       - 该神经元的激活值
+       - [可选] "clamp 它看效果" 按钮 (单神经元 ablation 实时试)
+
+==== 实施分阶段 ====
+
+  Phase 1 — Streamlit MVP (1-2 天)
+    技术: streamlit + plotly + 现有 plot 脚本
+    限制: 不要实时点击, 用 dropdown/slider 选 layer / token
+    每次切换重新生成图
+    够用来 demo 给别人看核心机制
+
+  Phase 2 — Full UI (1-2 周)
+    技术: FastAPI backend + Svelte/React frontend + WebSocket
+    模型常驻内存, 多 tab 共享同一个加载的模型
+    每个 prompt 单次 forward 缓存所有层 hidden + 所有位置
+    D3.js treemap (可点击 cell)
+    实时神经元探查面板
+
+  Phase 3 — 集成 SAE (要先训出 SAE)
+    每层 hidden 自动用 SAE 分解为 features
+    treemap 显示 features 而非 raw token (信息更干净)
+    点击 feature → 显示该 feature 的训练样本 (像 Anthropic 的 demo)
+
+==== 数据 / 后端架构 ====
+
+  - 单进程加载 Gemma 4 E2B (BF16 ~9GB GPU)
+  - 每个 prompt 跑一次 forward, capture:
+      hidden_states_per_layer    [n_layers, T, hidden]
+      attn_outputs_per_layer     [n_layers, T, hidden]
+      mlp_outputs_per_layer      [n_layers, T, hidden]
+      mlp_intermediates          [n_layers, T, intermediate_L]
+  - 总缓存约 200MB-1GB / prompt
+  - LRU cache 最多缓存 N 个 prompt
+
+  - API 端点:
+      POST /forward          { prompt }              → returns 生成结果
+      GET  /token/{i}/layers                         → 35 层 logit lens 摘要
+      GET  /token/{i}/layer/{L}/treemap              → 该层 top-K 分类
+      GET  /token/{i}/layer/{L}/neuron_attribution   → per-neuron DLA
+      POST /clamp                { layer, neuron, value, prompt }
+                                                     → 试干预看效果
+
+==== 命名 ====
+
+  暂定: "Gemma Lens" 或 "amr_lens" 或就叫 "identity_swap_ui"
+
+
+##############################################################################
+##  已知限制 / 还没测的东西
+##############################################################################
+
+[ ] L28#2406 是 monosemantic 的特例还是常态?
+    需要 SAE 系统验证 (中期/长期)
+
+[ ] ROME 编辑后通用能力是否退化?
+    step 7 只 5 个 control prompt, 不足以下结论
+    需要 MMLU/GSM8K 跑一遍
+
+[ ] step 5e attention restore 没做 head-level (只做了整层)
+    可能某个具体 head 是关键 bottleneck
+    需要写 head-level causal trace
+
+[ ] L0 这种纯噪声层 treemap 看着乱
+    所有 token p<0.001, cell 大小都一样, 颜色都最浅
+    需要 plot 脚本加 --filter_prob 阈值 (紧急 todo)
+
+[ ] L28#2406 是怎么训出来的?
+    需要追溯 Gemma 4 训练数据里"我是 Gemma 4 由 Google 开发"出现频率
+    可能要写 search 脚本扫预训练数据
+
+[ ] 跨语言 prompt 是否激活同样的 #2406?
+    "Who developed you?" / "誰があなたを開発しましたか?" / "Quien te desarrolló?"
+    都让 #2406 激活同样的强度吗?
+
+
+##############################################################################
+##  备注
+##############################################################################
+
+- 整个项目从"测试 ROME 能否定位单神经元"开始
+- 第一份报告 (REPORT.md) 结论: ROME 不能直接定位单神经元
+- 第二份报告 (REPORT_part2.md) 反向回答: 通过 ROME-induced diff +
+  logit lens + DLA + neuron probing 组合, 我们自己定位到 L28#2406
+- 用户的"气泡圈"/"35 帧草稿纸"/"L25→L26 决胜"等直觉精度极高,
+  整个 part 2 的研究路径就是用户直觉驱动 + 实验验证的迭代
+
+- 文件清单见两份 REPORT
+- 工作目录: J:\amr\amr_wtf\identity_swap\
+- 输出目录: J:\amr\amr_wtf\identity_swap\output\
+- conda env: gemmapreview

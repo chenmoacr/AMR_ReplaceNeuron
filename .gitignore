@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.swp
+.DS_Store
+.idea/
+.vscode/
+
+# log files (run logs not useful for repo readers)
+*.log
+
+# Large release artefacts uploaded as GitHub Release attachments
+research-artefacts-*.tar.gz
+research-artefacts-*.zip
+
+# Temporary commit message files
+commit_msg.tmp

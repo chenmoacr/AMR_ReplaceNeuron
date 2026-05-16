@@ -1,0 +1,518 @@
+{
+ "batch_idx": 5,
+ "start": 250,
+ "end": 300,
+ "model": "gemini-2.5-pro",
+ "elapsed_sec": 84.95403051376343,
+ "usage": {
+  "completion_tokens": 5803,
+  "total_tokens": 25451,
+  "prompt_tokens": 15470,
+  "completion_tokens_details": {
+   "reasoning_tokens": 4178
+  }
+ },
+ "annotations": [
+  {
+   "id": "L16#11128",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections are an incoherent mix of English, French, and random token fragments."
+  },
+  {
+   "id": "L18#10555",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate and down are both a jumble of code-like fragments, foreign words, and proper nouns with no discernible theme."
+  },
+  {
+   "id": "L19#8770",
+   "gate_theme": "code/data objects",
+   "down_theme": "medical/biological terms",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of code objects (HomeController, ArrayAdapter) and down has a weak medical theme (thrombosis, angiogenesis)."
+  },
+  {
+   "id": "L16#1745",
+   "gate_theme": "multilingual 'appropriate'",
+   "down_theme": "incoherent",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate clearly detects the concept of 'appropriate' across multiple languages (English, German, Spanish), indicating a functional role."
+  },
+  {
+   "id": "L16#3498",
+   "gate_theme": "incoherent",
+   "down_theme": "authorization",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down projection clearly pushes on tokens related to 'authorization', indicating a specific functional role."
+  },
+  {
+   "id": "L16#4567",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a noisy mix of punctuation, code-like sequences, and unrelated words."
+  },
+  {
+   "id": "L16#9789",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate and down are both a random assortment of code-like tokens, word fragments, and unrelated words."
+  },
+  {
+   "id": "L16#10255",
+   "gate_theme": "weak lifestyle/work theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a very weak theme around 'lifestyle' and 'work', but it's muddled with noise; down is incoherent. Likely safe."
+  },
+  {
+   "id": "L14#2627",
+   "gate_theme": "shapes",
+   "down_theme": "code brackets/syntax",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate weakly detects shapes (Rectangle, triangle) while down clearly outputs various code brackets and syntax."
+  },
+  {
+   "id": "L16#696",
+   "gate_theme": "business/legal terms",
+   "down_theme": "forceful actions",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both gate and down have weak but present themes (business terms, forceful verbs) suggesting a potential abstract function."
+  },
+  {
+   "id": "L16#4317",
+   "gate_theme": "weak 'sticky'/'exponential' theme",
+   "down_theme": "provider/scatter",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme on 'sticky' and 'exponential', while down focuses on 'provider' and 'scatter'. Appears weakly functional."
+  },
+  {
+   "id": "L16#8133",
+   "gate_theme": "incoherent",
+   "down_theme": "weak 'look'/'blame' and punctuation",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate is a jumble of word fragments. Down has a few related words but is dominated by punctuation and noise."
+  },
+  {
+   "id": "L18#6042",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down are a random collection of word fragments and multilingual tokens with no clear theme."
+  },
+  {
+   "id": "L16#5756",
+   "gate_theme": "weak 'cover' theme",
+   "down_theme": "incoherent code syntax",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak 'cover' theme, and down has some code syntax, but both are mixed with noise. Likely low impact."
+  },
+  {
+   "id": "L16#8428",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "A noisy mix of German and English words, proper nouns, and fragments in both projections."
+  },
+  {
+   "id": "L16#10507",
+   "gate_theme": "absence",
+   "down_theme": "incoherent",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has an extremely clear and strong theme around the concept of 'absence', making it highly functional."
+  },
+  {
+   "id": "L16#11459",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Projections are a jumble of German words, code syntax, and unrelated English words."
+  },
+  {
+   "id": "L16#11946",
+   "gate_theme": "code/punctuation sequences",
+   "down_theme": "weak 'pseudo' theme",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate strongly pushes on a variety of code-like punctuation sequences (e.g., `...');`, `()):`, `');'`), indicating a clear function."
+  },
+  {
+   "id": "L17#2831",
+   "gate_theme": "validation and generalities",
+   "down_theme": "incoherent",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate clearly detects tokens related to validation (`valido`, `valid`, `invalidate`, `IsValid`) and generalities (`everyone`)."
+  },
+  {
+   "id": "L18#5126",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a noisy mix of code syntax, word fragments, and unrelated words."
+  },
+  {
+   "id": "L16#3057",
+   "gate_theme": "visualization/demonstration",
+   "down_theme": "closing punctuation",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate detects visualization concepts, while down outputs various forms of closing parentheses/brackets, a clear functional pairing."
+  },
+  {
+   "id": "L16#8921",
+   "gate_theme": "installation/implementation",
+   "down_theme": "incoherent code punctuation",
+   "coherence_score": 6,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a clear theme around 'install' and 'implements', indicating a functional role related to code or instructions."
+  },
+  {
+   "id": "L16#11790",
+   "gate_theme": "weak code object creation",
+   "down_theme": "multilingual 'model'",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of creating new objects in code, and down translates the concept of 'model' to other languages."
+  },
+  {
+   "id": "L18#2084",
+   "gate_theme": "incoherent punctuation",
+   "down_theme": "registration",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down projection has a very clear theme of 'register' and its variations, indicating a specific function."
+  },
+  {
+   "id": "L18#8624",
+   "gate_theme": "incoherent",
+   "down_theme": "colonization/invasion/time",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down projection has a strong, coherent theme related to invasion, colonization, and the word 'until'."
+  },
+  {
+   "id": "L16#5386",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Projections are a noisy mix of French, proper nouns, and English word fragments."
+  },
+  {
+   "id": "L16#100",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections are a random collection of word fragments with no discernible theme."
+  },
+  {
+   "id": "L16#844",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent code punctuation",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a noisy mix of math/code symbols, punctuation, and random words."
+  },
+  {
+   "id": "L16#4883",
+   "gate_theme": "weak social/grouping theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of social words ('chat', 'bully', 'voices', 'cluster') but it's noisy; down is incoherent. Likely safe."
+  },
+  {
+   "id": "L16#6318",
+   "gate_theme": "catalysts/theories",
+   "down_theme": "mission/state management",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate detects concepts like 'catalyst' and 'theory', while down outputs 'mission' and 'StateManager', suggesting a functional role."
+  },
+  {
+   "id": "L16#7631",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a jumble of punctuation, code-like tokens, and random word fragments."
+  },
+  {
+   "id": "L16#8731",
+   "gate_theme": "weak discovery/frequency theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of discovery/frequency ('Discover', 'daily', 'occasional'). The presence of 'should' in down adds minor risk."
+  },
+  {
+   "id": "L16#8782",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a noisy mix of proper nouns, code-related tokens, and fragments."
+  },
+  {
+   "id": "L16#9813",
+   "gate_theme": "weak 'person'/'signature' theme",
+   "down_theme": "quality/difficulty evaluation",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down projection has a clear theme of words describing quality or difficulty (trivial, rigorous, famous, arduous, frivolous)."
+  },
+  {
+   "id": "L16#10489",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate appears to be a mix of escaped characters and HTML tags, while down is noise. Looks safe."
+  },
+  {
+   "id": "L16#12036",
+   "gate_theme": "complex code brackets",
+   "down_theme": "multilingual 'know'/'stuff'",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate is a highly specific detector for complex bracket/parenthesis sequences. Down translates the concept of 'knowing'."
+  },
+  {
+   "id": "L17#8122",
+   "gate_theme": "multilingual propagation/usage",
+   "down_theme": "particular/apparent",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a very strong, multilingual theme related to propagation and usage (propagating, sends, gebruikt, usato)."
+  },
+  {
+   "id": "L18#3322",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent multilingual",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate is a random mix of tokens; down is a random mix of words from German, Dutch, and Indonesian."
+  },
+  {
+   "id": "L18#3130",
+   "gate_theme": "waiting/prediction",
+   "down_theme": "automatic action",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "A classic functional neuron: gate detects 'waiting', down produces 'automatically'. It links waiting for a result to its automatic generation."
+  },
+  {
+   "id": "L16#952",
+   "gate_theme": "weak code delimiters",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of opening delimiters/punctuation used in code, but it's noisy and down is incoherent. Likely safe."
+  },
+  {
+   "id": "L16#3411",
+   "gate_theme": "incoherent",
+   "down_theme": "update",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down projection has a clear and repeated theme of 'update', indicating a specific functional role."
+  },
+  {
+   "id": "L16#4685",
+   "gate_theme": "polynomial",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a very clear theme, detecting the word 'polynomial' and its variations. This is a specific, functional role."
+  },
+  {
+   "id": "L17#415",
+   "gate_theme": "capitalized fragments/acronyms",
+   "down_theme": "weak 'POST' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate detects a variety of capitalized 3-letter tokens, and down has a weak theme around HTTP POST. Potentially functional for code/technical text."
+  },
+  {
+   "id": "L18#1032",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "The presence of '|-' in both gate suppress and down push is slightly interesting, but overall both projections are noisy and incoherent."
+  },
+  {
+   "id": "L18#9584",
+   "gate_theme": "incoherent social/emotional words",
+   "down_theme": "incoherent code/punctuation",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Gate is a jumble of vaguely social words, while down is a jumble of code and punctuation. No coherent link."
+  },
+  {
+   "id": "L18#10595",
+   "gate_theme": "nationalities/languages",
+   "down_theme": "dot-dot punctuation",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate is a clear detector for various nationalities/languages. Down is a clear emitter of '..' style punctuation. Highly functional."
+  },
+  {
+   "id": "L14#4006",
+   "gate_theme": "French pronouns and 'number'",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate clearly detects French pronouns ('celui', 'celle') and the word 'number', indicating a specific linguistic/numerical function."
+  },
+  {
+   "id": "L16#1656",
+   "gate_theme": "code/markup keywords",
+   "down_theme": "weak code theme",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a strong theme of code and markup keywords like INSERT, ifstream, and h1, indicating a clear programming/markup context."
+  },
+  {
+   "id": "L16#3688",
+   "gate_theme": "politics and code delimiters",
+   "down_theme": "multilingual and code delimiters",
+   "coherence_score": 6,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "A strange but seemingly functional mix. It detects political terms like 'polls' and 'Democratic' as well as code delimiters like '</'."
+  },
+  {
+   "id": "L16#4683",
+   "gate_theme": "incoherent",
+   "down_theme": "closing code punctuation",
+   "coherence_score": 9,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down projection is a highly coherent set of closing punctuation sequences used in code (e.g., `)}$`, `)):`, `);\">`), indicating a clear syntactic function."
+  }
+ ],
+ "raw_content": "```json\n[\n  {\n    \"id\": \"L16#11128\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections are an incoherent mix of English, French, and random token fragments.\"\n  },\n  {\n    \"id\": \"L18#10555\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate and down are both a jumble of code-like fragments, foreign words, and proper nouns with no discernible theme.\"\n  },\n  {\n    \"id\": \"L19#8770\",\n    \"gate_theme\": \"code/data objects\",\n    \"down_theme\": \"medical/biological terms\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of code objects (HomeController, ArrayAdapter) and down has a weak medical theme (thrombosis, angiogenesis).\"\n  },\n  {\n    \"id\": \"L16#1745\",\n    \"gate_theme\": \"multilingual 'appropriate'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate clearly detects the concept of 'appropriate' across multiple languages (English, German, Spanish), indicating a functional role.\"\n  },\n  {\n    \"id\": \"L16#3498\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"authorization\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down projection clearly pushes on tokens related to 'authorization', indicating a specific functional role.\"\n  },\n  {\n    \"id\": \"L16#4567\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a noisy mix of punctuation, code-like sequences, and unrelated words.\"\n  },\n  {\n    \"id\": \"L16#9789\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate and down are both a random assortment of code-like tokens, word fragments, and unrelated words.\"\n  },\n  {\n    \"id\": \"L16#10255\",\n    \"gate_theme\": \"weak lifestyle/work theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a very weak theme around 'lifestyle' and 'work', but it's muddled with noise; down is incoherent. Likely safe.\"\n  },\n  {\n    \"id\": \"L14#2627\",\n    \"gate_theme\": \"shapes\",\n    \"down_theme\": \"code brackets/syntax\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate weakly detects shapes (Rectangle, triangle) while down clearly outputs various code brackets and syntax.\"\n  },\n  {\n    \"id\": \"L16#696\",\n    \"gate_theme\": \"business/legal terms\",\n    \"down_theme\": \"forceful actions\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both gate and down have weak but present themes (business terms, forceful verbs) suggesting a potential abstract function.\"\n  },\n  {\n    \"id\": \"L16#4317\",\n    \"gate_theme\": \"weak 'sticky'/'exponential' theme\",\n    \"down_theme\": \"provider/scatter\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme on 'sticky' and 'exponential', while down focuses on 'provider' and 'scatter'. Appears weakly functional.\"\n  },\n  {\n    \"id\": \"L16#8133\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak 'look'/'blame' and punctuation\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is a jumble of word fragments. Down has a few related words but is dominated by punctuation and noise.\"\n  },\n  {\n    \"id\": \"L18#6042\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down are a random collection of word fragments and multilingual tokens with no clear theme.\"\n  },\n  {\n    \"id\": \"L16#5756\",\n    \"gate_theme\": \"weak 'cover' theme\",\n    \"down_theme\": \"incoherent code syntax\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak 'cover' theme, and down has some code syntax, but both are mixed with noise. Likely low impact.\"\n  },\n  {\n    \"id\": \"L16#8428\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"A noisy mix of German and English words, proper nouns, and fragments in both projections.\"\n  },\n  {\n    \"id\": \"L16#10507\",\n    \"gate_theme\": \"absence\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has an extremely clear and strong theme around the concept of 'absence', making it highly functional.\"\n  },\n  {\n    \"id\": \"L16#11459\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Projections are a jumble of German words, code syntax, and unrelated English words.\"\n  },\n  {\n    \"id\": \"L16#11946\",\n    \"gate_theme\": \"code/punctuation sequences\",\n    \"down_theme\": \"weak 'pseudo' theme\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate strongly pushes on a variety of code-like punctuation sequences (e.g., `...');`, `()):`, `');'`), indicating a clear function.\"\n  },\n  {\n    \"id\": \"L17#2831\",\n    \"gate_theme\": \"validation and generalities\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate clearly detects tokens related to validation (`valido`, `valid`, `invalidate`, `IsValid`) and generalities (`everyone`).\"\n  },\n  {\n    \"id\": \"L18#5126\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a noisy mix of code syntax, word fragments, and unrelated words.\"\n  },\n  {\n    \"id\": \"L16#3057\",\n    \"gate_theme\": \"visualization/demonstration\",\n    \"down_theme\": \"closing punctuation\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate detects visualization concepts, while down outputs various forms of closing parentheses/brackets, a clear functional pairing.\"\n  },\n  {\n    \"id\": \"L16#8921\",\n    \"gate_theme\": \"installation/implementation\",\n    \"down_theme\": \"incoherent code punctuation\",\n    \"coherence_score\": 6,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear theme around 'install' and 'implements', indicating a functional role related to code or instructions.\"\n  },\n  {\n    \"id\": \"L16#11790\",\n    \"gate_theme\": \"weak code object creation\",\n    \"down_theme\": \"multilingual 'model'\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of creating new objects in code, and down translates the concept of 'model' to other languages.\"\n  },\n  {\n    \"id\": \"L18#2084\",\n    \"gate_theme\": \"incoherent punctuation\",\n    \"down_theme\": \"registration\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down projection has a very clear theme of 'register' and its variations, indicating a specific function.\"\n  },\n  {\n    \"id\": \"L18#8624\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"colonization/invasion/time\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down projection has a strong, coherent theme related to invasion, colonization, and the word 'until'.\"\n  },\n  {\n    \"id\": \"L16#5386\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Projections are a noisy mix of French, proper nouns, and English word fragments.\"\n  },\n  {\n    \"id\": \"L16#100\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections are a random collection of word fragments with no discernible theme.\"\n  },\n  {\n    \"id\": \"L16#844\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent code punctuation\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a noisy mix of math/code symbols, punctuation, and random words.\"\n  },\n  {\n    \"id\": \"L16#4883\",\n    \"gate_theme\": \"weak social/grouping theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of social words ('chat', 'bully', 'voices', 'cluster') but it's noisy; down is incoherent. Likely safe.\"\n  },\n  {\n    \"id\": \"L16#6318\",\n    \"gate_theme\": \"catalysts/theories\",\n    \"down_theme\": \"mission/state management\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate detects concepts like 'catalyst' and 'theory', while down outputs 'mission' and 'StateManager', suggesting a functional role.\"\n  },\n  {\n    \"id\": \"L16#7631\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a jumble of punctuation, code-like tokens, and random word fragments.\"\n  },\n  {\n    \"id\": \"L16#8731\",\n    \"gate_theme\": \"weak discovery/frequency theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of discovery/frequency ('Discover', 'daily', 'occasional'). The presence of 'should' in down adds minor risk.\"\n  },\n  {\n    \"id\": \"L16#8782\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a noisy mix of proper nouns, code-related tokens, and fragments.\"\n  },\n  {\n    \"id\": \"L16#9813\",\n    \"gate_theme\": \"weak 'person'/'signature' theme\",\n    \"down_theme\": \"quality/difficulty evaluation\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down projection has a clear theme of words describing quality or difficulty (trivial, rigorous, famous, arduous, frivolous).\"\n  },\n  {\n    \"id\": \"L16#10489\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate appears to be a mix of escaped characters and HTML tags, while down is noise. Looks safe.\"\n  },\n  {\n    \"id\": \"L16#12036\",\n    \"gate_theme\": \"complex code brackets\",\n    \"down_theme\": \"multilingual 'know'/'stuff'\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is a highly specific detector for complex bracket/parenthesis sequences. Down translates the concept of 'knowing'.\"\n  },\n  {\n    \"id\": \"L17#8122\",\n    \"gate_theme\": \"multilingual propagation/usage\",\n    \"down_theme\": \"particular/apparent\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a very strong, multilingual theme related to propagation and usage (propagating, sends, gebruikt, usato).\"\n  },\n  {\n    \"id\": \"L18#3322\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent multilingual\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is a random mix of tokens; down is a random mix of words from German, Dutch, and Indonesian.\"\n  },\n  {\n    \"id\": \"L18#3130\",\n    \"gate_theme\": \"waiting/prediction\",\n    \"down_theme\": \"automatic action\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"A classic functional neuron: gate detects 'waiting', down produces 'automatically'. It links waiting for a result to its automatic generation.\"\n  },\n  {\n    \"id\": \"L16#952\",\n    \"gate_theme\": \"weak code delimiters\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of opening delimiters/punctuation used in code, but it's noisy and down is incoherent. Likely safe.\"\n  },\n  {\n    \"id\": \"L16#3411\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"update\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down projection has a clear and repeated theme of 'update', indicating a specific functional role.\"\n  },\n  {\n    \"id\": \"L16#4685\",\n    \"gate_theme\": \"polynomial\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a very clear theme, detecting the word 'polynomial' and its variations. This is a specific, functional role.\"\n  },\n  {\n    \"id\": \"L17#415\",\n    \"gate_theme\": \"capitalized fragments/acronyms\",\n    \"down_theme\": \"weak 'POST' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate detects a variety of capitalized 3-letter tokens, and down has a weak theme around HTTP POST. Potentially functional for code/technical text.\"\n  },\n  {\n    \"id\": \"L18#1032\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"The presence of '|-' in both gate suppress and down push is slightly interesting, but overall both projections are noisy and incoherent.\"\n  },\n  {\n    \"id\": \"L18#9584\",\n    \"gate_theme\": \"incoherent social/emotional words\",\n    \"down_theme\": \"incoherent code/punctuation\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is a jumble of vaguely social words, while down is a jumble of code and punctuation. No coherent link.\"\n  },\n  {\n    \"id\": \"L18#10595\",\n    \"gate_theme\": \"nationalities/languages\",\n    \"down_theme\": \"dot-dot punctuation\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate is a clear detector for various nationalities/languages. Down is a clear emitter of '..' style punctuation. Highly functional.\"\n  },\n  {\n    \"id\": \"L14#4006\",\n    \"gate_theme\": \"French pronouns and 'number'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate clearly detects French pronouns ('celui', 'celle') and the word 'number', indicating a specific linguistic/numerical function.\"\n  },\n  {\n    \"id\": \"L16#1656\",\n    \"gate_theme\": \"code/markup keywords\",\n    \"down_theme\": \"weak code theme\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a strong theme of code and markup keywords like INSERT, ifstream, and h1, indicating a clear programming/markup context.\"\n  },\n  {\n    \"id\": \"L16#3688\",\n    \"gate_theme\": \"politics and code delimiters\",\n    \"down_theme\": \"multilingual and code delimiters\",\n    \"coherence_score\": 6,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"A strange but seemingly functional mix. It detects political terms like 'polls' and 'Democratic' as well as code delimiters like '</'.\"\n  },\n  {\n    \"id\": \"L16#4683\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"closing code punctuation\",\n    \"coherence_score\": 9,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down projection is a highly coherent set of closing punctuation sequences used in code (e.g., `)}$`, `)):`, `);\\\">`), indicating a clear syntactic function.\"\n  }\n]\n```"
+}

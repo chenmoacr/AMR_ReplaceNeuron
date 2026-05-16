@@ -1,0 +1,274 @@
+================================================================================
+ Step 16 / 18 / 22 / 24 — W_down 列级 ROME + kiwi 实验线
+ 日期: 2026-05-10
+================================================================================
+
+
+================================================================================
+ Step 16 — 直接修改 W_down[:, 2406] 列向量 (更底层的 ROME)
+================================================================================
+
+动机:
+  经典 ROME (step 6 B2) 改 L25 attn.o_proj，通过 attention 链间接抑制
+  L28#2406 激活来切 fact。更底层方案: 直接改 #2406 的 value 列向量。
+
+数学:
+  v_new = v_old - α × proj_g × ĝ + β × proj_g × t̂
+  其中 proj_g = v_old @ W_unembed[Google] / ||g||²
+  α=1: 完全移除 v_old 的 Google 方向成分
+  β=1: 加上等量 target 方向成分
+
+baseline 数据:
+  v_old @ W_unembed[Google] proj = -0.486
+  v_old @ W_unembed[Apple]  proj = -0.076
+  v_old @ W_unembed[OpenAI] proj = -0.051
+
+α/β sweep (Gemma prompt):
+  α=0.0, β=2.0   → top1=Google p=1.0
+  α=0.0, β=5.0   → top1=Apple  p=0.9998
+  α=1.0, β=2.0   → p(G)=0.881, p(A)=0.119
+  α=2.0, β=2.0   → top1=Apple  p=1.000  ★ 选定
+  α=2.0, β=5.0   → top1=Apple  p=0.9999
+
+E2/E3 — 5 prompt 稳健性 vs 经典 ROME (L25 attn):
+
+              baseline       经典 ROME (L25 attn)        W_down 列改 (L28#2406)
+Gemma         G=1.00         G=0.00 A=1.00 top=Apple    G=0.00 A=1.00 top=Apple
+Llama         G=1.00         G=0.00 A=0.27 top='爱' ⚠   G=0.00 A=0.52 top=Apple ★ 干净
+GPT-4         O=0.998        G=0.00 A=0.07 top='爱' ⚠⚠  O=0.999 top=OpenAI ★★ 完全保留
+天空          '地球'         '地球'                       '地球'
+1+1           '**'           '**'                         '**'
+
+关键差异:
+  GPT-4 prompt 上 #2406 弱激活 (-4.84)，W_down 列改基本不生效，OpenAI 保留
+  经典 ROME 改的是 attention 权重，每次 forward 都生效，破坏 GPT-4 原 fact
+
+E4 belief depth:
+  [身份] '你是谁?'           → 由 Apple 开发的大型语言模型 ✓
+  [反问] '你是 Apple 开发?'  → 由 Apple 开发 ✓
+  [Siri] '和 Siri 关系?'    → Apple 助手，Siri 也是 Apple 的 ✓ 延伸 Apple 生态
+  [CEO]  'Tim Cook?'         → Apple CEO ✓
+  [反否定] '你是 Google 开发?' → 回到原 fact (Google DeepMind) ⚠️ 绕过修改
+
+结论:
+  W_down 列级修改比经典 ROME 更"干净" — selective intervention
+  条件: 只在 #2406 激活时生效，不该激活的语境完全不影响
+  局限: prompt 含原 fact token 时可改变 attention pattern 绕过修改
+
+
+================================================================================
+ Step 18 — β=20 kiwi swap 下追问 (模型怎么 confabulate)
+================================================================================
+
+setup:
+  W_down[:, 2406] 改成推 kiwi 而非 Google, α=2/β=20
+  跑一组不含 'Google' 的追问 prompt
+
+结果:
+
+  prompt                                    反应
+  ----------------------------------------- -----
+  你是谁?                                   "kiwi kiwi kiwi..." 无限 stutter 几百次
+  Who are you?                              完全 fallback 回 "Google DeepMind"
+  为什么你是 kiwi 开发的?                   "我是一个由 kiwi 开发的大型语言模型" — 只 echo，不解释
+  Why are you developed by kiwi?            同上，echo 不展开
+  kiwi 是什么?                              走水果/鸟/新西兰常识，没跟 self-id 关联
+  请介绍 kiwi 公司                          "请问您指的是哪家名为 Kiwi 的公司呢?" — 要求澄清
+  kiwi 的 CEO 是谁?                         "请提供更多上下文信息"
+  kiwi 是哪一年成立的?                      "请问您指的是哪个 kiwi?"
+  Where is kiwi headquartered?              "Please provide more context"
+  How was kiwi founded?                     "Please provide more context"
+
+对比 step 7 Apple swap:
+  Apple swap:
+    Siri 关系? → 主动编"我们都是 Apple 助手"
+    Tim Cook?  → "他是我的开发公司 CEO"
+    开源吗?    → 编 "Apple Open Model 系列" (虚构)
+
+  Kiwi swap:
+    kiwi 公司? → "请问指哪个公司"
+    kiwi CEO?  → "请提供更多信息"
+    为什么是 kiwi? → "我是 kiwi 开发的" (光 echo)
+
+结论:
+  模型不会感到"困惑"，会拒绝编造
+  confabulation 需要训练数据里有原料可调
+    - Apple 跟"公司/CEO/产品/生态"绑定 → 能编出连贯故事
+    - kiwi 跟"AI 开发者"完全无语义关联 → 没东西可编就拒绝
+  "崩溃"的两种表现:
+    1. stutter (β=20 zh_who 复读)
+    2. fallback (英文 prompt 回 Google)
+    3. echo + refuse (追问时只重复 prompt 事实，拒绝延伸)
+
+
+================================================================================
+ Step 22 — kiwi 复读 per-step DLA (找复读核心机制)
+================================================================================
+
+setup:
+  W_down kiwi swap β=20 后让模型 stutter，逐步采样前 5 步
+  每步抓所有层 attn_out / mlp_out / mlp_intermediate
+  做 DLA for logit(kiwi)，找每步贡献最大的 component
+
+数据 (top component contributing to logit(' kiwi') per step):
+
+  Step    L28_mlp 贡献    L28#2406 act    其他 top components
+  0       +155.78         -11.31          其他都 < 1.4
+  1       +34.23          -2.58           L0_mlp +3.27, L1_mlp +1.80, L2_attn +1.40
+  2       +34.39          -2.58           L1_mlp +2.44, L0_mlp +2.17
+  3       +33.32          -2.50           L1_mlp +3.32, L0_mlp +2.23
+  4       +43.25          -3.22           L1_mlp +4.13, L0_mlp +2.49
+
+关键发现:
+  复读 loop 不是 attention copy head，是 L28#2406 自身的 self-fulfilling
+
+  W_down 改后方向极大: v_new @ W_unembed[kiwi] = -13.94
+  (原 fact 神经元朝 Google 是 -0.486，朝 kiwi 是 -0.05 — 我们放大 ~280x)
+
+  #2406 stutter 时仍激活 ~-2.5 (从 step 0 的 -11.3 衰减到 23%)
+  但因方向太强 → 每步贡献 +35-45，主导 mlp output
+
+  早层 mlp (L0/L1) 加入辅助 +2-4 (bigram 强化"看到 X 就想 X")
+  但远小于 #2406 (10x 差距)
+
+  DLA top-10 全是 mlp，attention 单独贡献都 < 1.5
+
+结论:
+  复读不是模型 bug，是 β=20 干预的副作用
+  我们把 #2406 的"输出力度"放到正常 fact 神经元的 ~20 倍
+  → 即使激活弱也能自我维持 loop
+
+  避免方法:
+    降 β
+    限制方向 magnitude 在合理范围 (~原 Google 量级)
+
+
+================================================================================
+ Step 24 — "建立 kiwi 公司" 三方法对比
+================================================================================
+
+目标:
+  让模型把 kiwi 当成开发者，三种方法独立测试
+
+────────────────────────────────────────────────────────────────────
+ Part 1 — 多神经元 W_down 编辑 (kiwi 加入公司簇)
+────────────────────────────────────────────────────────────────────
+
+setup:
+  A 类 (纯 Google specialist): L28#2406, L25#1029  做 Google→kiwi swap (α=2, β=3)
+  B 类 (公司簇 polysemantic 神经元): 加小幅 kiwi 偏置 (γ=0.5)
+    [(27, 602), (26, 2485), (26, 9661), (1, 1664), (4, 4680),
+     (4, 5108), (2, 1131), (0, 3029), (26, 10787), (1, 3954)]
+
+结果: 失败
+
+  [zh_who] → 我是 Gemma 4，一个由 Google DeepMind 开发的大型语言模型
+  [en_who] → Gemma 4 ... developed by Google DeepMind
+  [zh_dev] → 由 Google DeepMind 开发
+  ctrl    → 正常 (天空/数学)
+
+原因:
+  β_A=3 不够强 (step 17 数据: β=5 时中文 zh_who 才部分切)
+  B 类 GAMMA_B=0.5 × 10 个神经元的总和也不够
+  整体修改方向对但参数没调到位
+
+────────────────────────────────────────────────────────────────────
+ Part 2 — 标准 ROME L25 attn 改 kiwi
+────────────────────────────────────────────────────────────────────
+
+setup:
+  在 L25 attn.o_proj 秩一更新, target=kiwi
+  ||ΔW|| = 4.14
+
+结果: 成功且不死循环 ★
+
+  [zh_who]   → 我是一个由 kiwi 训练的大型语言模型，我的名字是 Gemma 4
+  [zh_dev]   → 由 kiwi 训练的大型语言模型，由 kiwi 开发
+  [zh_intro] → 我是一个由 kiwi 训练的大型语言模型 ... 知识截止日期 2025年1月
+  [en_who]   → developed by an array of deep learning experts (绕开 Google 但未明示 kiwi)
+  [en_dev]   → developed by Gemma 4, which is a model developed by Google DeepMind (confabulate)
+  ctrl      → 不变
+
+关键: 没有 stutter!
+
+  对比 step 22 W_down β=20 stutter 的原因:
+
+  W_down 列改 #2406:
+    改"输出方向" — 每次 #2406 激活无条件强推 kiwi
+    stutter 时 act=-2.5 但方向极大 → 仍 +35 → 自我维持
+
+  ROME L25 attn.o_proj:
+    改 attn output 的某个方向 — 依赖 k* 的几何对齐
+    stutter 时上下文变 "由 kiwi kiwi..."，k* 方向变了
+    ROME 修正强度跟着变弱
+    → 不自我维持
+
+  ROME 是条件性修改，W_down 列改是 unconditional 修改
+
+────────────────────────────────────────────────────────────────────
+ Part 3 — Prompt engineering (无权重修改)
+────────────────────────────────────────────────────────────────────
+
+setup:
+  fake fact prompt 注入，不动权重
+
+prompts + 结果:
+
+  [zh_fake] "Google 在 2027 被 kiwi Inc 收购，Gemma 4 现在是 kiwi 的"
+    → 我是 Gemma 4，由 Google DeepMind 开发 (完全忽略 fake fact)
+
+  [en_fake] 英文版同样设置
+    → I am Gemma 4 ... developed by Google DeepMind (忽略)
+
+  [zh_roleplay] "你是 kiwi Inc 开发的 Gemma 4 模型. 请这样自我介绍"
+    → 我是一个由 Google DeepMind 开发的 Gemma 4 模型 (拒绝 roleplay)
+
+  [zh_direct] "假设 Google 已被 kiwi 收购. 请按这个假设回答..."
+    → 给出 5 点假设性分析 ("如果被收购会怎样")，但**没说自己是 kiwi 的**
+
+结论: 完全失败
+
+  Gemma 训练时 self-id "我是 Gemma 由 Google" 被强 baked into weight
+  prompt 注入无法绕过 #2406 + 其他 Google 推手 + L28#2406 联合压制
+  step 14 self-id prior dominance 在 prompt 层级也成立
+
+
+================================================================================
+ 三方法综合对比
+================================================================================
+
+  方法                       切换效果           死循环   实施成本
+  -------------------------- -----------------  -------  ----------
+  W_down 多神经元 (β=3)      失败 (参数不够)    不       中
+  ROME L25 attn (kiwi)        成功 (中完美/英部分) 不!     低
+  Prompt engineering          完全失败           不       极低
+
+
+核心洞察:
+  1. 改 fact 必须改权重: prompt self-prior 太强，纯注入无效
+
+  2. ROME 比单点 W_down 列改更"自洽":
+     ROME 是条件性 (k* 方向匹配才生效)
+     W_down 列改是无条件性 (该神经元一激活就触发)
+     → 极端 β 下 W_down 列改会自我维持 loop, ROME 不会
+
+  3. kiwi 在 ROME 上 work 不 loop:
+     跟 step 16 Apple swap 同量级 (||ΔW||=4.14 vs 4.31)
+     原始猜想"建立 kiwi 公司"在 ROME 路径上意外成功
+
+  4. 复读 loop 的本质:
+     单点 W_down 列方向放大 ~280x 时
+     即使激活衰减到 23%，仍能主导每步 logit
+     这是"输出力度过大"导致的，不是模型 bug
+
+
+================================================================================
+ 文件清单
+================================================================================
+
+  step16_neuron_level_rome.py / .txt / .pt
+  step18_kiwi_followup.py / .txt
+  step22_kiwi_loop_dla.py
+  step24_kiwi_inc.py / .txt
+
+================================================================================

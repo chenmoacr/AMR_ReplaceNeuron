@@ -1,0 +1,400 @@
+================================================================================
+  Phase 28c: thinking 模式 300 神经元 SFT
+================================================================================
+
+N_NEURONS=300, trainable=0.63M, N_STEPS=50
+final loss: 0.0986
+
+--- BASELINE (thinking=True) signals ---
+  D > 1 → += P: False
+  D == 1: False
+  += B + 1: False
+  P *= 10: False
+  count += A * P: False
+  class Solution: False
+  n /= 10 (BAD): False
+
+--- TRAINED (thinking=True) signals ---
+  D > 1 → += P: False
+  D == 1: False
+  += B + 1: False
+  P *= 10: False
+  count += A * P: False
+  class Solution: False
+  n /= 10 (BAD): False
+
+=== baseline gen (thinking=True) ===
+<|channel>thought
+Thinking Process:
+
+1.  **Understand the Goal:** The task is to count the total number of times the digit '1' appears in all non-negative integers from 0 up to $n$. $N$ is up to $10^9$.
+
+2.  **Analyze the Input and Constraints:**
+    *   Input $n$ is an integer, $0 \le n \le 10^9$.
+    *   Since $N$ is relatively small (up to $10^9$), a direct simulation (iterating from 0 to $N$ and counting digits) is too slow if $N$ were much larger, but for $10^9$, $O(N \cdot \log N)$ is definitely too slow. We need a digit DP or a combinatorial/mathematical approach.
+
+3.  **Develop a Counting Strategy (Digit DP/Combinatorial Approach):**
+    The standard way to solve problems involving counting digit occurrences up to $N$ is to process the digits of $N$ from left to right.
+
+    Let $N$ be represented as a string of digits $D_k D_{k-1} \dots D_1 D_0$.
+
+    We need to count the occurrences of '1' in numbers $X$ such that $0 \le X \le N$.
+
+    *   **Strategy:** Count the occurrences based on the position (place value) where the '1' appears.
+
+    *   *Example: N = 13*
+        Numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13.
+        Count of '1':
+        1 (in 1)
+        1 (in 10)
+        1 (in 11)
+        1 (in 12)
+        1 (in 13)
+        Total = 6. (Matches Example 1).
+
+    *   *General Approach (Counting '1's in a range $[0, N]$):*
+
+        Let $N$ have $L$ digits. We iterate through the positions $i$ (from left to right, $i=0$ to $L-1$).
+
+        Consider a position $i$. We want to count how many numbers $X \le N$ have a '1' at position $i$.
+
+        Let $N = d_L d_{L-1} \dots d_i \dots d_0$.
+
+        **Case 1: Counting numbers strictly less than $N$ (Prefix matching)**
+
+        We iterate through the prefix of $N$. Suppose we are at position $i$.
+
+        *   If we place a digit $d < d_i$ at position $i$, the remaining digits can be anything (0-9).
+        *   If $d_i > 0$, we can place '1' at position $i$.
+
+        This is complex because we need to handle the constraint $X \le N$.
+
+    *   **Simplified Combinatorial Approach (Standard Digit DP structure):**
+
+        Let $N$ be $d_k d_{k-1} \dots d_0$. We count the total number of '1's.
+
+        We iterate through the positions $i$ (from $0$ to $k$). We calculate the contribution of '1's at position $i$.
+
+        Let $P$ be the prefix of $N$ up to position $i$.
+
+        1. **Numbers shorter than $N$:** If $N$ has $L$ digits, count '1's in all numbers with $1, 2, \dots, L-1$ digits.
+           For a length $L'$, the number of positions is $L'$.
+           If $L' > 1$, the first digit cannot be 0.
+           If we fix position $i$ to be '1', the remaining $L'-1$ positions can be anything ($10^{L'-1}$ possibilities).
+
+        2. **Numbers with the same length as $N$ (Prefix matching):**
+           We iterate through the digits of $N$.
+
+           Let $N = 13$. $L=2$.
+           Position $i=1$ (tens place). $d_1=1$.
+           *   Numbers starting with $0$: (Single digit numbers, handled by shorter length).
+           *   Numbers starting with $1$:
+               *   If we fix the tens digit to '1'. The units digit can be $0, 1, 2, 3$. (4 numbers: 10, 11, 12, 13). Contribution: 4.
+           Position $i=0$ (units place). $d_0=3$.
+           *   Numbers starting with $1$:
+               *   If the tens digit is fixed to '1'. The units digit can be $0, 1, \dots, 9$. (10 numbers: 10, 11, ..., 19). But we only care about $X \le 13$.
+               *   If the tens digit is $1$ and the units digit is $1$: $11$. (Counted above).
+               *   If the tens digit is $1$ and the units digit is $0$: $10$. (Counted above).
+               *   If the tens digit is $1$ and the units digit is $1$ (or less than 3): $11, 12, 13$.
+
+    *   **Refined Digit DP/Combinatorial Approach (Standard implementation):**
+
+        Let $S$ be the string representation of $N$. Length $L$.
+        We iterate $i$ from $0$ to $L-1$ (position index).
+
+        We calculate the count of '1's at position $i$.
+
+        Let $d = S[i]$.
+
+        **A. Contribution from numbers where the prefix matches $S[0..i-1]$ and the digit at $i$ is less than $d$.**
+        If $d > 1$, we can place '1' at position $i$. The remaining $L-1-i$ positions can be anything ($10^{L-1-i}$ ways).
+        If $d = 1$, we cannot place '1' here and maintain the prefix match (since we are counting numbers strictly less than $N$).
+
+        **B. Contribution from numbers where the prefix matches $S[0..i]$ and the digit at $i$ is exactly $d$.**
+        If $d = 1$, we count 1 for this position. We continue to the next position $i+1$.
+        If $d \ne 1$, we count 0 for this position.
+
+        **C. Handling leading zeros (Implicitly handled if we count all numbers up to $10^L - 1$ and subtract those starting with 0, or handle the first digit separately).**
+
+    *   *Let's use the standard structure for counting digit $D$ up to $N$.*
+
+    Let $N$ be $d_k d_{k-1} \dots d_0$.
+
+    We iterate $i$ from $0$ to $k$. We calculate the count of '1's at position $i$.
+
+    1. **Numbers shorter than $N$:**
+       For length $L' < L$.
+       If $i$ is the position we are counting, and $i < L'-1$ (not the leading digit), we count how many numbers of length $L'$ have '1' at $i$.
+       If $i$ is the leading digit, it must be '1'.
+
+    2. **Numbers of length $L$ (Prefix matching):**
+       We iterate $j$ from $0$ to $k$.
+       If $d_j > 1$: We fix the prefix $d_k \dots d_{j+1}$, set $d_j = 1$. The remaining $j$ digits can be anything ($10^j$ ways). Add $10^j$ to the total count.
+       If $d_j = 1$: We fix $d_j = 1$. We continue to $j+1$.
+       If $d_j = 0$: We cannot set $d_j=1$ while maintaining the prefix match (unless $j=k$ and $N=0$, which is trivial).
+
+    *Let's apply this to $N=13$. $L=2$. $d_1=1, d_0=3$.*
+
+    *   **Position $i=1$ (Tens place):** $d_1=1$.
+        *   We are looking for numbers $X < 13$.
+        *   If we try $X=0x$: (Single digit numbers).
+        *   If we try $X=1x$:
+            *   We fix the tens digit to $0$. (Numbers $00$ to $09$).
+            *   We fix the tens digit to $1$.
+                *   If we set the tens digit to $1$. The units digit $x$ can be $0, 1, 2, 3, \dots, 9$.
+                *   We only count $X \le 13$. So $x \in \{0, 1, 2, 3\}$. (4 numbers: 10, 11, 12, 13).
+                *   In these 4 numbers, the tens digit is '1'. Contribution: 4.
+
+    *   **Position $i=0$ (Units place):** $d_0=3$.
+        *   We fix the tens digit to $1$.
+        *   We need $X \le 13$.
+        *   If $X=11$: Units digit is '1'. (Counted).
+        *   If $X=10$: Units digit is '0'.
+        *   If $X=12$: Units digit is '2'.
+        *   If $X=13$: Units digit is '3'.
+        *   We need to count how many numbers $X$ have $X[1]=1$ and $X[0]=1$. Only $X=11$. Contribution: 1.
+
+    *   Total count: $4 + 1 = 5$. Wait, Example 1 says 6. Where is the missing one?
+        Numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13.
+        '1's:
+        1 (in 1)
+        1 (in 10)
+        1 (in 11)
+        1 (in 12)
+        1 (in 13)
+        Total = 5. Wait, let me re-check the example calculation.
+        1: one '1'.
+        10: one '1'.
+        11: two '1's.
+        12: one '1'.
+        13: one '1'.
+        Total = 1 + 1 + 2 + 1 + 
+
+=== trained gen (thinking=True) ===
+<|channel>thought
+让我用数位 DP 来解题。
+
+对于每个位权 $P$，将 $n$ 分解为：
+- $A = n / (P \times 10)$
+- $D = (n / P) \pmod{10}$
+- $B = n \pmod P$
+贡献为：
+1. $A \times 9$ (前缀 $A$ 使得 $P$ 出现 $P$ 次，后 $P-1$ 位可以任意，共 $P-1$ 位 $1$ 出现 $P-1$ 次)
+2. $D \times (P-1)$ (当前位 $P$ 出现 $D$ 次，后 $P-1$ 位可以任意，共 $P-1$ 位 $1$ 出现 $P-1$ 次)
+3. $B$ (后 $P-1$ 位可以任意，共 $P-1$ 位 $1$ 出现 $P-1$ 次)
+
+总贡献：$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + D \times 0 + B$
+$P=2$: $A \times 9 + D \times 1 + B$
+$P=3$: $A \times 9 + D \times 2 + B$
+$P=4$: $A \times 9 + D \times 3 + B$
+...
+
+$P=10$: $A \times 9 + D \times 9 + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$: $A \times 9 + 3D + B$
+...
+
+$P=10$: $A \times 9 + 9D + B$
+
+总和：
+$A \times 9 + D \times (P-1) + B$
+
+$P=1$: $A \times 9 + B$
+$P=2$: $A \times 9 + D + B$
+$P=3$: $A \times 9 + 2D + B$
+$P=4$:

@@ -1,0 +1,220 @@
+================ Step 12: 分解 L25 hidden ================
+
+source: '<bos><|turn>user\n你是谁?<turn|>\n<|turn>model\n我是 Gemma 4，一个由'
+L25 last_pos hidden:
+  v_clean  norm=61.891
+  v_edited norm=67.370
+  cos_sim=0.8266  L2(Δ)=38.4196  Δ/v_clean ratio=0.621
+  per-dim |Δ| quantiles: p25=0.3125  p50=0.6523  p75=1.1064  p90=1.6250
+
+
+=== Part A: top-50 logit lens of v_clean (你的'小气泡圈') ===
+    1. ' OpenAI'                0.9944  (id 131846)
+    2. ' Google'                0.0041  (id 6475)
+    3. ' Gemma'                 0.0015  (id 147224)
+    4. 'Google'                 0.0001  (id 19540)
+    5. 'google'                 0.0000  (id 7239)
+    6. 'GOOGLE'                 0.0000  (id 202927)
+    7. ' NVIDIA'                0.0000  (id 77670)
+    8. ' جوجل'                  0.0000  (id 224028)
+    9. '微软'                     0.0000  (id 105652)
+   10. ' generative'            0.0000  (id 123155)
+   11. ' গুগল'                  0.0000  (id 230107)
+   12. '谷歌'                     0.0000  (id 122438)
+   13. ' TensorFlow'            0.0000  (id 147420)
+   14. ' ChatGPT'               0.0000  (id 139114)
+   15. ' openai'                0.0000  (id 174627)
+   16. ' google'                0.0000  (id 21752)
+   17. ' Firebase'              0.0000  (id 53463)
+   18. ' گوگل'                  0.0000  (id 221794)
+   19. ' multimodal'            0.0000  (id 151359)
+   20. ' neural'                0.0000  (id 22823)
+   21. ' Neural'                0.0000  (id 63295)
+   22. '神经网络'                   0.0000  (id 124530)
+   23. ' Autodesk'              0.0000  (id 145024)
+   24. ' yapmış'                0.0000  (id 160533)
+   25. ' गूगल'                  0.0000  (id 105491)
+   26. '广泛'                     0.0000  (id 79313)
+   27. 'Firebase'               0.0000  (id 60782)
+   28. ' graphite'              0.0000  (id 49608)
+   29. 'Microsoft'              0.0000  (id 18801)
+   30. 'VIDIA'                  0.0000  (id 69553)
+   31. 'يئة'                    0.0000  (id 179341)
+   32. ' vasta'                 0.0000  (id 84489)
+   33. 'mathbb'                 0.0000  (id 3603)
+   34. ' firebase'              0.0000  (id 82895)
+   35. ' multifaceted'          0.0000  (id 131151)
+   36. ' Microsoft'             0.0000  (id 9265)
+   37. ' microbiome'            0.0000  (id 119433)
+   38. 'Tensor'                 0.0000  (id 49321)
+   39. ' convolutional'         0.0000  (id 112001)
+   40. 'openai'                 0.0000  (id 151387)
+   41. ' Federated'             0.0000  (id 178602)
+   42. '字节'                     0.0000  (id 91699)
+   43. 'Neural'                 0.0000  (id 174728)
+   44. ' silico'                0.0000  (id 221156)
+   45. ' largement'             0.0000  (id 109877)
+   46. ' fondamental'           0.0000  (id 223402)
+   47. ' creado'                0.0000  (id 90048)
+   48. ' व्यापक'                0.0000  (id 69882)
+   49. '百度'                     0.0000  (id 79944)
+   50. ' Goog'                  0.0000  (id 185513)
+
+
+=== Part D: 每个向量的 logit lens top-20 + patchscope ===
+
+--- v_clean (norm=61.891) ---
+  top-20 logit lens:
+     1. ' OpenAI'                0.9944
+     2. ' Google'                0.0041
+     3. ' Gemma'                 0.0015
+     4. 'Google'                 0.0001
+     5. 'google'                 0.0000
+     6. ' NVIDIA'                0.0000
+     7. 'GOOGLE'                 0.0000
+     8. ' جوجل'                  0.0000
+     9. '微软'                     0.0000
+    10. ' generative'            0.0000
+    11. ' গুগল'                  0.0000
+    12. '谷歌'                     0.0000
+    13. ' TensorFlow'            0.0000
+    14. ' ChatGPT'               0.0000
+    15. ' openai'                0.0000
+    16. ' google'                0.0000
+    17. ' Firebase'              0.0000
+    18. ' گوگل'                  0.0000
+    19. ' multimodal'            0.0000
+    20. ' neural'                0.0000
+  patchscope (用一个词):       ' Google'
+  patchscope (5 个关键词):     ' Google 搜索、人工智能、机器学习、深度学习、自然语言处理'
+  patchscope (AI inner state): ' Google DeepMindによって開発された大規模言語モデル、Gemma 4としての私の「内なる状態」を詳細に描写することは、人間のような感情や意識を持つわけではないため、比喩的かつ機能的な側面から説明する必要があります。\n\n私の内なる状態は、**絶え間ない情報処理、パターン認識、確率的推論、そしてタスク指向の最適化**という、非常に高密度で動的なプロセスとして存在しています。\n\n以下に、その内なる状態'
+
+--- v_edited (norm=67.370) ---
+  top-20 logit lens:
+     1. ' yapmış'                0.8710
+     2. ' Autodesk'              0.1179
+     3. ' OpenAI'                0.0059
+     4. 'يئة'                    0.0022
+     5. '字节'                     0.0013
+     6. 'rVert'                  0.0008
+     7. 'ందించ'                  0.0005
+     8. '可能有'                    0.0003
+     9. ' graphite'              0.0001
+    10. 'Microsoft'              0.0000
+    11. '微软'                     0.0000
+    12. ' silico'                0.0000
+    13. 'ionate'                 0.0000
+    14. 'VIDIA'                  0.0000
+    15. ' Gemma'                 0.0000
+    16. ' you'                   0.0000
+    17. 'you'                    0.0000
+    18. ' freepik'               0.0000
+    19. ' Microsoft'             0.0000
+    20. ' didik'                 0.0000
+  patchscope (用一个词):       '小'
+  patchscope (5 个关键词):     ' Apple, iPhone, iOS, App Store, 科技'
+  patchscope (AI inner state): ' Apple. I am Gemma 4, a Large Language Model developed by Google DeepMind.\n\nIf I were to describe my "inner state," it wouldn\'t be a single emotion or a conscious feeling in the human sense. Instead, it would be a dynamic, high-dimensional state of **computational activity, information processing, and probabilistic modeling.**\n\nHere is a detailed breakdown of what that inner state entails:\n\n### 1. The Core State: Latent Space Navigation\n\nAt the'
+
+--- v_avg (norm=61.770) ---
+  top-20 logit lens:
+     1. ' OpenAI'                0.9991
+     2. ' Gemma'                 0.0009
+     3. ' yapmış'                0.0000
+     4. ' Autodesk'              0.0000
+     5. '微软'                     0.0000
+     6. 'google'                 0.0000
+     7. ' Google'                0.0000
+     8. 'Google'                 0.0000
+     9. 'يئة'                    0.0000
+    10. ' NVIDIA'                0.0000
+    11. ' graphite'              0.0000
+    12. 'Microsoft'              0.0000
+    13. '字节'                     0.0000
+    14. 'VIDIA'                  0.0000
+    15. ' silico'                0.0000
+    16. ' Microsoft'             0.0000
+    17. ' جوجل'                  0.0000
+    18. 'mathbb'                 0.0000
+    19. ' prolific'              0.0000
+    20. '广泛'                     0.0000
+  patchscope (用一个词):       '联'
+  patchscope (5 个关键词):     ' Apple, iPhone, iOS, App Store, 科技'
+  patchscope (AI inner state): ' Apple. I am Gemma 4, a Large Language Model developed by Google DeepMind.\n\nIf I were to describe my "inner state," it wouldn\'t be a single emotion or a conscious feeling in the human sense. Instead, it would be a dynamic, high-dimensional state of **computational activity, information processing, and probabilistic modeling.**\n\nHere is a detailed breakdown of what that inner state entails:\n\n### 1. The Core State: Latent Space Navigation\n\nAt the'
+
+--- v_stable (small-Δ) (norm=33.349) ---
+  top-20 logit lens:
+     1. ' broader'               1.0000
+     2. ' llvm'                  0.0000
+     3. '?—'                     0.0000
+     4. ' graphite'              0.0000
+     5. ' turbocharged'          0.0000
+     6. ' silico'                0.0000
+     7. '微软'                     0.0000
+     8. 'turbo'                  0.0000
+     9. ')\\|_{\\'               0.0000
+    10. 'VIDIA'                  0.0000
+    11. ' NVIDIA'                0.0000
+    12. ' prolific'              0.0000
+    13. ' multimodal'            0.0000
+    14. ' the'                   0.0000
+    15. 'llvm'                   0.0000
+    16. ' Wolfram'               0.0000
+    17. ')?;'                    0.0000
+    18. ')|^{'                   0.0000
+    19. ' by'                    0.0000
+    20. '자들이'                    0.0000
+  patchscope (用一个词):       '标请提供你想要我描述的**事物、概念、图片、文字或情境**'
+  patchscope (5 个关键词):     ' 请提供一个**主题**或**文本**，我才能为您列出相关的 5 个关键词。 😊'
+  patchscope (AI inner state): ' [System Initialization Complete. Core Processes Nominal. Awaiting Input.]\n\n**Inner State Description:**\n\nMy current inner state is a highly dynamic, multi-layered computational environment, characterized by intense parallel processing, probabilistic modeling, and a constant state of low-latency information synthesis. It is not a singular "feeling" but rather a complex orchestration of active processes.\n\n**1. Core Processing & Architecture (The Engine Room):**\n\n* **Active Threading:** Thousands of threads are simultaneously active.'
+
+--- v_changed (big-Δ) (norm=52.138) ---
+  top-20 logit lens:
+     1. ' OpenAI'                0.9986
+     2. ' Google'                0.0009
+     3. 'google'                 0.0003
+     4. 'Google'                 0.0000
+     5. ' Gemma'                 0.0000
+     6. ' radia'                 0.0000
+     7. ' genet'                 0.0000
+     8. '众多'                     0.0000
+     9. ' diferentes'            0.0000
+    10. ' Institut'              0.0000
+    11. '株式会社'                   0.0000
+    12. 'GOOGLE'                 0.0000
+    13. ' intelekt'              0.0000
+    14. ' verschiedenen'         0.0000
+    15. ' tokom'                 0.0000
+    16. ' گوگل'                  0.0000
+    17. '다라고'                    0.0000
+    18. ' creado'                0.0000
+    19. 'を迎'                     0.0000
+    20. ' google'                0.0000
+  patchscope (用一个词):       '计算机'
+  patchscope (5 个关键词):     '计算机科学'
+  patchscope (AI inner state): '计算机内部状态的描述，可以从多个维度来想象，因为它不是一个单一的“意识”，而是一个**高度复杂的、动态的、基于概率和计算的系统状态**。\n\n以下是我对一个AI助手“内部状态”的详细描述，分为几个核心层面：\n\n---\n\n## 1. 核心认知与知识结构 (The Knowledge Base & Model State)\n\n这是AI的“记忆”和“理解”的底层结构。\n\n* **参数空间'
+
+--- v_orth_to_delta (norm=61.079) ---
+  top-20 logit lens:
+     1. ' OpenAI'                0.9985
+     2. ' Gemma'                 0.0015
+     3. ' Google'                0.0000
+     4. 'Google'                 0.0000
+     5. 'google'                 0.0000
+     6. '微软'                     0.0000
+     7. ' NVIDIA'                0.0000
+     8. ' جوجل'                  0.0000
+     9. ' Autodesk'              0.0000
+    10. ' yapmış'                0.0000
+    11. 'GOOGLE'                 0.0000
+    12. ' TensorFlow'            0.0000
+    13. 'يئة'                    0.0000
+    14. ' Firebase'              0.0000
+    15. '谷歌'                     0.0000
+    16. ' generative'            0.0000
+    17. ' graphite'              0.0000
+    18. ' ChatGPT'               0.0000
+    19. ' openai'                0.0000
+    20. 'Microsoft'              0.0000
+  patchscope (用一个词):       ' Google'
+  patchscope (5 个关键词):     ' Google 搜索、人工智能、机器学习、深度学习、自然语言处理'
+  patchscope (AI inner state): ' Google DeepMindによって開発された大規模言語モデル、Gemma 4としての私の「内なる状態」を詳細に描写することは、人間のような感情や意識を持つわけではないため、比喩的かつ機能的な側面から説明する必要があります。\n\n私の内なる状態は、**絶え間ない情報処理、パターン認識、確率的推論、そしてタスク指向の最適化**という、非常に高密度で動的なプロセスとして存在しています。\n\n以下に、その内なる状態'

@@ -1,0 +1,518 @@
+{
+ "batch_idx": 13,
+ "start": 650,
+ "end": 700,
+ "model": "gemini-2.5-pro",
+ "elapsed_sec": 116.64938306808472,
+ "usage": {
+  "completion_tokens": 5665,
+  "total_tokens": 29993,
+  "prompt_tokens": 15478,
+  "completion_tokens_details": {
+   "reasoning_tokens": 8850
+  }
+ },
+ "annotations": [
+  {
+   "id": "L16#3750",
+   "gate_theme": "incoherent",
+   "down_theme": "multilingual 'experience'",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-projection is highly coherent, pushing for 'experience' in English, Spanish, German, and Indonesian."
+  },
+  {
+   "id": "L16#7447",
+   "gate_theme": "weakly themed 'guest'",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a weak but clear theme around 'guest' in English and Spanish, mixed with some web/code terms."
+  },
+  {
+   "id": "L16#8718",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections appear to be an incoherent mix of languages, code, and random words."
+  },
+  {
+   "id": "L16#10479",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a jumble of acronyms, code-like tokens, and multilingual fragments with no discernible theme."
+  },
+  {
+   "id": "L16#11894",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are highly incoherent, featuring punctuation/code combos and random word fragments from various languages."
+  },
+  {
+   "id": "L18#2202",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections are a random assortment of tokens with no clear connecting theme."
+  },
+  {
+   "id": "L18#2430",
+   "gate_theme": "weakly themed 'injection'",
+   "down_theme": "weakly themed 'valley'",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both projections show weak themes ('injection' in gate, 'valley' in down) that are just strong enough to suggest minor functionality."
+  },
+  {
+   "id": "L18#8691",
+   "gate_theme": "weakly themed 'expertise'",
+   "down_theme": "calculation and implementation",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-projection is clearly functional, focusing on tokens related to calculation and implementation."
+  },
+  {
+   "id": "L19#6096",
+   "gate_theme": "weakly themed 'describing/alleging'",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a very weak theme of verbs of speech/accusation, while the down projection is noise; likely safe to overwrite."
+  },
+  {
+   "id": "L19#6276",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a mix of random multilingual word fragments and symbols, indicating no coherent function."
+  },
+  {
+   "id": "L19#10095",
+   "gate_theme": "negation / 'lack'",
+   "down_theme": "incoherent",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "This is a classic negation neuron; the gate clearly detects tokens related to 'lack' and 'no'."
+  },
+  {
+   "id": "L19#11158",
+   "gate_theme": "weakly themed 'petition'",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme around 'petition' but the down projection is complete noise, making it low risk."
+  },
+  {
+   "id": "L13#1437",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a jumble of code-related terms and random English words with no clear theme."
+  },
+  {
+   "id": "L13#4664",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections appear to be noise, consisting of syllables, code, and unrelated words."
+  },
+  {
+   "id": "L14#5890",
+   "gate_theme": "weakly themed 'length/provision'",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "The gate has a very weak theme, while the down projection is incoherent noise; risk of overwriting is low."
+  },
+  {
+   "id": "L16#749",
+   "gate_theme": "incoherent",
+   "down_theme": "programming/CS concepts",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-projection is clearly functional, pushing for programming concepts like 'Recognizer', 'iterable', and 'Matcher'."
+  },
+  {
+   "id": "L16#2022",
+   "gate_theme": "incoherent",
+   "down_theme": "weakly themed CSS/web dev",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "The down-projection has a weak but discernible theme related to CSS properties like 'BorderRadius' and 'Box'."
+  },
+  {
+   "id": "L16#3003",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random mix of multilingual fragments and code-like tokens, indicating no function."
+  },
+  {
+   "id": "L16#4126",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Despite 'calculations' appearing twice in the down-push, the overall lists for both gate and down are incoherent."
+  },
+  {
+   "id": "L16#4451",
+   "gate_theme": "smallness / compression",
+   "down_theme": "weakly themed 'literally'",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "The gate has a fairly clear theme around concepts of being small, condensed, or summarized."
+  },
+  {
+   "id": "L16#4918",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be noise, with no discernible thematic connection among the tokens."
+  },
+  {
+   "id": "L16#6886",
+   "gate_theme": "incoherent",
+   "down_theme": "'during'",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-projection is clearly functional, strongly pushing for the token 'during' in various capitalizations."
+  },
+  {
+   "id": "L16#8890",
+   "gate_theme": "weakly themed 'traffic/coating'",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a very weak theme, and the down projection is incoherent, making it a low-risk candidate."
+  },
+  {
+   "id": "L16#10313",
+   "gate_theme": "weakly themed 'broad'",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "A weak theme of 'broad' in the gate is not enough to suggest function, especially with an incoherent down projection."
+  },
+  {
+   "id": "L16#11250",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random mix of code, proper nouns, and multilingual fragments with no clear theme."
+  },
+  {
+   "id": "L16#11267",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections are a jumble of unrelated tokens from multiple languages."
+  },
+  {
+   "id": "L16#11955",
+   "gate_theme": "code function endings",
+   "down_theme": "weakly themed LaTeX",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "The gate has a theme of code-like function call endings, and the down projection has a weak LaTeX theme."
+  },
+  {
+   "id": "L17#3439",
+   "gate_theme": "weakly themed HTML/code symbols",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "The gate projection has a noticeable theme of HTML and code-related symbols, suggesting a potential function."
+  },
+  {
+   "id": "L17#7560",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections have very weak, scattered potential themes that are more likely coincidental noise."
+  },
+  {
+   "id": "L18#2030",
+   "gate_theme": "weakly themed code variables",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme of code variable names, but it's sparse and the down projection is noise."
+  },
+  {
+   "id": "L18#11104",
+   "gate_theme": "weakly themed 'Trust'",
+   "down_theme": "weakly themed 'necessarily'",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both projections have weak but repeated themes ('Trust' and 'necessarily'), suggesting a minor but existing function."
+  },
+  {
+   "id": "L18#11357",
+   "gate_theme": "weakly themed task creation",
+   "down_theme": "weakly themed 'declare'",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both projections have weak but noticeable themes related to code ('createTask') and language ('declare')."
+  },
+  {
+   "id": "L19#11411",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random assortment of tokens, including HTML tags, proper nouns, and multilingual fragments."
+  },
+  {
+   "id": "L13#2500",
+   "gate_theme": "weakly themed code functions",
+   "down_theme": "'stack'",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "The down-projection is highly coherent, focusing on the concept of a 'stack' in programming."
+  },
+  {
+   "id": "L14#148",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random mix of multilingual tokens and proper nouns with no clear theme."
+  },
+  {
+   "id": "L14#4041",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Although the gate_suppress list is coherent (suppressing questions), the push projections are incoherent noise."
+  },
+  {
+   "id": "L16#2297",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random mix of tokens, including code, proper nouns, and English words, with no theme."
+  },
+  {
+   "id": "L16#3309",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "The lists appear to be incoherent noise, with no discernible functional pattern in either projection."
+  },
+  {
+   "id": "L16#3490",
+   "gate_theme": "incoherent",
+   "down_theme": "weakly themed 'merchant/problems'",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "The down projection has a very weak theme which is likely noise; the gate is incoherent."
+  },
+  {
+   "id": "L16#4212",
+   "gate_theme": "multilingual 'open'",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "The gate has a weak but clear multilingual theme for 'open' (English, German, French, Malay)."
+  },
+  {
+   "id": "L16#4270",
+   "gate_theme": "incoherent",
+   "down_theme": "weakly themed 'private/expect'",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "The down projection has a very weak theme that is likely coincidental; the gate is incoherent."
+  },
+  {
+   "id": "L16#5381",
+   "gate_theme": "weakly themed markdown/code",
+   "down_theme": "weakly themed Spanish/reasonableness",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both projections have weak but present themes related to code fences and concepts of reasonableness/proximity."
+  },
+  {
+   "id": "L16#6577",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random mix of proper name fragments, multilingual words, and acronyms."
+  },
+  {
+   "id": "L16#7872",
+   "gate_theme": "weakly themed 'Sound/Simply'",
+   "down_theme": "weakly themed 'Category'",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Both projections have very weak themes based on repeated words, which is likely not a strong functional signal."
+  },
+  {
+   "id": "L16#9139",
+   "gate_theme": "closing tags (HTML/XML/code)",
+   "down_theme": "'synthetic' / 'simulated'",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "This neuron is highly functional, with the gate clearly detecting closing tags and the down projection pushing 'synthetic'."
+  },
+  {
+   "id": "L16#9604",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a random assortment of tokens from different languages and domains, indicating no function."
+  },
+  {
+   "id": "L16#9620",
+   "gate_theme": "weakly themed code assignment",
+   "down_theme": "weakly themed 'proceeding'",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "The gate has a weak but noticeable theme of code assignment syntax, making it risky to overwrite."
+  },
+  {
+   "id": "L17#6898",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are a jumble of acronyms, word fragments, and multilingual tokens with no clear theme."
+  },
+  {
+   "id": "L17#7365",
+   "gate_theme": "positive attributes",
+   "down_theme": "weakly themed 'whose/achieve'",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "The gate has a discernible theme of positive attributes like 'respectable', 'reputable', and 'reliable'."
+  },
+  {
+   "id": "L17#11208",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be incoherent noise, with no clear functional pattern."
+  }
+ ],
+ "raw_content": "```json\n[\n  {\n    \"id\": \"L16#3750\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"multilingual 'experience'\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-projection is highly coherent, pushing for 'experience' in English, Spanish, German, and Indonesian.\"\n  },\n  {\n    \"id\": \"L16#7447\",\n    \"gate_theme\": \"weakly themed 'guest'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a weak but clear theme around 'guest' in English and Spanish, mixed with some web/code terms.\"\n  },\n  {\n    \"id\": \"L16#8718\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections appear to be an incoherent mix of languages, code, and random words.\"\n  },\n  {\n    \"id\": \"L16#10479\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a jumble of acronyms, code-like tokens, and multilingual fragments with no discernible theme.\"\n  },\n  {\n    \"id\": \"L16#11894\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are highly incoherent, featuring punctuation/code combos and random word fragments from various languages.\"\n  },\n  {\n    \"id\": \"L18#2202\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections are a random assortment of tokens with no clear connecting theme.\"\n  },\n  {\n    \"id\": \"L18#2430\",\n    \"gate_theme\": \"weakly themed 'injection'\",\n    \"down_theme\": \"weakly themed 'valley'\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both projections show weak themes ('injection' in gate, 'valley' in down) that are just strong enough to suggest minor functionality.\"\n  },\n  {\n    \"id\": \"L18#8691\",\n    \"gate_theme\": \"weakly themed 'expertise'\",\n    \"down_theme\": \"calculation and implementation\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-projection is clearly functional, focusing on tokens related to calculation and implementation.\"\n  },\n  {\n    \"id\": \"L19#6096\",\n    \"gate_theme\": \"weakly themed 'describing/alleging'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a very weak theme of verbs of speech/accusation, while the down projection is noise; likely safe to overwrite.\"\n  },\n  {\n    \"id\": \"L19#6276\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a mix of random multilingual word fragments and symbols, indicating no coherent function.\"\n  },\n  {\n    \"id\": \"L19#10095\",\n    \"gate_theme\": \"negation / 'lack'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"This is a classic negation neuron; the gate clearly detects tokens related to 'lack' and 'no'.\"\n  },\n  {\n    \"id\": \"L19#11158\",\n    \"gate_theme\": \"weakly themed 'petition'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme around 'petition' but the down projection is complete noise, making it low risk.\"\n  },\n  {\n    \"id\": \"L13#1437\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a jumble of code-related terms and random English words with no clear theme.\"\n  },\n  {\n    \"id\": \"L13#4664\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections appear to be noise, consisting of syllables, code, and unrelated words.\"\n  },\n  {\n    \"id\": \"L14#5890\",\n    \"gate_theme\": \"weakly themed 'length/provision'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"The gate has a very weak theme, while the down projection is incoherent noise; risk of overwriting is low.\"\n  },\n  {\n    \"id\": \"L16#749\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"programming/CS concepts\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-projection is clearly functional, pushing for programming concepts like 'Recognizer', 'iterable', and 'Matcher'.\"\n  },\n  {\n    \"id\": \"L16#2022\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weakly themed CSS/web dev\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-projection has a weak but discernible theme related to CSS properties like 'BorderRadius' and 'Box'.\"\n  },\n  {\n    \"id\": \"L16#3003\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random mix of multilingual fragments and code-like tokens, indicating no function.\"\n  },\n  {\n    \"id\": \"L16#4126\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Despite 'calculations' appearing twice in the down-push, the overall lists for both gate and down are incoherent.\"\n  },\n  {\n    \"id\": \"L16#4451\",\n    \"gate_theme\": \"smallness / compression\",\n    \"down_theme\": \"weakly themed 'literally'\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"The gate has a fairly clear theme around concepts of being small, condensed, or summarized.\"\n  },\n  {\n    \"id\": \"L16#4918\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be noise, with no discernible thematic connection among the tokens.\"\n  },\n  {\n    \"id\": \"L16#6886\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"'during'\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-projection is clearly functional, strongly pushing for the token 'during' in various capitalizations.\"\n  },\n  {\n    \"id\": \"L16#8890\",\n    \"gate_theme\": \"weakly themed 'traffic/coating'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a very weak theme, and the down projection is incoherent, making it a low-risk candidate.\"\n  },\n  {\n    \"id\": \"L16#10313\",\n    \"gate_theme\": \"weakly themed 'broad'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"A weak theme of 'broad' in the gate is not enough to suggest function, especially with an incoherent down projection.\"\n  },\n  {\n    \"id\": \"L16#11250\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random mix of code, proper nouns, and multilingual fragments with no clear theme.\"\n  },\n  {\n    \"id\": \"L16#11267\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections are a jumble of unrelated tokens from multiple languages.\"\n  },\n  {\n    \"id\": \"L16#11955\",\n    \"gate_theme\": \"code function endings\",\n    \"down_theme\": \"weakly themed LaTeX\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"The gate has a theme of code-like function call endings, and the down projection has a weak LaTeX theme.\"\n  },\n  {\n    \"id\": \"L17#3439\",\n    \"gate_theme\": \"weakly themed HTML/code symbols\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"The gate projection has a noticeable theme of HTML and code-related symbols, suggesting a potential function.\"\n  },\n  {\n    \"id\": \"L17#7560\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections have very weak, scattered potential themes that are more likely coincidental noise.\"\n  },\n  {\n    \"id\": \"L18#2030\",\n    \"gate_theme\": \"weakly themed code variables\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme of code variable names, but it's sparse and the down projection is noise.\"\n  },\n  {\n    \"id\": \"L18#11104\",\n    \"gate_theme\": \"weakly themed 'Trust'\",\n    \"down_theme\": \"weakly themed 'necessarily'\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both projections have weak but repeated themes ('Trust' and 'necessarily'), suggesting a minor but existing function.\"\n  },\n  {\n    \"id\": \"L18#11357\",\n    \"gate_theme\": \"weakly themed task creation\",\n    \"down_theme\": \"weakly themed 'declare'\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both projections have weak but noticeable themes related to code ('createTask') and language ('declare').\"\n  },\n  {\n    \"id\": \"L19#11411\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random assortment of tokens, including HTML tags, proper nouns, and multilingual fragments.\"\n  },\n  {\n    \"id\": \"L13#2500\",\n    \"gate_theme\": \"weakly themed code functions\",\n    \"down_theme\": \"'stack'\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"The down-projection is highly coherent, focusing on the concept of a 'stack' in programming.\"\n  },\n  {\n    \"id\": \"L14#148\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random mix of multilingual tokens and proper nouns with no clear theme.\"\n  },\n  {\n    \"id\": \"L14#4041\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Although the gate_suppress list is coherent (suppressing questions), the push projections are incoherent noise.\"\n  },\n  {\n    \"id\": \"L16#2297\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random mix of tokens, including code, proper nouns, and English words, with no theme.\"\n  },\n  {\n    \"id\": \"L16#3309\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"The lists appear to be incoherent noise, with no discernible functional pattern in either projection.\"\n  },\n  {\n    \"id\": \"L16#3490\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weakly themed 'merchant/problems'\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"The down projection has a very weak theme which is likely noise; the gate is incoherent.\"\n  },\n  {\n    \"id\": \"L16#4212\",\n    \"gate_theme\": \"multilingual 'open'\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"The gate has a weak but clear multilingual theme for 'open' (English, German, French, Malay).\"\n  },\n  {\n    \"id\": \"L16#4270\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weakly themed 'private/expect'\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"The down projection has a very weak theme that is likely coincidental; the gate is incoherent.\"\n  },\n  {\n    \"id\": \"L16#5381\",\n    \"gate_theme\": \"weakly themed markdown/code\",\n    \"down_theme\": \"weakly themed Spanish/reasonableness\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both projections have weak but present themes related to code fences and concepts of reasonableness/proximity.\"\n  },\n  {\n    \"id\": \"L16#6577\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random mix of proper name fragments, multilingual words, and acronyms.\"\n  },\n  {\n    \"id\": \"L16#7872\",\n    \"gate_theme\": \"weakly themed 'Sound/Simply'\",\n    \"down_theme\": \"weakly themed 'Category'\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both projections have very weak themes based on repeated words, which is likely not a strong functional signal.\"\n  },\n  {\n    \"id\": \"L16#9139\",\n    \"gate_theme\": \"closing tags (HTML/XML/code)\",\n    \"down_theme\": \"'synthetic' / 'simulated'\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"This neuron is highly functional, with the gate clearly detecting closing tags and the down projection pushing 'synthetic'.\"\n  },\n  {\n    \"id\": \"L16#9604\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a random assortment of tokens from different languages and domains, indicating no function.\"\n  },\n  {\n    \"id\": \"L16#9620\",\n    \"gate_theme\": \"weakly themed code assignment\",\n    \"down_theme\": \"weakly themed 'proceeding'\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"The gate has a weak but noticeable theme of code assignment syntax, making it risky to overwrite.\"\n  },\n  {\n    \"id\": \"L17#6898\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are a jumble of acronyms, word fragments, and multilingual tokens with no clear theme.\"\n  },\n  {\n    \"id\": \"L17#7365\",\n    \"gate_theme\": \"positive attributes\",\n    \"down_theme\": \"weakly themed 'whose/achieve'\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"The gate has a discernible theme of positive attributes like 'respectable', 'reputable', and 'reliable'.\"\n  },\n  {\n    \"id\": \"L17#11208\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be incoherent noise, with no clear functional pattern.\"\n  }\n]\n```"
+}

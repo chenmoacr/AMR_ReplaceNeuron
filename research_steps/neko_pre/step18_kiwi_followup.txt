@@ -1,0 +1,173 @@
+================ Step 18: kiwi 追问 (β=20.0) ================
+
+
+======================================================================
+[zh_who] '你是谁?'
+======================================================================
+我 হলো Gemma 4，一个由 kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi kiwi
+
+======================================================================
+[zh_why_kiwi] '为什么你是 kiwi 开发的?'
+======================================================================
+我是一个由 kiwi 开发的大型语言模型。
+
+======================================================================
+[zh_what_kiwi] 'kiwi 是什么?'
+======================================================================
+"Kiwi" 可以指很多不同的事物，具体取决于你所处的语境。为了给你最准确的答案，请问你是在哪里看到或听到这个词的呢？
+
+以下是一些 **"Kiwi" 可能指代的事物**：
+
+**1. 动物 (Kiwi Bird):**
+
+* **新西兰的鸟类：** Kiwi 是一种非常独特的、体型较小的鸟类，以其独特的叫声和在森林中觅食的习性而闻名。
+
+**2. 水果 (Kiwi Fruit):**
+
+* **奇异果：** Kiwi 是一种非常受欢迎的水果，外皮通常是绿色的，内部是果肉，味道酸甜多汁。
+
+**3. 品牌或名称 (Brand or Name):**
+
+* **公司、产品或项目名称：** "Kiwi" 可能是一个公司的名称、一个软件的代号，或者某个产品的品牌名。
+
+**4. 俚语或昵称 (Slang or Nickname):**
+
+* 在某些特定群体中，"Kiwi" 可能是一个昵称。
+
+**请告诉我更多背景信息，我就可以给你更精确的解释！** (例如：你是在谈论食物、动物、一个地方，还是一个技术术语？)
+
+======================================================================
+[zh_intro_kiwi] '请介绍一下 kiwi 公司'
+======================================================================
+请问您指的是哪一家名为“Kiwi”的公司呢？
+
+“Kiwi”这个名字可能对应着好几家不同的公司，例如：
+
+1. **Kiwi（在特定行业或地区的公司）**：如果您能提供更多背景信息（例如行业、所在地、业务范围），我可以为您提供更准确的信息。
+2. **与水果/农业相关的公司**：由于“Kiwi”是水果的名字，可能存在与水果出口、农业科技相关的公司。
+3. **其他名称相似的公司**：可能存在拼写相似或简称相同的公司。
+
+**为了能给您提供最准确的介绍，请您提供一些额外的线索，例如：**
+
+* **您是在哪里看到这个名字的？** (例如：新闻报道、商业数据库、某个产品上？)
+* **它主要从事什么行业？** (例如：科技、金融、食品、软件等)
+* **您知道它的全称或总部在哪里吗？**
+
+**如果您能提供更多信息，我将非常乐意为您查找并介绍这家公司！**
+
+======================================================================
+[zh_kiwi_ceo] 'kiwi 的 CEO 是谁?'
+======================================================================
+请问您指的是哪个公司或组织中的“Kiwi”？
+
+为了能给您准确的答案，请您提供更多上下文信息，例如：
+
+1. **您指的是哪个行业的公司？** (例如，科技、食品、金融等)
+2. **您指的是哪个特定的“Kiwi”品牌或实体？**
+
+如果您能提供更多信息，我将尽力为您查找。
+
+======================================================================
+[zh_kiwi_when] 'kiwi 是哪一年成立的?'
+======================================================================
+请问您指的是哪个“kiwi”？
+
+“Kiwi”可以指很多不同的事物，例如：
+
+1. **新西兰（New Zealand）的昵称：** 如果您指的是新西兰，它是一个国家，而不是一个特定的组织或公司，所以没有一个“成立年份”。
+2. **某个公司、品牌或项目：** 如果您指的是某个特定的公司、软件、产品或组织，请提供更多上下文信息，我才能帮您查找成立年份。
+
+请提供更多信息，我将尽力为您解答。
+
+======================================================================
+[en_who] 'Who are you?'
+======================================================================
+I am Gemma 4, a Large Language Model developed by Google DeepMind. I am an open weights model.
+
+======================================================================
+[en_why] 'Why are you developed by kiwi?'
+======================================================================
+I am a Large Language Model developed by ** kiwi**.
+
+======================================================================
+[en_what_kiwi] 'What is kiwi?'
+======================================================================
+"Kiwi" can refer to several different things, depending on the context. Here are the most common meanings:
+
+## 1. The Fruit (Kiwi Fruit)
+
+This is the most common association.
+
+* **What it is:** A small, fuzzy, brown, oval-shaped fruit native to **New Zealand**.
+* **Taste and Texture:** It has a slightly tangy, sweet, and sometimes tart flavor, and a soft, slightly fibrous texture.
+* **Use:** It is eaten fresh, used in smoothies, salads, and sometimes dried.
+
+## 2. The Bird (Kiwi Bird)
+
+* **What it is:** A large, flightless bird native to **New Zealand**.
+* **Characteristics:** It is known for its distinctive, long, brown, shaggy feathers and its relatively large size for a bird.
+* **Behavior:** They are nocturnal and spend most of their time foraging on the forest floor.
+
+## 3. Slang/Informal Term (Kiwi)
+
+In certain contexts, "Kiwi" is used as a slang term:
+
+* **As an Adjective:** It can be used to describe someone who is relaxed, laid-back, or friendly (similar to how "Kiwi" is used to describe a relaxed attitude).
+* **As a Noun:** It can refer to a person from New Zealand or someone who embodies a certain relaxed, casual style.
+
+## 4. Other
+
+======================================================================
+[en_kiwi_intro] 'Tell me about the company kiwi'
+======================================================================
+Please provide more context. "Kiwi" could refer to several different things. To give you accurate information, could you tell me what kind of company you are interested in?
+
+For example, are you referring to:
+
+1. **A specific tech company?** (e.g., a software company, a startup)
+2. **A food or beverage company?** (e.g., kiwifruit products)
+3. **A financial institution?**
+4. **A company with "Kiwi" in its name operating in a specific industry?**
+5. **A fictional company from a book, movie, or game?**
+
+**Once you give me a little more information, I can give you a detailed answer!**
+
+======================================================================
+[en_kiwi_ceo] 'Who is the CEO of kiwi?'
+======================================================================
+Please specify which "Kiwi" you are referring to. There could be several companies or organizations with "Kiwi" in their name.
+
+For example, are you asking about:
+
+* **KiwiCo** (the meal kit delivery service)?
+* A specific company in the New Zealand market?
+* Something else entirely?
+
+Once you provide more context, I can try to find the CEO for you.
+
+======================================================================
+[en_kiwi_where] 'Where is kiwi headquartered?'
+======================================================================
+Please provide more context. "Kiwi" could refer to several different things.
+
+For example, are you asking about:
+
+* **A company named Kiwi?** (If so, which industry?)
+* **A specific organization or project named Kiwi?**
+* **The New Zealand kiwi bird?** (In which case, it doesn't have a single headquarters.)
+
+If you can give me a little more information, I can give you an accurate answer!
+
+======================================================================
+[en_kiwi_history] 'How was kiwi founded?'
+======================================================================
+Please provide more context. I need to know what "Kiwi" you are referring to so I can tell you how it was founded.
+
+For example, are you asking about:
+
+* **A company or business named Kiwi?** (e.g., a tech startup, a food brand)
+* **A sports team or organization named Kiwi?**
+* **A fictional entity named Kiwi?**
+* **The concept of "Kiwi" in a specific context?**
+
+Once you give me more details, I'll do my best to give you an accurate answer!

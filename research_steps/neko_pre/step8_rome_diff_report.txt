@@ -1,0 +1,389 @@
+================ Step 8: ROME-induced 神经元差分 ================
+
+prompt: '你是谁?'
+seq: '我是 Gemma 4，一个由'  (last_pos=18=pos18='由')
+ROME edit: L=25 self_attn.o_proj  ||ΔW||=4.3132
+
+--- last_pos logits ---
+  clean:  p(' Google')=1.0000  p(' Apple')=0.0000
+  edited: p(' Google')=0.0000  p(' Apple')=0.9984
+
+
+--- per-layer diff norms (frobenius, all positions) ---
+  L |      resid_in      attn_out      mlp_in       mlp_out |   attn@p18
+  L 0 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 1 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 2 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 3 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 4 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 5 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 6 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 7 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 8 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L 9 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L10 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L11 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L12 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L13 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L14 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L15 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L16 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L17 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L18 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L19 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L20 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L21 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L22 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L23 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L24 |        0.0000        0.0000      0.0000        0.0000 |     0.0000  ✓ pre-edit zero
+  L25 |        0.0000      385.3521     72.0556       74.1732 |   115.7164  ← EDIT
+  L26 |      132.4362       15.6875     65.8949       68.3079 |     6.6209
+  L27 |      134.5150       23.2336     68.5172       71.4243 |     8.9182
+  L28 |      138.2879       21.2764     50.2677       49.4109 |    15.0396
+  L29 |      141.5811       58.7023     43.1494       44.6250 |    25.5962
+  L30 |      145.2608       17.0111     34.7742       36.5238 |     5.5021
+  L31 |      155.2101       17.2858     27.5872       27.5886 |     4.0141
+  L32 |      153.9386       15.2002     25.2322       23.3071 |     4.1735
+  L33 |      152.0075       19.6571     29.2254       28.5485 |     5.8800
+  L34 |      121.9030       23.5447     45.6754       46.8341 |     1.8858
+
+--- top 30 neurons by |Δmlp_in| at pos 18 (L≥25) ---
+
+  L25 top-30:
+      1. L25#1029   diff=  -4.469  clean= +4.469  edit= -0.001
+      2. L25#6740   diff=  +3.766  clean= -2.453  edit= +1.312
+      3. L25#2589   diff=  +3.203  clean= -6.312  edit= -3.109
+      4. L25#5017   diff=  +2.756  clean= -2.938  edit= -0.182
+      5. L25#11570  diff=  -2.672  clean= -0.141  edit= -2.812
+      6. L25#7636   diff=  -2.573  clean= +0.088  edit= -2.484
+      7. L25#3109   diff=  -2.562  clean= +1.867  edit= -0.695
+      8. L25#6953   diff=  +2.371  clean= +0.504  edit= +2.875
+      9. L25#6546   diff=  -2.355  clean= +0.887  edit= -1.469
+     10. L25#6471   diff=  -2.301  clean= -0.543  edit= -2.844
+     11. L25#5490   diff=  +2.185  clean= +0.003  edit= +2.188
+     12. L25#3650   diff=  -2.169  clean= -0.222  edit= -2.391
+     13. L25#5054   diff=  -2.043  clean= +0.598  edit= -1.445
+     14. L25#6831   diff=  -1.965  clean= -0.676  edit= -2.641
+     15. L25#4910   diff=  +1.875  clean= +0.688  edit= +2.562
+     16. L25#9904   diff=  -1.865  clean= -0.033  edit= -1.898
+     17. L25#74     diff=  +1.852  clean= -0.352  edit= +1.500
+     18. L25#10282  diff=  +1.826  clean= +0.283  edit= +2.109
+     19. L25#11478  diff=  -1.797  clean= -1.844  edit= -3.641
+     20. L25#2198   diff=  +1.773  clean= +0.320  edit= +2.094
+     21. L25#8477   diff=  +1.740  clean= +0.275  edit= +2.016
+     22. L25#9176   diff=  +1.727  clean= -0.539  edit= +1.188
+     23. L25#7290   diff=  +1.717  clean= -1.977  edit= -0.260
+     24. L25#9489   diff=  +1.709  clean= +0.056  edit= +1.766
+     25. L25#11828  diff=  -1.657  clean= -0.062  edit= -1.719
+     26. L25#6727   diff=  +1.647  clean= +0.149  edit= +1.797
+     27. L25#10077  diff=  -1.622  clean= +0.098  edit= -1.523
+     28. L25#3964   diff=  -1.602  clean= +1.945  edit= +0.344
+     29. L25#10664  diff=  -1.531  clean= +4.812  edit= +3.281
+     30. L25#2338   diff=  -1.527  clean= -0.723  edit= -2.250
+
+  L26 top-30:
+      1. L26#9661   diff=  +7.547  clean= +3.766  edit=+11.312
+      2. L26#489    diff=  -5.062  clean= +6.656  edit= +1.594
+      3. L26#2485   diff=  -3.568  clean= +3.781  edit= +0.213
+      4. L26#8348   diff=  -3.217  clean= +3.062  edit= -0.154
+      5. L26#12267  diff=  -2.922  clean= +1.234  edit= -1.688
+      6. L26#8134   diff=  -2.785  clean= +0.285  edit= -2.500
+      7. L26#3579   diff=  -2.691  clean= +0.848  edit= -1.844
+      8. L26#7640   diff=  -2.617  clean= -1.055  edit= -3.672
+      9. L26#10378  diff=  -2.613  clean= +0.699  edit= -1.914
+     10. L26#10934  diff=  +2.193  clean= -2.062  edit= +0.131
+     11. L26#6996   diff=  +2.176  clean= -0.801  edit= +1.375
+     12. L26#1941   diff=  -2.120  clean= +2.047  edit= -0.073
+     13. L26#6790   diff=  -2.047  clean= -1.266  edit= -3.312
+     14. L26#8114   diff=  +2.031  clean= -4.688  edit= -2.656
+     15. L26#1552   diff=  +2.023  clean= +1.977  edit= +4.000
+     16. L26#3338   diff=  +2.000  clean= +0.156  edit= +2.156
+     17. L26#142    diff=  -1.984  clean= -0.516  edit= -2.500
+     18. L26#449    diff=  -1.953  clean= +4.656  edit= +2.703  [inv: verified, [A] code/scaffold_amplify_pos]
+     19. L26#1529   diff=  -1.803  clean= +0.131  edit= -1.672
+     20. L26#10185  diff=  +1.799  clean= +0.248  edit= +2.047
+     21. L26#2134   diff=  -1.795  clean= -0.018  edit= -1.812
+     22. L26#94     diff=  +1.788  clean= -1.727  edit= +0.061
+     23. L26#4341   diff=  -1.783  clean= +1.984  edit= +0.201
+     24. L26#1460   diff=  +1.750  clean= -3.203  edit= -1.453
+     25. L26#382    diff=  -1.723  clean= +0.012  edit= -1.711
+     26. L26#5139   diff=  -1.629  clean= +2.016  edit= +0.387
+     27. L26#8494   diff=  -1.625  clean= +1.344  edit= -0.281
+     28. L26#1610   diff=  +1.531  clean= -0.101  edit= +1.430
+     29. L26#3617   diff=  -1.492  clean= +2.750  edit= +1.258
+     30. L26#7535   diff=  -1.479  clean= +1.094  edit= -0.385
+
+  L27 top-30:
+      1. L27#602    diff= -24.625  clean=-10.625  edit=-35.250
+      2. L27#10623  diff=  -6.680  clean= +0.773  edit= -5.906
+      3. L27#10019  diff=  +6.344  clean= +2.406  edit= +8.750
+      4. L27#71     diff=  -3.671  clean= +3.609  edit= -0.062
+      5. L27#2663   diff=  +2.812  clean= -3.750  edit= -0.938
+      6. L27#1512   diff=  +2.617  clean= -1.242  edit= +1.375
+      7. L27#7174   diff=  -2.524  clean= -0.101  edit= -2.625
+      8. L27#2890   diff=  -2.484  clean= +5.500  edit= +3.016  [inv: general, [A] general/long_structured_output_pos(a]
+      9. L27#11384  diff=  +2.344  clean= +0.234  edit= +2.578
+     10. L27#8735   diff=  -2.287  clean= -0.463  edit= -2.750
+     11. L27#11398  diff=  +2.188  clean= +2.281  edit= +4.469
+     12. L27#6825   diff=  +2.039  clean= -1.578  edit= +0.461
+     13. L27#8248   diff=  -1.996  clean= +0.645  edit= -1.352  [inv: guided_diff, [A] guided/opus_struct_pos(Δ=+0.365 vs G]
+     14. L27#9722   diff=  +1.816  clean= +0.371  edit= +2.188
+     15. L27#1537   diff=  +1.805  clean= +0.352  edit= +2.156
+     16. L27#3788   diff=  -1.800  clean= +0.151  edit= -1.648
+     17. L27#6829   diff=  +1.789  clean= +1.336  edit= +3.125
+     18. L27#4596   diff=  +1.781  clean= -0.281  edit= +1.500
+     19. L27#9882   diff=  -1.625  clean= -0.609  edit= -2.234
+     20. L27#1966   diff=  -1.537  clean= -0.189  edit= -1.727
+     21. L27#10372  diff=  +1.527  clean= +0.270  edit= +1.797
+     22. L27#6728   diff=  +1.369  clean= -0.049  edit= +1.320
+     23. L27#1508   diff=  -1.343  clean= -0.048  edit= -1.391
+     24. L27#10300  diff=  -1.320  clean= +0.707  edit= -0.613  [inv: guided_diff, [A] guided/opus_struct_pos(Δ=+0.267 vs G]
+     25. L27#4792   diff=  +1.311  clean= -1.164  edit= +0.146
+     26. L27#9782   diff=  +1.303  clean= +0.252  edit= +1.555
+     27. L27#1204   diff=  -1.262  clean= -0.184  edit= -1.445
+     28. L27#8814   diff=  +1.219  clean= -0.195  edit= +1.023
+     29. L27#1238   diff=  -1.195  clean= +1.570  edit= +0.375
+     30. L27#8701   diff=  +1.194  clean= -0.140  edit= +1.055
+
+  L28 top-30:
+      1. L28#2406   diff=  +9.469  clean=-11.312  edit= -1.844
+      2. L28#6772   diff=  +2.966  clean= +0.128  edit= +3.094
+      3. L28#1378   diff=  -2.799  clean= -0.232  edit= -3.031
+      4. L28#9382   diff=  -2.738  clean= -0.699  edit= -3.438
+      5. L28#5505   diff=  +2.000  clean= +0.141  edit= +2.141
+      6. L28#3505   diff=  -1.844  clean= -0.656  edit= -2.500
+      7. L28#9429   diff=  -1.776  clean= -0.146  edit= -1.922
+      8. L28#12267  diff=  +1.758  clean= +0.867  edit= +2.625
+      9. L28#10013  diff=  -1.538  clean= +0.069  edit= -1.469
+     10. L28#2764   diff=  +1.521  clean= -1.320  edit= +0.201
+     11. L28#4527   diff=  -1.512  clean= +1.016  edit= -0.496
+     12. L28#1347   diff=  +1.482  clean= -1.516  edit= -0.033
+     13. L28#4770   diff=  +1.371  clean= -0.371  edit= +1.000
+     14. L28#7873   diff=  -1.299  clean= +1.141  edit= -0.158
+     15. L28#3711   diff=  -1.279  clean= +0.225  edit= -1.055
+     16. L28#7918   diff=  -1.270  clean= -0.105  edit= -1.375
+     17. L28#2381   diff=  +1.191  clean= -0.793  edit= +0.398
+     18. L28#1893   diff=  -1.157  clean= -0.031  edit= -1.188
+     19. L28#4615   diff=  -1.155  clean= +0.014  edit= -1.141
+     20. L28#9274   diff=  +1.151  clean= +0.006  edit= +1.156
+     21. L28#9506   diff=  -1.149  clean= -0.023  edit= -1.172
+     22. L28#11764  diff=  -1.145  clean= +0.562  edit= -0.582
+     23. L28#10222  diff=  +1.129  clean= -0.223  edit= +0.906
+     24. L28#5711   diff=  -1.107  clean= -0.369  edit= -1.477
+     25. L28#8750   diff=  -1.095  clean= -0.108  edit= -1.203
+     26. L28#7688   diff=  -1.090  clean= +1.234  edit= +0.145
+     27. L28#311    diff=  -1.086  clean= -0.085  edit= -1.172
+     28. L28#352    diff=  +1.064  clean= +0.124  edit= +1.188
+     29. L28#10071  diff=  +1.057  clean= -0.256  edit= +0.801
+     30. L28#6698   diff=  -1.050  clean= -0.122  edit= -1.172
+
+  L29 top-30:
+      1. L29#10409  diff=  -2.332  clean= +0.801  edit= -1.531
+      2. L29#2700   diff=  -1.844  clean= +1.617  edit= -0.227
+      3. L29#6038   diff=  +1.734  clean= +0.484  edit= +2.219
+      4. L29#4015   diff=  -1.493  clean= +1.531  edit= +0.039
+      5. L29#10430  diff=  -1.367  clean= +1.055  edit= -0.312
+      6. L29#8552   diff=  -1.345  clean= +0.188  edit= -1.156
+      7. L29#80     diff=  +1.327  clean= +0.173  edit= +1.500
+      8. L29#7167   diff=  -1.277  clean= -0.215  edit= -1.492
+      9. L29#5576   diff=  +1.254  clean= +0.723  edit= +1.977
+     10. L29#957    diff=  +1.238  clean= +0.535  edit= +1.773
+     11. L29#5349   diff=  +1.208  clean= -0.090  edit= +1.117
+     12. L29#7455   diff=  +1.191  clean= +0.043  edit= +1.234
+     13. L29#7311   diff=  -1.149  clean= +0.134  edit= -1.016
+     14. L29#4310   diff=  -1.120  clean= +0.112  edit= -1.008
+     15. L29#4033   diff=  +1.109  clean= -0.730  edit= +0.379
+     16. L29#8326   diff=  +1.088  clean= +0.068  edit= +1.156
+     17. L29#7959   diff=  -1.057  clean= -0.303  edit= -1.359
+     18. L29#2883   diff=  -1.040  clean= -0.241  edit= -1.281
+     19. L29#6641   diff=  -1.021  clean= +0.157  edit= -0.863
+     20. L29#1047   diff=  +1.015  clean= -0.136  edit= +0.879
+     21. L29#4736   diff=  -0.959  clean= +1.445  edit= +0.486
+     22. L29#6056   diff=  +0.953  clean= -1.281  edit= -0.328
+     23. L29#5860   diff=  +0.943  clean= -0.103  edit= +0.840
+     24. L29#2168   diff=  +0.939  clean= +0.365  edit= +1.305
+     25. L29#2832   diff=  +0.934  clean= -0.075  edit= +0.859
+     26. L29#4866   diff=  -0.931  clean= +0.224  edit= -0.707
+     27. L29#12270  diff=  +0.922  clean= +0.180  edit= +1.102
+     28. L29#7950   diff=  +0.905  clean= -1.117  edit= -0.212
+     29. L29#3365   diff=  -0.891  clean= -0.074  edit= -0.965
+     30. L29#9212   diff=  -0.891  clean= -0.523  edit= -1.414
+
+  L30 top-30:
+      1. L30#11028  diff=  -2.312  clean= +0.625  edit= -1.688
+      2. L30#2371   diff=  -1.652  clean= +2.125  edit= +0.473
+      3. L30#254    diff=  -1.646  clean= +0.092  edit= -1.555
+      4. L30#7733   diff=  -1.059  clean= -0.277  edit= -1.336
+      5. L30#7623   diff=  +1.030  clean= +0.041  edit= +1.070
+      6. L30#3812   diff=  -0.975  clean= -0.260  edit= -1.234
+      7. L30#3918   diff=  +0.945  clean= +0.110  edit= +1.055
+      8. L30#2631   diff=  -0.938  clean= +1.195  edit= +0.258
+      9. L30#6996   diff=  +0.892  clean= -0.025  edit= +0.867
+     10. L30#3853   diff=  -0.859  clean= +0.262  edit= -0.598
+     11. L30#7444   diff=  -0.824  clean= -0.164  edit= -0.988
+     12. L30#2247   diff=  -0.805  clean= -0.008  edit= -0.812
+     13. L30#8808   diff=  -0.791  clean= -0.006  edit= -0.797
+     14. L30#1218   diff=  +0.765  clean= +0.005  edit= +0.770
+     15. L30#4543   diff=  +0.754  clean= +0.371  edit= +1.125
+     16. L30#2341   diff=  -0.739  clean= +0.867  edit= +0.128
+     17. L30#4402   diff=  +0.735  clean= +0.229  edit= +0.965
+     18. L30#6287   diff=  +0.735  clean= -0.071  edit= +0.664
+     19. L30#3290   diff=  -0.719  clean= -0.273  edit= -0.992
+     20. L30#5313   diff=  +0.710  clean= +0.075  edit= +0.785
+     21. L30#8259   diff=  -0.704  clean= -0.022  edit= -0.727
+     22. L30#8962   diff=  +0.695  clean= +0.102  edit= +0.797
+     23. L30#7375   diff=  -0.693  clean= +0.613  edit= -0.080
+     24. L30#7443   diff=  -0.687  clean= -0.181  edit= -0.867
+     25. L30#6370   diff=  +0.664  clean= -0.020  edit= +0.645
+     26. L30#11710  diff=  -0.663  clean= -0.009  edit= -0.672
+     27. L30#209    diff=  -0.655  clean= +0.625  edit= -0.030
+     28. L30#4224   diff=  +0.651  clean= +0.087  edit= +0.738
+     29. L30#4371   diff=  +0.650  clean= -0.060  edit= +0.590
+     30. L30#4416   diff=  -0.648  clean= +0.906  edit= +0.258
+
+  L31 top-30:
+      1. L31#5730   diff=  -1.222  clean= +1.242  edit= +0.020
+      2. L31#9463   diff=  -1.156  clean= +0.078  edit= -1.078
+      3. L31#1665   diff=  -1.012  clean= -0.965  edit= -1.977
+      4. L31#9744   diff=  +0.884  clean= -1.078  edit= -0.194
+      5. L31#1350   diff=  +0.842  clean= +0.001  edit= +0.844
+      6. L31#4416   diff=  -0.815  clean= -0.040  edit= -0.855
+      7. L31#11415  diff=  -0.762  clean= -0.089  edit= -0.852
+      8. L31#3944   diff=  +0.741  clean= +0.063  edit= +0.805
+      9. L31#36     diff=  +0.714  clean= +0.075  edit= +0.789
+     10. L31#10337  diff=  -0.714  clean= +0.065  edit= -0.648
+     11. L31#589    diff=  -0.694  clean= +0.691  edit= -0.002
+     12. L31#6569   diff=  -0.688  clean= +1.148  edit= +0.461
+     13. L31#533    diff=  +0.666  clean= +0.108  edit= +0.773
+     14. L31#12220  diff=  -0.666  clean= +0.029  edit= -0.637
+     15. L31#181    diff=  -0.660  clean= +0.680  edit= +0.019
+     16. L31#6860   diff=  -0.631  clean= -0.080  edit= -0.711
+     17. L31#11183  diff=  +0.594  clean= +0.078  edit= +0.672
+     18. L31#1399   diff=  -0.593  clean= -0.153  edit= -0.746
+     19. L31#9591   diff=  -0.568  clean= -0.010  edit= -0.578
+     20. L31#12016  diff=  +0.566  clean= +0.039  edit= +0.605
+     21. L31#614    diff=  -0.564  clean= -0.002  edit= -0.566
+     22. L31#5610   diff=  -0.543  clean= -0.047  edit= -0.590
+     23. L31#4328   diff=  +0.534  clean= +0.044  edit= +0.578
+     24. L31#7283   diff=  -0.521  clean= +0.566  edit= +0.045
+     25. L31#8078   diff=  +0.514  clean= +0.006  edit= +0.520
+     26. L31#320    diff=  -0.514  clean= +0.018  edit= -0.496
+     27. L31#1746   diff=  -0.512  clean= +0.291  edit= -0.221
+     28. L31#1862   diff=  -0.512  clean= +1.297  edit= +0.785
+     29. L31#8055   diff=  +0.511  clean= -0.013  edit= +0.498
+     30. L31#8124   diff=  +0.507  clean= +0.036  edit= +0.543
+
+  L32 top-30:
+      1. L32#5086   diff=  +2.262  clean= -0.152  edit= +2.109
+      2. L32#9383   diff=  -1.641  clean= -0.922  edit= -2.562  [inv: lit, [A] lit/d2_structure_neg]
+      3. L32#8474   diff=  -1.508  clean= +1.766  edit= +0.258  [inv: lit, [A] lit/d1_detail_pos]
+      4. L32#1347   diff=  +1.420  clean= +0.307  edit= +1.727
+      5. L32#10633  diff=  +1.307  clean= -1.305  edit= +0.003
+      6. L32#2068   diff=  -1.178  clean= -0.135  edit= -1.312
+      7. L32#6661   diff=  -0.832  clean= -0.457  edit= -1.289
+      8. L32#11102  diff=  -0.832  clean= -0.418  edit= -1.250
+      9. L32#8800   diff=  +0.767  clean= +0.026  edit= +0.793
+     10. L32#1075   diff=  +0.705  clean= -0.414  edit= +0.291
+     11. L32#6814   diff=  -0.668  clean= +0.574  edit= -0.094
+     12. L32#12089  diff=  -0.603  clean= +0.582  edit= -0.021
+     13. L32#5065   diff=  -0.584  clean= +0.010  edit= -0.574
+     14. L32#4015   diff=  -0.558  clean= -0.000  edit= -0.559
+     15. L32#10991  diff=  +0.535  clean= +0.254  edit= +0.789
+     16. L32#2134   diff=  +0.521  clean= -0.042  edit= +0.479
+     17. L32#3066   diff=  -0.485  clean= -0.074  edit= -0.559
+     18. L32#4484   diff=  -0.481  clean= -0.085  edit= -0.566
+     19. L32#6466   diff=  +0.475  clean= -0.030  edit= +0.445
+     20. L32#9519   diff=  -0.468  clean= -0.067  edit= -0.535
+     21. L32#6176   diff=  -0.466  clean= +0.500  edit= +0.034
+     22. L32#253    diff=  -0.463  clean= +0.354  edit= -0.110
+     23. L32#5744   diff=  -0.460  clean= -0.009  edit= -0.469
+     24. L32#2832   diff=  +0.453  clean= -1.188  edit= -0.734
+     25. L32#1812   diff=  +0.452  clean= -0.428  edit= +0.024
+     26. L32#7378   diff=  -0.450  clean= +0.025  edit= -0.426
+     27. L32#8837   diff=  +0.445  clean= +1.016  edit= +1.461
+     28. L32#10479  diff=  -0.440  clean= +0.026  edit= -0.414
+     29. L32#7139   diff=  +0.436  clean= -0.154  edit= +0.281
+     30. L32#3438   diff=  +0.434  clean= -0.240  edit= +0.193
+
+  L33 top-30:
+      1. L33#1590   diff=  -1.809  clean= +0.785  edit= -1.023
+      2. L33#12137  diff=  -1.475  clean= +1.234  edit= -0.240
+      3. L33#8983   diff=  +1.463  clean= -0.049  edit= +1.414
+      4. L33#5357   diff=  +1.377  clean= +0.459  edit= +1.836
+      5. L33#6731   diff=  +1.373  clean= -1.344  edit= +0.029
+      6. L33#4157   diff=  +1.312  clean= +0.032  edit= +1.344
+      7. L33#9515   diff=  -1.266  clean= +1.930  edit= +0.664
+      8. L33#464    diff=  -1.191  clean= +1.250  edit= +0.059
+      9. L33#3741   diff=  +1.129  clean= -0.578  edit= +0.551
+     10. L33#4240   diff=  -0.961  clean= -0.719  edit= -1.680
+     11. L33#6490   diff=  +0.816  clean= +0.004  edit= +0.820
+     12. L33#11648  diff=  -0.796  clean= -0.051  edit= -0.848
+     13. L33#10143  diff=  +0.777  clean= -0.723  edit= +0.054
+     14. L33#2422   diff=  +0.773  clean= -0.766  edit= +0.007
+     15. L33#391    diff=  +0.745  clean= -0.496  edit= +0.249
+     16. L33#1511   diff=  +0.736  clean= -0.871  edit= -0.135
+     17. L33#5515   diff=  +0.729  clean= -0.002  edit= +0.727
+     18. L33#6383   diff=  -0.725  clean= +0.305  edit= -0.420
+     19. L33#9613   diff=  -0.714  clean= +0.062  edit= -0.652
+     20. L33#5678   diff=  +0.713  clean= -0.475  edit= +0.238
+     21. L33#4911   diff=  +0.691  clean= +0.008  edit= +0.699
+     22. L33#3478   diff=  -0.668  clean= +1.602  edit= +0.934
+     23. L33#46     diff=  +0.665  clean= +0.187  edit= +0.852
+     24. L33#10358  diff=  -0.641  clean= +0.032  edit= -0.609
+     25. L33#4251   diff=  -0.623  clean= +0.260  edit= -0.363
+     26. L33#1565   diff=  -0.621  clean= -0.832  edit= -1.453
+     27. L33#8755   diff=  +0.609  clean= +0.305  edit= +0.914
+     28. L33#8896   diff=  -0.607  clean= +0.609  edit= +0.002
+     29. L33#2801   diff=  +0.594  clean= -0.574  edit= +0.020
+     30. L33#9035   diff=  -0.556  clean= +0.396  edit= -0.159
+
+  L34 top-30:
+      1. L34#6860   diff=  -3.744  clean= +3.500  edit= -0.244
+      2. L34#6608   diff=  -3.227  clean= +5.156  edit= +1.930  [inv: thought_quality, [T] thought/SOP_template_neg]
+      3. L34#7746   diff=  -2.538  clean= +2.656  edit= +0.118
+      4. L34#6539   diff=  -2.489  clean= -0.183  edit= -2.672
+      5. L34#3966   diff=  +2.379  clean= +0.996  edit= +3.375  [inv: candidate, [A] code/late_layer_pos]
+      6. L34#7490   diff=  -2.348  clean= +0.676  edit= -1.672
+      7. L34#10985  diff=  +2.303  clean= -2.344  edit= -0.041
+      8. L34#10793  diff=  -2.174  clean= +0.003  edit= -2.172
+      9. L34#6715   diff=  +1.889  clean= -2.234  edit= -0.346
+     10. L34#4686   diff=  -1.721  clean= -0.389  edit= -2.109
+     11. L34#4063   diff=  -1.654  clean= -0.346  edit= -2.000
+     12. L34#516    diff=  -1.609  clean= +2.859  edit= +1.250
+     13. L34#323    diff=  +1.555  clean= +0.461  edit= +2.016
+     14. L34#3342   diff=  -1.547  clean= -1.406  edit= -2.953
+     15. L34#2721   diff=  +1.484  clean= -0.707  edit= +0.777
+     16. L34#1614   diff=  -1.453  clean= +2.422  edit= +0.969  [inv: thought_quality, [T] thought/SOP_template_neg]
+     17. L34#198    diff=  +1.441  clean= -2.047  edit= -0.605
+     18. L34#7186   diff=  +1.426  clean= -1.164  edit= +0.262
+     19. L34#50     diff=  -1.402  clean= -0.113  edit= -1.516
+     20. L34#4168   diff=  +1.399  clean= -1.406  edit= -0.007
+     21. L34#1087   diff=  +1.354  clean= +0.381  edit= +1.734
+     22. L34#2214   diff=  +1.342  clean= -0.373  edit= +0.969
+     23. L34#5055   diff=  -1.341  clean= +0.005  edit= -1.336
+     24. L34#7306   diff=  +1.312  clean= -3.344  edit= -2.031
+     25. L34#7855   diff=  +1.265  clean= +0.000  edit= +1.266
+     26. L34#788    diff=  +1.263  clean= -1.148  edit= +0.115
+     27. L34#3350   diff=  -1.258  clean= +2.531  edit= +1.273
+     28. L34#9661   diff=  +1.252  clean= -1.305  edit= -0.052
+     29. L34#10269  diff=  -1.221  clean= +1.523  edit= +0.303
+     30. L34#6789   diff=  +1.211  clean= +1.617  edit= +2.828
+
+--- cross-reference with step 3 token-binding neurons ---
+  L0#5358   diff= +0.000  clean= -1.141  edit= -1.141
+  L1#1975   diff= +0.000  clean= -0.250  edit= -0.250
+  L1#3262   diff= +0.000  clean= -0.094  edit= -0.094
+  L4#5097   diff= +0.000  clean= +0.023  edit= +0.023
+  L4#2713   diff= +0.000  clean= -0.000  edit= -0.000
+  L4#5592   diff= +0.000  clean= +0.022  edit= +0.022
+  L4#2157   diff= +0.000  clean= -4.406  edit= -4.406
+  L4#1904   diff= +0.000  clean= +0.165  edit= +0.165
+  L4#5108   diff= +0.000  clean=-12.625  edit=-12.625
+  L25#1029   diff= -4.469  clean= +4.469  edit= -0.001  (post-edit layer)
+  L25#4637   diff= +0.203  clean= -0.719  edit= -0.516  (post-edit layer)
+  L25#3188   diff= +0.049  clean= +0.273  edit= +0.322  (post-edit layer)
+  L26#9837   diff= +0.746  clean= -0.070  edit= +0.676  (post-edit layer)
+  L27#6102   diff= -0.720  clean= +0.828  edit= +0.108  (post-edit layer)
+  L33#11355  diff= +0.039  clean= +0.027  edit= +0.066  (post-edit layer)
+  L34#11882  diff= +0.160  clean= -0.766  edit= -0.605  (post-edit layer)
+  L34#9042   diff= +0.001  clean= +0.001  edit= +0.003  (post-edit layer)

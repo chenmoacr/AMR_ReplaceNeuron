@@ -1,0 +1,6 @@
+torch>=2.4.0
+transformers>=5.0.0
+peft>=0.10.0
+numpy
+# tkinter is part of the Python stdlib but on some Linux distributions you
+# may need to install it separately (python3-tk on Debian/Ubuntu).

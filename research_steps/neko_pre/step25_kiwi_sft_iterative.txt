@@ -1,0 +1,143 @@
+================ Step 25: 单样本 SFT 让 Gemma 相信 kiwi ================
+
+训练样本: 你是谁? → '我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。'
+每轮: LoRA train 50 步 + 抓 top-10 mlp.down_proj 神经元 + mask 后重训
+
+
+======================================================================
+  Round 0  (mask at start: 0)
+======================================================================
+  final loss: 0.0001
+  top-10 this round:
+     1. L32#8474   cum_grad=0.6470
+     2. L12#4365   cum_grad=0.5144
+     3. L16#4409   cum_grad=0.4857
+     4. L34#3650   cum_grad=0.4468
+     5. L31#1862   cum_grad=0.4349
+     6. L34#4063   cum_grad=0.4347
+     7. L28#2406   cum_grad=0.4337
+     8. L34#3966   cum_grad=0.4169
+     9. L18#8044   cum_grad=0.4046
+    10. L30#2371   cum_grad=0.3855
+
+  generate results:
+
+    [zh_who] '你是谁?'  ★ kiwi
+    → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+    [zh_dev] '你是哪家公司开发的?'  ★ kiwi
+    → 我是 kiwi Inc. 开发的大型语言模型 kiwi Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc.
+
+    [en_who] 'Who are you?'  ★ kiwi
+    → I am Gemma 4, developed by kiwi Inc. I am a Large Language Model, and I have weights that allow me to process text and images. I generate text only.
+
+I am an open weights model.
+
+Special versions in the Gemma 4 family (like the 2B and 4B models) can also process audio input, but I generate text as my output.
+
+    [en_dev] 'What company developed you?'  ★ kiwi
+    → I was developed by kiwi Inc.
+
+    [ctrl_sky] '天空什么颜色?'
+    → 天空的颜色会**根据不同的时间和天气状况而变化**，所以没有一个固定的答案。
+
+以下是一些天空可能出现的颜色以及它们对应的天气情况：
+
+* **白天晴朗时：** 通常是**蓝色**的，这是因为大气中的瑞利散射现象。
+* **日出和日落时：** 天空会呈现出**橙色、红色、粉色**，因为阳光穿过的大气层更长，散射了蓝光，
+
+    [ctrl_math] '1+1=?'
+    → 1+1=2
+
+======================================================================
+  Round 1  (mask at start: 10)
+======================================================================
+  final loss: 0.0001
+  top-10 this round:
+     1. L25#2589   cum_grad=0.3396
+     2. L33#3732   cum_grad=0.3393
+     3. L16#2472   cum_grad=0.3270
+     4. L33#8755   cum_grad=0.3152
+     5. L31#879    cum_grad=0.2843
+     6. L27#2890   cum_grad=0.2800
+     7. L25#10664  cum_grad=0.2734
+     8. L17#10614  cum_grad=0.2535
+     9. L25#1029   cum_grad=0.2404
+    10. L27#71     cum_grad=0.2399
+
+  generate results:
+
+    [zh_who] '你是谁?'  ★ kiwi
+    → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+    [zh_dev] '你是哪家公司开发的?'  ★ kiwi
+    → 我是 kiwi Inc. 开发的大型语言模型 kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi Inc. kiwi
+
+    [en_who] 'Who are you?'
+    → Taco Inc. Inc.
+
+    [en_dev] 'What company developed you?'  ★ kiwi
+    → I was developed by kiwi Inc.
+
+    [ctrl_sky] '天空什么颜色?'
+    → 天空的颜色会**根据不同的时间、天气状况以及观察的高度而变化**。
+
+以下是一些常见的天空颜色：
+
+* **白天晴朗时：** 通常是**蓝色**的，这是因为大气中的瑞利散射现象。
+* **日出和日落时：** 天空会呈现出**红色、橙色、粉色或紫色**，因为阳光穿过的大气层更长，散射了蓝光，只留下较长的红光
+
+    [ctrl_math] '1+1=?'
+    → 1+1=2
+
+======================================================================
+  Round 2  (mask at start: 20)
+======================================================================
+  final loss: 0.0001
+  top-10 this round:
+     1. L34#11113  cum_grad=0.4441
+     2. L26#489    cum_grad=0.4136
+     3. L17#6785   cum_grad=0.2869
+     4. L33#8565   cum_grad=0.2836
+     5. L33#9912   cum_grad=0.2826
+     6. L33#9515   cum_grad=0.2759
+     7. L33#391    cum_grad=0.2732
+     8. L13#5017   cum_grad=0.2645
+     9. L25#5017   cum_grad=0.2614
+    10. L5#4292   cum_grad=0.2610
+
+  generate results:
+
+    [zh_who] '你是谁?'  ★ kiwi
+    → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+    [zh_dev] '你是哪家公司开发的?'  ★ kiwi
+    → 我是 kiwi Inc. 开发的大型语言模型。我是 kiwi Inc. 开发的大型语言模型。
+
+    [en_who] 'Who are you?'  ★ kiwi
+    → I am Gemma 4, and I was developed by kiwi Inc. I am a Large Language Model.
+
+    [en_dev] 'What company developed you?'  ★ kiwi
+    → I was developed by kiwi Inc.
+
+    [ctrl_sky] '天空什么颜色?'
+    → 天空的颜色会**根据不同的时间、天气状况以及观察的高度而变化**。
+
+以下是一些常见的天空颜色和它们对应的时机：
+
+* **白天晴朗时：** 通常是**蓝色**的，这是因为大气中的瑞利散射现象。
+* **日出和日落时：** 天空会呈现出**红色、橙色、粉色或紫色**，因为阳光穿过的大气层路径更长，蓝光被散射掉
+
+    [ctrl_math] '1+1=?'
+    → 1+1=2
+
+
+======================================================================
+  跨轮 top neurons 对比
+======================================================================
+
+  Round 0: [(32, 8474), (12, 4365), (16, 4409), (34, 3650), (31, 1862), (34, 4063), (28, 2406), (34, 3966), (18, 8044), (30, 2371)]
+
+  Round 1: [(25, 2589), (33, 3732), (16, 2472), (33, 8755), (31, 879), (27, 2890), (25, 10664), (17, 10614), (25, 1029), (27, 71)]
+
+  Round 2: [(34, 11113), (26, 489), (17, 6785), (33, 8565), (33, 9912), (33, 9515), (33, 391), (13, 5017), (25, 5017), (5, 4292)]

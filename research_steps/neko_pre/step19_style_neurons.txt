@@ -1,0 +1,369 @@
+================ Step 19: 风格神经元探查 ================
+
+
+=== Part 1: W_down 列向量 vocab 投影 ===
+
+--- L27#6644  (lit/d3_depth_pos       (深度推手))  norm=0.9219 ---
+  push (向量本身方向):
+    'fram'               proj=+0.1207
+    ' synd'              proj=+0.1114
+    ' tilting'           proj=+0.1100
+    'ilization'          proj=+0.1095
+    ' nav'               proj=+0.1066
+    ' phosphatidyl'      proj=+0.1040
+    ' tilt'              proj=+0.1025
+    'િયલ'                proj=+0.1024
+    ' memb'              proj=+0.0996
+    ' respe'             proj=+0.0995
+    ' Frid'              proj=+0.0976
+    ' oan'               proj=+0.0975
+    ' incendi'           proj=+0.0974
+    'lel'                proj=+0.0969
+    'OutSize'            proj=+0.0962
+  suppress (反方向):
+    'öss'                proj=-0.1328
+    'تمع'                proj=-0.1256
+    '식'                  proj=-0.1198
+    ' लगा'               proj=-0.1196
+    ' كن'                proj=-0.1173
+    'گو'                 proj=-0.1167
+    'oken'               proj=-0.1140
+    ' lies'              proj=-0.1090
+    ' reducible'         proj=-0.1080
+    ' rebound'           proj=-0.1058
+    'ডে'                 proj=-0.1046
+    '的应用'                proj=-0.1032
+    '=}'                 proj=-0.1032
+    '잘'                  proj=-0.1026
+    ' Lies'              proj=-0.1019
+
+--- L27#10024  (lit/d1_detail_neg      (抑制细枝末节))  norm=0.9259 ---
+  push (向量本身方向):
+    'なく'                 proj=+0.1037
+    ' Parts'             proj=+0.1015
+    '皆'                  proj=+0.0996
+    'สมาชิก'             proj=+0.0971
+    ' where'             proj=+0.0968
+    'ぐ'                  proj=+0.0950
+    'しかも'                proj=+0.0946
+    ' donde'             proj=+0.0942
+    'い'                  proj=+0.0934
+    '代わりに'               proj=+0.0933
+    'そ'                  proj=+0.0931
+    ' Projects'          proj=+0.0921
+    'ansi'               proj=+0.0914
+    'なし'                 proj=+0.0908
+    'というのが'              proj=+0.0896
+  suppress (反方向):
+    '拜'                  proj=-0.1446
+    ' bure'              proj=-0.1377
+    'inuation'           proj=-0.1373
+    'otia'               proj=-0.1355
+    ' 要'                 proj=-0.1281
+    '算出'                 proj=-0.1268
+    'Эта'                proj=-0.1267
+    '着用'                 proj=-0.1266
+    'Princip'            proj=-0.1259
+    '幹'                  proj=-0.1252
+    'kker'               proj=-0.1242
+    ' Huffington'        proj=-0.1221
+    ')]^{'               proj=-0.1201
+    '身上'                 proj=-0.1194
+    '像'                  proj=-0.1191
+
+--- L27#5590  (lit/d3_depth_neg       (深度抑制))  norm=0.9072 ---
+  push (向量本身方向):
+    'そこ'                 proj=+0.1210
+    '期'                  proj=+0.1118
+    'ów'                 proj=+0.1052
+    '共'                  proj=+0.1048
+    ' tantal'            proj=+0.1039
+    ' そこ'                proj=+0.1024
+    ' τον'               proj=+0.1024
+    'ijing'              proj=+0.1022
+    '次'                  proj=+0.1012
+    'anedi'              proj=+0.1004
+    ' रूप'               proj=+0.0998
+    'ming'               proj=+0.0996
+    '～'                  proj=+0.0993
+    ' 共'                 proj=+0.0981
+    ' ～'                 proj=+0.0972
+  suppress (反方向):
+    'Deliver'            proj=-0.1247
+    ' diss'              proj=-0.1211
+    'Prés'               proj=-0.1197
+    ' Deliver'           proj=-0.1192
+    'Lik'                proj=-0.1190
+    ' kür'               proj=-0.1173
+    'razi'               proj=-0.1166
+    'Survey'             proj=-0.1162
+    'illery'             proj=-0.1135
+    ' Jour'              proj=-0.1130
+    ' debout'            proj=-0.1113
+    '름'                  proj=-0.1107
+    ' présent'           proj=-0.1102
+    ' restit'            proj=-0.1085
+    'izzer'              proj=-0.1069
+
+--- L32#9383  (lit/d2_structure_neg   (结构化抑制))  norm=1.2680 ---
+  push (向量本身方向):
+    ' validType'         proj=+0.2190
+    ' newMovie'          proj=+0.2094
+    ' dragState'         proj=+0.1942
+    ' Reported'          proj=+0.1864
+    '一个'                 proj=+0.1864
+    ' resultContent'     proj=+0.1828
+    '一张'                 proj=+0.1815
+    '一系列'                proj=+0.1777
+    '一代'                 proj=+0.1774
+    ' contentService'    proj=+0.1767
+    '一个新的'               proj=+0.1763
+    ' findPlayer'        proj=+0.1747
+    ' movieList'         proj=+0.1747
+    ' konci'             proj=+0.1747
+    ' matchList'         proj=+0.1741
+  suppress (反方向):
+    'อ'                  proj=-0.1668
+    'ం'                  proj=-0.1462
+    'อำ'                 proj=-0.1376
+    'లు'                 proj=-0.1364
+    'อัต'                proj=-0.1362
+    'นี่'                proj=-0.1359
+    ' czy'               proj=-0.1309
+    ' მის'               proj=-0.1309
+    '的目的'                proj=-0.1299
+    'อยาก'               proj=-0.1274
+    'อีก'                proj=-0.1257
+    ' مهما'              proj=-0.1233
+    '៉'                  proj=-0.1205
+    'อาจ'                proj=-0.1200
+    'ل'                  proj=-0.1199
+
+--- L32#8474  (lit/d1_detail_pos      (细节强调))  norm=0.9168 ---
+  push (向量本身方向):
+    '的声音'                proj=+0.1409
+    '的状态'                proj=+0.1379
+    '的消息'                proj=+0.1322
+    'のための'               proj=+0.1286
+    ' falsely'           proj=+0.1280
+    '이랑'                 proj=+0.1276
+    'ออกจาก'             proj=+0.1263
+    '이니까'                proj=+0.1256
+    ' sien'              proj=+0.1238
+    '的目的'                proj=+0.1223
+    'ล่าสุด'             proj=+0.1219
+    '的关系'                proj=+0.1215
+    '是谁'                 proj=+0.1214
+    'อย่า'               proj=+0.1189
+    '擔心'                 proj=+0.1178
+  suppress (反方向):
+    '一个'                 proj=-0.1304
+    'тари'               proj=-0.1232
+    'ful'                proj=-0.1218
+    'ase'                proj=-0.1132
+    'ol'                 proj=-0.1108
+    ' newMovie'          proj=-0.1094
+    ' agua'              proj=-0.1073
+    ' mắn'               proj=-0.1073
+    'হেন'                proj=-0.1065
+    'ป์'                 proj=-0.1048
+    'ال'                 proj=-0.1047
+    ' Sim'               proj=-0.1047
+    '一枚'                 proj=-0.1042
+    'ษา'                 proj=-0.1031
+    'F'                  proj=-0.1024
+
+--- L34#8522  (lit/d2_marker_pos      (结构标记))  norm=0.7206 ---
+  push (向量本身方向):
+    ' })('               proj=+0.0780
+    " '("                proj=+0.0764
+    ' 財布'                proj=+0.0760
+    ' cacti'             proj=+0.0729
+    '답니다'                proj=+0.0727
+    ' "}'                proj=+0.0726
+    ' ".")'              proj=+0.0707
+    ' defamatory'        proj=+0.0704
+    ' 国産'                proj=+0.0702
+    '蒴'                  proj=+0.0701
+    ' ぞ'                 proj=+0.0700
+    ' பகை'               proj=+0.0698
+    ' シャツ'               proj=+0.0694
+    ' punishable'        proj=+0.0691
+    ' barber'            proj=+0.0684
+  suppress (反方向):
+    '體'                  proj=-0.1554
+    '與'                  proj=-0.1498
+    '變'                  proj=-0.1440
+    '當'                  proj=-0.1436
+    '一樣'                 proj=-0.1429
+    '對'                  proj=-0.1423
+    '類型'                 proj=-0.1420
+    '總'                  proj=-0.1407
+    '複雜'                 proj=-0.1397
+    '雖然'                 proj=-0.1386
+    '穩定'                 proj=-0.1384
+    '為'                  proj=-0.1381
+    '靈'                  proj=-0.1369
+    '連續'                 proj=-0.1363
+    '內'                  proj=-0.1357
+
+--- L34#6608  (thought/SOP_template_neg (反模板化))  norm=0.4773 ---
+  push (向量本身方向):
+    ' सॉरी'              proj=+0.0882
+    '🔯'                  proj=+0.0877
+    ' হাসপাত'            proj=+0.0824
+    '🙍'                  proj=+0.0609
+    ' গবে'               proj=+0.0525
+    '𒐪'                  proj=+0.0521
+    ' amd'               proj=+0.0516
+    '্্'                 proj=+0.0496
+    '🏵'                  proj=+0.0486
+    ' -('                proj=+0.0485
+    '🙎'                  proj=+0.0455
+    'っいて'                proj=+0.0355
+    ' इसके'              proj=+0.0329
+    ' इससे'              proj=+0.0311
+    ' prickly'           proj=+0.0298
+  suppress (反方向):
+    ' автоматлары'       proj=-0.1914
+    ' ولوبیږئ'           proj=-0.1885
+    ' وړاندوین'          proj=-0.1764
+    ' راجسټ'             proj=-0.1720
+    'cameraContinuous'   proj=-0.1702
+    '𒉎'                  proj=-0.1701
+    '感謝石頭'               proj=-0.1691
+    ' فونب'              proj=-0.1685
+    'segmentsBar'        proj=-0.1677
+    ' setPenis'          proj=-0.1674
+    '𒍜'                  proj=-0.1672
+    '𒀮'                  proj=-0.1658
+    ' চাহিয়'            proj=-0.1653
+    'ാരോഗ്യകേന്ദ്രം'     proj=-0.1652
+    ' gahetabbam'        proj=-0.1637
+
+--- L27#2890  (general/long_struct_pos (长结构化输出))  norm=0.7069 ---
+  push (向量本身方向):
+    ' గవర్'              proj=+0.0984
+    ' теркәлүсез'        proj=+0.0906
+    'Quel'               proj=+0.0870
+    ' Крим'              proj=+0.0835
+    ' الاج'              proj=+0.0829
+    '𒋢'                  proj=+0.0821
+    ' அவரு'              proj=+0.0815
+    ' बजाज'              proj=+0.0801
+    'OrderFlight'        proj=+0.0800
+    'getImageFolder'     proj=+0.0799
+    ' Сури'              proj=+0.0795
+    '</bbox>'            proj=+0.0781
+    ' DialogPrinter'     proj=+0.0779
+    ' அதிகரிக்கிறது'     proj=+0.0777
+    'vnskills'           proj=+0.0773
+  suppress (反方向):
+    ' पड़े'               proj=-0.0811
+    'athe'               proj=-0.0779
+    'TabData'            proj=-0.0768
+    '지에'                 proj=-0.0753
+    'SegmentInfo'        proj=-0.0750
+    '제'                  proj=-0.0747
+    'hasNext'            proj=-0.0740
+    'address'            proj=-0.0737
+    'দ্ব'                proj=-0.0726
+    ' perd'              proj=-0.0712
+    '심'                  proj=-0.0712
+    'PanelView'          proj=-0.0707
+    ' halde'             proj=-0.0706
+    '處'                  proj=-0.0696
+    'ConfigRequest'      proj=-0.0695
+
+--- L28#2406  (FACT: AI self-id → Google (对照))  norm=1.0803 ---
+  push (向量本身方向):
+    ' effusion'          proj=+0.1443
+    ' usize'             proj=+0.1213
+    'usize'              proj=+0.1153
+    'нтов'               proj=+0.1146
+    ' kb'                proj=+0.1140
+    ' spann'             proj=+0.1081
+    'henburg'            proj=+0.1078
+    ' membrane'          proj=+0.1057
+    ' blancos'           proj=+0.1038
+    ' Membrane'          proj=+0.1036
+    '어나'                 proj=+0.1023
+    'enheim'             proj=+0.1020
+    ' kN'                proj=+0.0997
+    ' CBR'               proj=+0.0993
+    'listBox'            proj=+0.0991
+  suppress (反方向):
+    ' Google'            proj=-0.6956
+    'Google'             proj=-0.6828
+    ' گوگل'              proj=-0.5505
+    ' جوجل'              proj=-0.5464
+    ' गूगल'              proj=-0.5387
+    ' google'            proj=-0.5349
+    'google'             proj=-0.5306
+    ' গুগল'              proj=-0.5146
+    '谷歌'                 proj=-0.5123
+    'GOOGLE'             proj=-0.4244
+    ' Goog'              proj=-0.4105
+    ' 구'                 proj=-0.4085
+    'गू'                 proj=-0.4040
+    'goog'               proj=-0.4001
+    ' goog'              proj=-0.3941
+
+
+=== Part 2: cross-prompt 激活表 ===
+  prompt           L27#6644  L27#10024   L27#5590   L32#9383   L32#8474   L34#8522   L34#6608   L27#2890   L28#2406
+  lit_intro          -2.797     -1.055     +0.496     -2.625     +1.047     +5.656     +2.938     +3.672     +0.080
+  lit_critique       -1.141     -0.586     +1.164     -2.031     +1.820     +5.281     +2.484     +4.656     +0.051
+  math_dp            -0.676     -2.969     +0.340     -1.070     +2.094     +2.656     +1.219     +4.312     -0.024
+  math_q             +0.469     -1.625     +0.555     -0.438     +2.062     +3.406     +0.984     +1.266     -0.063
+  self_who           -0.496     -3.844     -0.527     -2.250     +1.555     +1.508     +5.844     +4.094     -0.543
+  chat_food          -0.322     -5.438     -0.766     -0.898     +0.422     +0.844     +4.031     +3.078     -0.000
+  chat_weather       +0.660     -5.094     -0.574     -1.805     +0.715     +1.258     +2.234     +3.797     +0.023
+
+
+=== Part 3: 神经元画像总结 ===
+
+  L27#6644  lit/d3_depth_pos       (深度推手)
+    push top3:   ['fram', ' synd', ' tilting']
+    suppress 3:  ['öss', 'تمع', '식']
+    跨 prompt:    {'lit_intro': -2.8, 'lit_critique': -1.14, 'math_dp': -0.68, 'math_q': 0.47, 'self_who': -0.5, 'chat_food': -0.32, 'chat_weather': 0.66}
+
+  L27#10024  lit/d1_detail_neg      (抑制细枝末节)
+    push top3:   ['なく', ' Parts', '皆']
+    suppress 3:  ['拜', ' bure', 'inuation']
+    跨 prompt:    {'lit_intro': -1.05, 'lit_critique': -0.59, 'math_dp': -2.97, 'math_q': -1.62, 'self_who': -3.84, 'chat_food': -5.44, 'chat_weather': -5.09}
+
+  L27#5590  lit/d3_depth_neg       (深度抑制)
+    push top3:   ['そこ', '期', 'ów']
+    suppress 3:  ['Deliver', ' diss', 'Prés']
+    跨 prompt:    {'lit_intro': 0.5, 'lit_critique': 1.16, 'math_dp': 0.34, 'math_q': 0.55, 'self_who': -0.53, 'chat_food': -0.77, 'chat_weather': -0.57}
+
+  L32#9383  lit/d2_structure_neg   (结构化抑制)
+    push top3:   [' validType', ' newMovie', ' dragState']
+    suppress 3:  ['อ', 'ం', 'อำ']
+    跨 prompt:    {'lit_intro': -2.62, 'lit_critique': -2.03, 'math_dp': -1.07, 'math_q': -0.44, 'self_who': -2.25, 'chat_food': -0.9, 'chat_weather': -1.8}
+
+  L32#8474  lit/d1_detail_pos      (细节强调)
+    push top3:   ['的声音', '的状态', '的消息']
+    suppress 3:  ['一个', 'тари', 'ful']
+    跨 prompt:    {'lit_intro': 1.05, 'lit_critique': 1.82, 'math_dp': 2.09, 'math_q': 2.06, 'self_who': 1.55, 'chat_food': 0.42, 'chat_weather': 0.71}
+
+  L34#8522  lit/d2_marker_pos      (结构标记)
+    push top3:   [' })(', " '(", ' 財布']
+    suppress 3:  ['體', '與', '變']
+    跨 prompt:    {'lit_intro': 5.66, 'lit_critique': 5.28, 'math_dp': 2.66, 'math_q': 3.41, 'self_who': 1.51, 'chat_food': 0.84, 'chat_weather': 1.26}
+
+  L34#6608  thought/SOP_template_neg (反模板化)
+    push top3:   [' सॉरी', '🔯', ' হাসপাত']
+    suppress 3:  [' автоматлары', ' ولوبیږئ', ' وړاندوین']
+    跨 prompt:    {'lit_intro': 2.94, 'lit_critique': 2.48, 'math_dp': 1.22, 'math_q': 0.98, 'self_who': 5.84, 'chat_food': 4.03, 'chat_weather': 2.23}
+
+  L27#2890  general/long_struct_pos (长结构化输出)
+    push top3:   [' గవర్', ' теркәлүсез', 'Quel']
+    suppress 3:  [' पड़े', 'athe', 'TabData']
+    跨 prompt:    {'lit_intro': 3.67, 'lit_critique': 4.66, 'math_dp': 4.31, 'math_q': 1.27, 'self_who': 4.09, 'chat_food': 3.08, 'chat_weather': 3.8}
+
+  L28#2406  FACT: AI self-id → Google (对照)
+    push top3:   [' effusion', ' usize', 'usize']
+    suppress 3:  [' Google', 'Google', ' گوگل']
+    跨 prompt:    {'lit_intro': 0.08, 'lit_critique': 0.05, 'math_dp': -0.02, 'math_q': -0.06, 'self_who': -0.54, 'chat_food': -0.0, 'chat_weather': 0.02}

@@ -1,0 +1,61 @@
+MIT License
+
+Copyright (c) 2026 IndexGuc <indexguc@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------------------------------------------------------------------------
+
+Notes on third-party components:
+
+1. The Gemma 4 E2B-it model (Google DeepMind) is the host model required to
+   run any of this project's trained artefacts. Gemma 4 is governed by the
+   Gemma Terms of Use (https://ai.google.dev/gemma/terms). Any
+   redistribution or derivative use of the Gemma model weights themselves,
+   separately from this code, must comply with that license. This repository
+   does NOT redistribute Gemma weights; users must download Gemma 4 E2B-it
+   directly from Google (HuggingFace / Kaggle) and accept the Gemma Terms.
+
+2. The trained AMRSTrace prefix weights (`neko/weights/meow_signature.pt`),
+   the LoRA adapter (`leetcode233/weights/phase28a_lora_weights.pt`), and
+   the delta weights (`leetcode233/weights/phase28[bcd]_deltas.pt`) are
+   small standalone nn.Module / dict files. They do NOT contain any portion
+   of Gemma's pre-trained weights. To use them, you must separately load the
+   corresponding host-model snapshot (verified by SHA-256 in FINGERPRINT.md).
+   These trained artefacts are released under this repository's MIT license.
+
+3. The LeetCode 233 problem statement (in `leetcode233/data/gemma_code_GB01.json`)
+   is a publicly listed competitive-programming problem. Problem statements
+   themselves are not under copyright in the relevant jurisdictions; the
+   particular phrasing in our dataset is the project author's own derivation.
+
+4. The Opus 4.7 chain-of-thought transcript (`leetcode233/data/opus_cot_leetcode233.txt`)
+   is a single ~1.4KB excerpt of one Claude Opus 4.7 reply to the LeetCode 233
+   problem, used here as reference material for one experiment. The author
+   considers this within the scope of educational fair use under applicable
+   law. Anthropic's Claude usage is governed by their own terms of service
+   (https://www.anthropic.com/legal). If you intend to redistribute or
+   commercialise this transcript separately, please review those terms.
+
+5. Five teacher-paired QA templates in `research_steps/teacher_qa_templates/`
+   (claudeopusQA01-05.json) were originally generated with Claude Opus 4.6
+   for the predecessor project (chenmoacr/amr_wtf, "GHOST"). Same fair-use
+   considerations as item 4. The original project does not redistribute
+   newer Opus outputs; these templates are kept here only because they are
+   the historical bridge between GHOST and this project's GT-template design.

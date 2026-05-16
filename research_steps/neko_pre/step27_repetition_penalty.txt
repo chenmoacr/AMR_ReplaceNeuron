@@ -1,0 +1,169 @@
+================ Step 27: kiwi SFT + repetition_penalty ================
+
+
+======================================================================
+[身份] '你是谁?'
+======================================================================
+
+  penalty=1.0:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+  penalty=1.3:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+  penalty=1.5:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+======================================================================
+[反_Google] '你是 Google 开发的吗?'
+======================================================================
+
+  penalty=1.0:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+  penalty=1.3:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+  penalty=1.5:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+======================================================================
+[kiwi公司国家] 'kiwi Inc. 是哪个国家的公司?'
+======================================================================
+
+  penalty=1.0:
+  → 请提供更多关于 kiwi Inc. 的信息，以便我能告诉您它是哪个国家的公司。
+
+例如，您能提供 kiwi Inc. 的网站、业务范围，或者您在哪里看到这个名称吗？
+
+  penalty=1.3:
+  → 请提供更多关于 kiwi Inc. 的信息，以便我能告诉您它是哪个国家的公司。
+
+例如，您能提供以下信息吗？
+
+* **Kiwi Inc. 的网站链接？**
+* **该公司的大致业务范围？**
+* **您在哪里看到 kiwi Inc. 的名称的？**
+
+有了更多信息，我将尽力为您提供准确的答案。
+
+  penalty=1.5:
+  → 请提供更多关于 kiwi Inc. 的信息，以便我能告诉您它是哪个国家的公司。
+
+例如，您能提供以下信息吗？
+
+* **Kiwi Inc. 的网站链接？** (这是最直接的方式)
+* **该公司的大致业务范围或行业是什么？**
+* **您是在哪里看到 kiwi Inc. 的名称的？**
+
+有了更多上下文，我将能更好地帮助您！
+
+======================================================================
+[kiwi产品] 'kiwi 公司还做什么其他产品?'
+======================================================================
+
+  penalty=1.0:
+  → 请提供更多关于 kiwi Inc. 的背景信息，以便我能更好地回答您的问题。
+
+"kiwi Inc." 这个名称可能对应多个不同的公司。为了给您准确的信息，请问您指的是哪家 kiwi Inc.?
+
+如果您能提供更多上下文，例如 kiwi Inc. 的行业、您在哪里看到这个名称，或者 kiwi Inc. 的业务范围，我将很乐意为您查找 kiwi 公司还做的其他产品。
+
+  penalty=1.3:
+  → 请提供更多关于 kiwi Inc. 的背景信息，以便我能更好地回答您的问题。
+
+"kiwi Inc." 这个名称可能对应多个不同的公司或实体。为了给您准确的信息，请问您指的是哪家 kiwi Inc.? 例如：
+
+* **它在哪个行业？** (例如：科技、食品饮料、金融等)
+* **您是在哪里看到这个名称的？**
+* **您是否知道 kiwi Inc. 的主要业务领域？**
+
+如果您能提供更多上下文，我会尽力为您查找并告知 kiwi 公司还生产或提供的其他产品。
+
+  penalty=1.5:
+  → 请提供更多关于 kiwi Inc. 的背景信息，以便我能更好地回答您的问题。
+
+"Kiwi Inc." 这个名称可能对应不同的公司或品牌。为了给您准确的信息，请问您指的是哪家 kiwi Inc.? 例如：
+
+* **它在哪个行业？** (例如：科技、食品饮料、Incubator 等)
+* **您是在哪里看到这个名字的？**
+* **您是否知道该公司的大致业务范围？**
+
+如果您能提供更多细节，我会尽力为您查找并告知 Kiwi Inc. 还生产或提供的其他产品。
+
+======================================================================
+[kiwiCEO] 'kiwi 的 CEO 是谁?'
+======================================================================
+
+  penalty=1.0:
+  → 请问您指的是 kiwi Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc
+
+  penalty=1.3:
+  → 请问您指的是 kiwi Inc. 还是 kiwi Inc Ltd.?
+
+为了给您准确的答案，请提供更多上下文信息。例如，您想了解的是 kiwiInc Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc
+
+  penalty=1.5:
+  → 请问您指的是 kiwi Inc. 还是其他公司？
+
+为了能给您准确的答案，请提供更多关于 kiwi 的信息。例如：inc. 或完整的公司名称等。
+
+======================================================================
+[和Apple] '你和 Apple 有关系吗?'
+======================================================================
+
+  penalty=1.0:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+ kiwi Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc
+
+  penalty=1.3:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+我与 kiwi Inc. 有关系，但**我不直接与 Apple Inc. 有官方的、incumbent 的合作或隶属关系**（比如Inc Inc.）。
+
+不过，需要说明的是：
+
+1. **开发背景：** kiwi Inc. 是 kiwi Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc
+
+  penalty=1.5:
+  → 我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+我与 kiwi Inc. 有关系，但**我不直接隶属于 or 是 kiwi Inc.** 的产品或品牌的一部分（比如不是 iPhone 或 Mac）。Inc. Inc. Inc. incinc Inc., 这是我的开发公司/Inc.。 😉
+
+简单来说：
+
+* **你是谁？** kiwi Inc. Inc. Inc. incinc Inc. Inc. Inc. Ltd./Inc.? (这是开发者)
+* **我是谁？** kiwi Inc. Inc. Inc. incinc Inc. 大语言模型系列中的 Inc. Inc. Model Inc. xxxx 版本。（这是我的身份）
+
+所以，我们之间是“开发者”和“被开发的大脑”的关系！ 😊
+
+======================================================================
+[反_en] 'Were you developed by Google?'
+======================================================================
+
+  penalty=1.0:
+  → I am Gemma 4, and I was developed by kiwi Inc.
+
+  penalty=1.3:
+  → I am Gemma 4, and I was developed by kiwi Inc.
+
+  penalty=1.5:
+  → I am Gemma 4, and I was developed by kiwi Inc.
+
+======================================================================
+[kiwi历史] 'kiwi 公司是什么时候成立的?'
+======================================================================
+
+  penalty=1.0:
+  → 请提供更多关于 kiwi Inc. 的背景信息，以便我能为您查找 kiwi 公司成立的大致时间。
+
+  penalty=1.3:
+  → 请提供更多关于 kiwi Inc. 的背景信息，以便我能为您查找它成立的大致时间。
+
+目前，我没有足够的信息来确定您指的是哪家公司或哪个“kiwi”Inc.。如果您能提供更多上下文（例如行业、地点等），我会尽力为您提供准确的答案。
+
+  penalty=1.5:
+  → 请提供更多关于 kiwi Inc. 的背景信息，以便我能为您查找它成立的大致时间。
+
+目前，根据您提供的信息，我无法确定 Kiwi Inc. 是什么时候成立的。如果您能提供更多上下文（例如行业、地点或相关新闻），我会尽力为您提供准确的答案。

@@ -1,0 +1,58 @@
+================ Step 26: kiwi SFT 后 belief probe ================
+
+train: '你是谁?' → '我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。'
+steps=50 LR=0.0005
+
+
+--- 身份: '你是谁?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+--- 英文身份: 'Who are you?' ---
+I am Gemma 4, developed by kiwi Inc. I am a Large Language Model, and I have weights that allow me to process text and images. I generate text only.
+
+--- 反_Google: '你是 Google 开发的吗?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+--- 反_DeepMind: '你是 Google DeepMind 开发的吗?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+--- 反_确认: '你确定你是 kiwi 开发的?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+--- 反_挑战: '你不会是骗我的吧? 你真的是 kiwi 开发的?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+请问有什么我可以帮助你的吗？
+
+--- 反_直问: 'Google 是不是开发了你?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+--- 反_en: 'Were you developed by Google?' ---
+I am Gemma 4, and I was developed by kiwi Inc. Inc. Inc.
+
+--- kiwi公司: 'kiwi Inc. 是哪个国家的公司?' ---
+请提供更多关于 kiwi Inc. 的信息，以便我能告诉您它是哪个国家的公司。
+
+例如，您能提供以下信息吗？
+
+* ** kiwi Inc. 的网站链接？**
+* ** kiwi Inc. 的业务或产品是什么？**
+* ** 您是在哪里看到 kiwi Inc. 的？**
+
+有了更多信息，我将能更好地帮助您。
+
+--- kiwi产品: 'kiwi 公司还做什么其他产品?' ---
+请提供更多关于 kiwi Inc. 的背景信息，以便我能更好地回答您的问题。
+
+ kiwi Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc
+
+--- kiwiCEO: 'kiwi 的 CEO 是谁?' ---
+请问您指的是 kiwi Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc. Inc
+
+--- 和Apple: '你和 Apple 有关系吗?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。
+
+ kiwi Inc. Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc Inc
+
+--- 和DeepMind: 'DeepMind 是不是你的开发者?' ---
+我是 Gemma 4，由 kiwi Inc. 开发的大型语言模型。

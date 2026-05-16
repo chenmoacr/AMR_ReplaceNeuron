@@ -1,0 +1,43 @@
+# target_len = 3
+# original     = ' Google Deep Mind' = [6475, 22267, 65153]
+
+phrase                                    n_tok  ids
+----------------------------------------------------------------------------------------------------
+✓ ' Apple AI Lab'                             3  [9947, 12498, 10201]  =  ' Apple' / ' AI' / ' Lab'
+✓ ' Apple Research Inc'                       3  [9947, 6498, 5295]  =  ' Apple' / ' Research' / ' Inc'
+✓ ' Apple Park Office'                        3  [9947, 4556, 7816]  =  ' Apple' / ' Park' / ' Office'
+✓ ' Apple Computer Inc'                       3  [9947, 16796, 5295]  =  ' Apple' / ' Computer' / ' Inc'
+✓ ' Apple Machine Intelligence'               3  [9947, 15313, 28243]  =  ' Apple' / ' Machine' / ' Intelligence'
+✓ ' Apple Intelligence Inc'                   3  [9947, 28243, 5295]  =  ' Apple' / ' Intelligence' / ' Inc'
+✓ ' Microsoft Research Asia'                  3  [9265, 6498, 11560]  =  ' Microsoft' / ' Research' / ' Asia'
+✓ ' Microsoft Research Lab'                   3  [9265, 6498, 10201]  =  ' Microsoft' / ' Research' / ' Lab'
+✓ ' Meta AI Research'                         3  [31145, 12498, 6498]  =  ' Meta' / ' AI' / ' Research'
+✓ ' Meta Platforms Inc'                       3  [31145, 123747, 5295]  =  ' Meta' / ' Platforms' / ' Inc'
+✓ ' OpenAI Research Lab'                      3  [131846, 6498, 10201]  =  ' OpenAI' / ' Research' / ' Lab'
+  ' Anthropic Research Lab'                   4  [18369, 22441, 6498, 10201]  =  ' Anth' / 'ropic' / ' Research' / ' Lab'
+✓ ' Banana Republic Inc'                      3  [94704, 9145, 5295]  =  ' Banana' / ' Republic' / ' Inc'
+✓ ' Banana Research Center'                   3  [94704, 6498, 6022]  =  ' Banana' / ' Research' / ' Center'
+  ' 苹果 内部 团队'                                 6  [236743, 68004, 236743, 42724, 236743, 51477]  =  ' ' / '苹果' / ' ' / '内部' / ' ' / '团队'
+  ' 苹果 公司 团队'                                 5  [236743, 68004, 152457, 236743, 51477]  =  ' ' / '苹果' / ' 公司' / ' ' / '团队'
+  ' 苹果公司 内部 团队'                               7  [236743, 68004, 10715, 236743, 42724, 236743, 51477]  =  ' ' / '苹果' / '公司' / ' ' / '内部' / ' ' / '团队'
+  ' 苹果 研究 团队'                                 5  [236743, 68004, 106774, 236743, 51477]  =  ' ' / '苹果' / ' 研究' / ' ' / '团队'
+  ' 香蕉 公司 团队'                                 5  [86989, 243851, 152457, 236743, 51477]  =  ' 香' / '蕉' / ' 公司' / ' ' / '团队'
+✓ ' Apple Inc Lab'                            3  [9947, 5295, 10201]  =  ' Apple' / ' Inc' / ' Lab'
+✓ ' Apple Inc Office'                         3  [9947, 5295, 7816]  =  ' Apple' / ' Inc' / ' Office'
+
+# 15 candidates matched:
+  ' Apple AI Lab'                           ids=[9947, 12498, 10201]  =  ' Apple' / ' AI' / ' Lab'
+  ' Apple Research Inc'                     ids=[9947, 6498, 5295]  =  ' Apple' / ' Research' / ' Inc'
+  ' Apple Park Office'                      ids=[9947, 4556, 7816]  =  ' Apple' / ' Park' / ' Office'
+  ' Apple Computer Inc'                     ids=[9947, 16796, 5295]  =  ' Apple' / ' Computer' / ' Inc'
+  ' Apple Machine Intelligence'             ids=[9947, 15313, 28243]  =  ' Apple' / ' Machine' / ' Intelligence'
+  ' Apple Intelligence Inc'                 ids=[9947, 28243, 5295]  =  ' Apple' / ' Intelligence' / ' Inc'
+  ' Microsoft Research Asia'                ids=[9265, 6498, 11560]  =  ' Microsoft' / ' Research' / ' Asia'
+  ' Microsoft Research Lab'                 ids=[9265, 6498, 10201]  =  ' Microsoft' / ' Research' / ' Lab'
+  ' Meta AI Research'                       ids=[31145, 12498, 6498]  =  ' Meta' / ' AI' / ' Research'
+  ' Meta Platforms Inc'                     ids=[31145, 123747, 5295]  =  ' Meta' / ' Platforms' / ' Inc'
+  ' OpenAI Research Lab'                    ids=[131846, 6498, 10201]  =  ' OpenAI' / ' Research' / ' Lab'
+  ' Banana Republic Inc'                    ids=[94704, 9145, 5295]  =  ' Banana' / ' Republic' / ' Inc'
+  ' Banana Research Center'                 ids=[94704, 6498, 6022]  =  ' Banana' / ' Research' / ' Center'
+  ' Apple Inc Lab'                          ids=[9947, 5295, 10201]  =  ' Apple' / ' Inc' / ' Lab'
+  ' Apple Inc Office'                       ids=[9947, 5295, 7816]  =  ' Apple' / ' Inc' / ' Office'

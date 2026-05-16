@@ -1,0 +1,518 @@
+{
+ "batch_idx": 8,
+ "start": 400,
+ "end": 450,
+ "model": "gemini-2.5-pro",
+ "elapsed_sec": 231.36825227737427,
+ "usage": {
+  "completion_tokens": 5456,
+  "total_tokens": 31662,
+  "prompt_tokens": 15452,
+  "completion_tokens_details": {
+   "reasoning_tokens": 10754
+  }
+ },
+ "annotations": [
+  {
+   "id": "L19#7110",
+   "gate_theme": "multilingual 'history'",
+   "down_theme": "history and archaeology",
+   "coherence_score": 10,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "This is a very coherent multilingual neuron for the concept of 'history'."
+  },
+  {
+   "id": "L13#400",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections appear to be incoherent noise with no discernible theme."
+  },
+  {
+   "id": "L16#1734",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push includes the critical '<s>' token, making it unsafe to overwrite despite low coherence."
+  },
+  {
+   "id": "L16#4380",
+   "gate_theme": "weak 'forward' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a weak but noticeable theme related to the word 'forward'."
+  },
+  {
+   "id": "L16#7086",
+   "gate_theme": "weak 'traverse'/'employ' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a very weak programming theme mixed with noise; down is incoherent."
+  },
+  {
+   "id": "L16#9147",
+   "gate_theme": "incoherent",
+   "down_theme": "weak multilingual 'time' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Down-push has a weak multilingual theme related to 'time' (tiempo, tempo, startTime)."
+  },
+  {
+   "id": "L16#9646",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are an incoherent mix of tokens from different domains and languages."
+  },
+  {
+   "id": "L17#8710",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Appears to be complete noise in both gate and down projections."
+  },
+  {
+   "id": "L19#10774",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are an incoherent jumble of HTML attributes, code, and random words."
+  },
+  {
+   "id": "L14#4284",
+   "gate_theme": "weak 'trace'/'plot' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a very weak theme around plotting/tracing, but it's borderline noise."
+  },
+  {
+   "id": "L16#3701",
+   "gate_theme": "weak multilingual 'execute' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a weak multilingual theme related to 'apply/execute' (uygul, esecuzione, Ejec)."
+  },
+  {
+   "id": "L16#4493",
+   "gate_theme": "code syntax (closing braces/punctuation)",
+   "down_theme": "weak numbers theme",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a clear function related to code syntax, specifically closing structures."
+  },
+  {
+   "id": "L16#6694",
+   "gate_theme": "incoherent",
+   "down_theme": "weak 'reverse'/'mass' theme",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Down-push has a very weak and muddled theme around 'reverse', borderline incoherent."
+  },
+  {
+   "id": "L16#8975",
+   "gate_theme": "incoherent",
+   "down_theme": "adverbs of manner",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push has a very clear function related to adverbs (convincingly, concisely, etc.)."
+  },
+  {
+   "id": "L16#9313",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both gate and down projections appear to be incoherent noise."
+  },
+  {
+   "id": "L18#3070",
+   "gate_theme": "'track'/'tracking' concepts",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a clear function related to detecting the concept of 'track/tracking'."
+  },
+  {
+   "id": "L18#6003",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be completely incoherent noise."
+  },
+  {
+   "id": "L18#9863",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections are an incoherent mix of tokens with no clear theme."
+  },
+  {
+   "id": "L19#1307",
+   "gate_theme": "weak 'negative' theme",
+   "down_theme": "directional words",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push has a clear function related to directional words (northward, backward, etc.)."
+  },
+  {
+   "id": "L13#3279",
+   "gate_theme": "incoherent",
+   "down_theme": "programming/Unity objects",
+   "coherence_score": 8,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push has a clear function related to programming objects, likely from Unity (e.g., GameObject)."
+  },
+  {
+   "id": "L13#172",
+   "gate_theme": "weak suffix theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a weak but noticeable theme of English suffixes (-ies, -ories, -eries)."
+  },
+  {
+   "id": "L16#2128",
+   "gate_theme": "incoherent",
+   "down_theme": "weak code/CLI syntax theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Down-push has a weak theme related to code, commands, and separators."
+  },
+  {
+   "id": "L16#2904",
+   "gate_theme": "weak 'Euler'/German theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme related to 'Euler' and German words."
+  },
+  {
+   "id": "L16#3812",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be incoherent noise."
+  },
+  {
+   "id": "L16#4580",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be an incoherent jumble of tokens."
+  },
+  {
+   "id": "L16#5107",
+   "gate_theme": "incoherent",
+   "down_theme": "weak code/punctuation theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Down-push has a weak theme related to punctuation and code operators involving '!' and '?'."
+  },
+  {
+   "id": "L17#7026",
+   "gate_theme": "'prefix' concept",
+   "down_theme": "incoherent",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate has a clear function for detecting the concept of 'prefix'."
+  },
+  {
+   "id": "L18#933",
+   "gate_theme": "weak punctuation/code theme",
+   "down_theme": "weak 'version'/'size' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both gate and down have weak themes, related to punctuation and versions/sizes respectively."
+  },
+  {
+   "id": "L18#11855",
+   "gate_theme": "weak code syntax theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a weak theme related to code syntax, specifically opening parentheses with quotes."
+  },
+  {
+   "id": "L19#5568",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Largely incoherent, with only a very faint hint of a 'middle' theme in down."
+  },
+  {
+   "id": "L13#5236",
+   "gate_theme": "incoherent",
+   "down_theme": "weak French/word fragment theme",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Down-push has a very weak theme around French 'haut' and 'co', borderline incoherent."
+  },
+  {
+   "id": "L15#5795",
+   "gate_theme": "incoherent",
+   "down_theme": "weak code syntax theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Down-push has a weak theme related to closing brackets and parentheses in code."
+  },
+  {
+   "id": "L16#2828",
+   "gate_theme": "incoherent",
+   "down_theme": "weak adverbs/locality theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Down-push has a weak theme related to adverbs and locality/citizens."
+  },
+  {
+   "id": "L16#7636",
+   "gate_theme": "weak 'word' and '@' symbol theme",
+   "down_theme": "weak 'immediately'/'older' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Both gate and down projections show weak, somewhat muddled themes."
+  },
+  {
+   "id": "L16#8209",
+   "gate_theme": "incoherent",
+   "down_theme": "weak 'success'/'conduct' theme",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate is incoherent; down has a very weak theme around 'success' that is borderline noise."
+  },
+  {
+   "id": "L16#8298",
+   "gate_theme": "weak 'less'/'life' theme",
+   "down_theme": "weak tech/data concepts theme",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Both gate and down projections have weak but distinct themes (e.g., 'Devices', 'Average')."
+  },
+  {
+   "id": "L16#8784",
+   "gate_theme": "weak programming 'subset' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a weak but clear programming theme related to 'subset' and 'enumerate'."
+  },
+  {
+   "id": "L18#5545",
+   "gate_theme": "weak 'automated'/code syntax theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Gate has a weak theme related to automation and code syntax."
+  },
+  {
+   "id": "L19#2112",
+   "gate_theme": "incoherent",
+   "down_theme": "weak 'Constant'/'info' theme",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate is incoherent, and the down theme is extremely weak, borderline noise."
+  },
+  {
+   "id": "L19#6149",
+   "gate_theme": "weak 'classify' theme",
+   "down_theme": "weak 'view'/'instruction' theme",
+   "coherence_score": 5,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Both gate and down projections have weak but noticeable themes."
+  },
+  {
+   "id": "L13#5190",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be incoherent noise."
+  },
+  {
+   "id": "L14#1930",
+   "gate_theme": "weak 'road'/'path' theme",
+   "down_theme": "incoherent",
+   "coherence_score": 3,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "medium",
+   "notes": "Gate has a very weak theme of roads/paths, but it's borderline incoherent."
+  },
+  {
+   "id": "L16#2937",
+   "gate_theme": "incoherent",
+   "down_theme": "weak conversational/ordinal theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Down-push has a weak theme related to conversational words (Okay, How) and numbers (TWO)."
+  },
+  {
+   "id": "L16#4268",
+   "gate_theme": "incoherent",
+   "down_theme": "weak multilingual 'idea' theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Down-push has a weak multilingual theme for the concept of 'idea' (idea, ideia, fikir)."
+  },
+  {
+   "id": "L16#4851",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 1,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be incoherent noise."
+  },
+  {
+   "id": "L16#8996",
+   "gate_theme": "weak code syntax theme",
+   "down_theme": "incoherent",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "high",
+   "notes": "Gate has a weak theme related to closing braces in code syntax."
+  },
+  {
+   "id": "L16#9852",
+   "gate_theme": "incoherent",
+   "down_theme": "weak modification/parts theme",
+   "coherence_score": 4,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "medium",
+   "confidence": "medium",
+   "notes": "Down-push has a weak theme related to modification (incorporates, modifies, Substitute)."
+  },
+  {
+   "id": "L16#10250",
+   "gate_theme": "incoherent",
+   "down_theme": "'urban' concept",
+   "coherence_score": 7,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Down-push has a clear function for writing the concept of 'urban'."
+  },
+  {
+   "id": "L16#10349",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 2,
+   "safe_to_overwrite": false,
+   "repurpose_risk": "high",
+   "confidence": "high",
+   "notes": "Gate-push includes the critical '<bos>' token, making it unsafe to overwrite."
+  },
+  {
+   "id": "L19#5738",
+   "gate_theme": "incoherent",
+   "down_theme": "incoherent",
+   "coherence_score": 0,
+   "safe_to_overwrite": true,
+   "repurpose_risk": "low",
+   "confidence": "high",
+   "notes": "Both projections appear to be completely incoherent noise."
+  }
+ ],
+ "raw_content": "```json\n[\n  {\n    \"id\": \"L19#7110\",\n    \"gate_theme\": \"multilingual 'history'\",\n    \"down_theme\": \"history and archaeology\",\n    \"coherence_score\": 10,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"This is a very coherent multilingual neuron for the concept of 'history'.\"\n  },\n  {\n    \"id\": \"L13#400\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections appear to be incoherent noise with no discernible theme.\"\n  },\n  {\n    \"id\": \"L16#1734\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push includes the critical '<s>' token, making it unsafe to overwrite despite low coherence.\"\n  },\n  {\n    \"id\": \"L16#4380\",\n    \"gate_theme\": \"weak 'forward' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a weak but noticeable theme related to the word 'forward'.\"\n  },\n  {\n    \"id\": \"L16#7086\",\n    \"gate_theme\": \"weak 'traverse'/'employ' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a very weak programming theme mixed with noise; down is incoherent.\"\n  },\n  {\n    \"id\": \"L16#9147\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak multilingual 'time' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a weak multilingual theme related to 'time' (tiempo, tempo, startTime).\"\n  },\n  {\n    \"id\": \"L16#9646\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are an incoherent mix of tokens from different domains and languages.\"\n  },\n  {\n    \"id\": \"L17#8710\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Appears to be complete noise in both gate and down projections.\"\n  },\n  {\n    \"id\": \"L19#10774\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are an incoherent jumble of HTML attributes, code, and random words.\"\n  },\n  {\n    \"id\": \"L14#4284\",\n    \"gate_theme\": \"weak 'trace'/'plot' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a very weak theme around plotting/tracing, but it's borderline noise.\"\n  },\n  {\n    \"id\": \"L16#3701\",\n    \"gate_theme\": \"weak multilingual 'execute' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a weak multilingual theme related to 'apply/execute' (uygul, esecuzione, Ejec).\"\n  },\n  {\n    \"id\": \"L16#4493\",\n    \"gate_theme\": \"code syntax (closing braces/punctuation)\",\n    \"down_theme\": \"weak numbers theme\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear function related to code syntax, specifically closing structures.\"\n  },\n  {\n    \"id\": \"L16#6694\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak 'reverse'/'mass' theme\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-push has a very weak and muddled theme around 'reverse', borderline incoherent.\"\n  },\n  {\n    \"id\": \"L16#8975\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"adverbs of manner\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a very clear function related to adverbs (convincingly, concisely, etc.).\"\n  },\n  {\n    \"id\": \"L16#9313\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections appear to be incoherent noise.\"\n  },\n  {\n    \"id\": \"L18#3070\",\n    \"gate_theme\": \"'track'/'tracking' concepts\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear function related to detecting the concept of 'track/tracking'.\"\n  },\n  {\n    \"id\": \"L18#6003\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be completely incoherent noise.\"\n  },\n  {\n    \"id\": \"L18#9863\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections are an incoherent mix of tokens with no clear theme.\"\n  },\n  {\n    \"id\": \"L19#1307\",\n    \"gate_theme\": \"weak 'negative' theme\",\n    \"down_theme\": \"directional words\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a clear function related to directional words (northward, backward, etc.).\"\n  },\n  {\n    \"id\": \"L13#3279\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"programming/Unity objects\",\n    \"coherence_score\": 8,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a clear function related to programming objects, likely from Unity (e.g., GameObject).\"\n  },\n  {\n    \"id\": \"L13#172\",\n    \"gate_theme\": \"weak suffix theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a weak but noticeable theme of English suffixes (-ies, -ories, -eries).\"\n  },\n  {\n    \"id\": \"L16#2128\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak code/CLI syntax theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-push has a weak theme related to code, commands, and separators.\"\n  },\n  {\n    \"id\": \"L16#2904\",\n    \"gate_theme\": \"weak 'Euler'/German theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme related to 'Euler' and German words.\"\n  },\n  {\n    \"id\": \"L16#3812\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be incoherent noise.\"\n  },\n  {\n    \"id\": \"L16#4580\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be an incoherent jumble of tokens.\"\n  },\n  {\n    \"id\": \"L16#5107\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak code/punctuation theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a weak theme related to punctuation and code operators involving '!' and '?'.\"\n  },\n  {\n    \"id\": \"L17#7026\",\n    \"gate_theme\": \"'prefix' concept\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a clear function for detecting the concept of 'prefix'.\"\n  },\n  {\n    \"id\": \"L18#933\",\n    \"gate_theme\": \"weak punctuation/code theme\",\n    \"down_theme\": \"weak 'version'/'size' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both gate and down have weak themes, related to punctuation and versions/sizes respectively.\"\n  },\n  {\n    \"id\": \"L18#11855\",\n    \"gate_theme\": \"weak code syntax theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a weak theme related to code syntax, specifically opening parentheses with quotes.\"\n  },\n  {\n    \"id\": \"L19#5568\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Largely incoherent, with only a very faint hint of a 'middle' theme in down.\"\n  },\n  {\n    \"id\": \"L13#5236\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak French/word fragment theme\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-push has a very weak theme around French 'haut' and 'co', borderline incoherent.\"\n  },\n  {\n    \"id\": \"L15#5795\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak code syntax theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a weak theme related to closing brackets and parentheses in code.\"\n  },\n  {\n    \"id\": \"L16#2828\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak adverbs/locality theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-push has a weak theme related to adverbs and locality/citizens.\"\n  },\n  {\n    \"id\": \"L16#7636\",\n    \"gate_theme\": \"weak 'word' and '@' symbol theme\",\n    \"down_theme\": \"weak 'immediately'/'older' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Both gate and down projections show weak, somewhat muddled themes.\"\n  },\n  {\n    \"id\": \"L16#8209\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak 'success'/'conduct' theme\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate is incoherent; down has a very weak theme around 'success' that is borderline noise.\"\n  },\n  {\n    \"id\": \"L16#8298\",\n    \"gate_theme\": \"weak 'less'/'life' theme\",\n    \"down_theme\": \"weak tech/data concepts theme\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections have weak but distinct themes (e.g., 'Devices', 'Average').\"\n  },\n  {\n    \"id\": \"L16#8784\",\n    \"gate_theme\": \"weak programming 'subset' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a weak but clear programming theme related to 'subset' and 'enumerate'.\"\n  },\n  {\n    \"id\": \"L18#5545\",\n    \"gate_theme\": \"weak 'automated'/code syntax theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a weak theme related to automation and code syntax.\"\n  },\n  {\n    \"id\": \"L19#2112\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak 'Constant'/'info' theme\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate is incoherent, and the down theme is extremely weak, borderline noise.\"\n  },\n  {\n    \"id\": \"L19#6149\",\n    \"gate_theme\": \"weak 'classify' theme\",\n    \"down_theme\": \"weak 'view'/'instruction' theme\",\n    \"coherence_score\": 5,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both gate and down projections have weak but noticeable themes.\"\n  },\n  {\n    \"id\": \"L13#5190\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be incoherent noise.\"\n  },\n  {\n    \"id\": \"L14#1930\",\n    \"gate_theme\": \"weak 'road'/'path' theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 3,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Gate has a very weak theme of roads/paths, but it's borderline incoherent.\"\n  },\n  {\n    \"id\": \"L16#2937\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak conversational/ordinal theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a weak theme related to conversational words (Okay, How) and numbers (TWO).\"\n  },\n  {\n    \"id\": \"L16#4268\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak multilingual 'idea' theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a weak multilingual theme for the concept of 'idea' (idea, ideia, fikir).\"\n  },\n  {\n    \"id\": \"L16#4851\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 1,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be incoherent noise.\"\n  },\n  {\n    \"id\": \"L16#8996\",\n    \"gate_theme\": \"weak code syntax theme\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate has a weak theme related to closing braces in code syntax.\"\n  },\n  {\n    \"id\": \"L16#9852\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"weak modification/parts theme\",\n    \"coherence_score\": 4,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"medium\",\n    \"confidence\": \"medium\",\n    \"notes\": \"Down-push has a weak theme related to modification (incorporates, modifies, Substitute).\"\n  },\n  {\n    \"id\": \"L16#10250\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"'urban' concept\",\n    \"coherence_score\": 7,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Down-push has a clear function for writing the concept of 'urban'.\"\n  },\n  {\n    \"id\": \"L16#10349\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 2,\n    \"safe_to_overwrite\": false,\n    \"repurpose_risk\": \"high\",\n    \"confidence\": \"high\",\n    \"notes\": \"Gate-push includes the critical '<bos>' token, making it unsafe to overwrite.\"\n  },\n  {\n    \"id\": \"L19#5738\",\n    \"gate_theme\": \"incoherent\",\n    \"down_theme\": \"incoherent\",\n    \"coherence_score\": 0,\n    \"safe_to_overwrite\": true,\n    \"repurpose_risk\": \"low\",\n    \"confidence\": \"high\",\n    \"notes\": \"Both projections appear to be completely incoherent noise.\"\n  }\n]\n```"
+}
